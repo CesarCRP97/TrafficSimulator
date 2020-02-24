@@ -1,7 +1,8 @@
 .classpath
-
 .settings
-
 .project
-
-
+.idea/
+.metadata/
+.vscode/
+bin/
+lib
