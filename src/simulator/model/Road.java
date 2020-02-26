@@ -38,7 +38,9 @@ abstract public class Road extends SimulatedObject{
 
     void addContamination(int c){}
 
-    void enter(Vehicle v){}
+    void enter(Vehicle v){
+    	vehicles.add(v);
+	}
 
     void exit(Vehicle v){}
 
