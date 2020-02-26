@@ -74,6 +74,7 @@ abstract public class Road extends SimulatedObject{
     Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
         super(id);
         //Complete constructor
+        //TODO IMPLEMENTAR EXCEPCION
     }
 
     public int getLength(){
@@ -96,9 +97,13 @@ abstract public class Road extends SimulatedObject{
 
     void addContamination(int c){}
 
-    void enter(Vehicle v){}
+    void enter(Vehicle v){
+        this.vehicles.add(v);
+    }
 
-    void exit(Vehicle v){}
+    void exit(Vehicle v){
+        this.vehicles.remove(v);
+    }
 
     public void advance(int t){}
 
