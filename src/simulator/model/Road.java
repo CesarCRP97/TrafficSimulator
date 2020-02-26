@@ -35,9 +35,13 @@ abstract public class Road extends SimulatedObject{
         return src;
     }
 
-    void setWeather(Weather w){}
+    void setWeather(Weather w){
+    	this.weather = w;
+	}
 
-    void addContamination(int c){}
+    void addContamination(int c){
+
+	}
 
     void enter(Vehicle v){
     	vehicles.add(v);

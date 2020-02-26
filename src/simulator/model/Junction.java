@@ -28,7 +28,7 @@ public class Junction extends SimulatedObject{
     public void addOutgoingRoad(Road r){}
 
     void enter(Vehicle v){}
-    Road roadTo(Junction){}
+    Road roadTo(Junction j){}
 
     @Override
     void advance(int time) {
