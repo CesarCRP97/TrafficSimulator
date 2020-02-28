@@ -8,9 +8,23 @@ public class InterCityRoad extends Road {
 
     @Override
     void reduceTotalContamination() {
-        //TODO
+    	Weather weather;
+    	
+    	setWeather sun = new setWeather(Weather.SUNNY);
+    	
+    	
+    	
+    	enumWeather
+    	
+    	enumWeather
+    	
+    	enumWeather
+    	
+    	int tc;
+    	tc = (int) (((100.0 - this.setWeather()) / 100.0) * tc);
     }
-
+    	
+        //TODO
     @Override
     void updateSpeedLimit() {
 

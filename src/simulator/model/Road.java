@@ -1,6 +1,7 @@
 package simulator.model;
 
 import java.util.List;
+import java.util.ListIterator;
 
 abstract public class Road extends SimulatedObject{
 	
@@ -10,7 +11,7 @@ abstract public class Road extends SimulatedObject{
     private int maxSpeed;
     private int speedLimit;     //Limite de velocidad
     private int contAlarm;      //Alarma por contaminacion excesiva
-    private Weather weather;
+    protected Weather weather;
     private int totalCont;
     private List<Vehicle> vehicles;
 
@@ -35,32 +36,50 @@ abstract public class Road extends SimulatedObject{
         return src;
     }
 
-    void setWeather(Weather w){
-    	this.weather = w;
-	}
-
-    void addContamination(int c){
-
-	}
-
     void enter(Vehicle v){
+    	//if ((location && speed) == 0) 
+    	//falta hacer excepcion con esta sentencia;
     	vehicles.add(v);
 	}
 
-    void exit(Vehicle v){}
+    void exit(Vehicle v){
+    	vehicles.remove(v);
+    }
+    
+    void setWeather(Weather w){
+    	this.weather = w; //lazar excepcion si w es null
+	}
 
-    public void advance(int t){}
+    void addContamination(int c){
+    	this.totalCont=c; //unidades de CO2 si son negatv lanazar excepcion 
+	}
+    
+    //Abstract methods
+    abstract void reduceTotalContamination();
+    abstract void updateSpeedLimit();
+    abstract int calculateVehicleSpeed(Vehicle v);
+
+    public void advance(int t){
+    	reduceTotalContamination();//reduce el valor de c
+    	updateSpeedLimit();
+    	//recorrido de la lista
+    	for (int indice=0; indice<=vehicles.size(); indice++ );
+    	
+    	//falta actualizar la velocidad con el return de calculatevehiclespeed();
+    	
+    	Vehicle.advance();//llamada del metodo de la clase vehicle??
+    	
+    	//falta ordenar la lista de vehiculos con respecto a la localizacion;
+    	
+    }
 
     @Override
     public JSONObject report() {
         return null;
         //TODO
     }
-
-    //Abstract methods
-    abstract void reduceTotalContamination();
-    abstract void updateSpeedLimit();
-    abstract int calculateVehicleSpeed(Vehicle v);
+		
+	}
 }
 
 
