@@ -27,6 +27,14 @@ abstract public class Road extends SimulatedObject{
     int getMaxSpeed(){
         return maxSpeed;
     }
+   
+    public int getTotalCont(){
+    	return totalCont;
+    }
+    
+    public int getContAlarm(){
+    	return contAlarm;
+    }
 
     public Junction getDest(){
         return dest;
@@ -37,7 +45,7 @@ abstract public class Road extends SimulatedObject{
     }
 
     void enter(Vehicle v){
-    	//if ((location && speed) == 0) 
+    	//if ((location && speed) == 0) de vehicle
     	//falta hacer excepcion con esta sentencia;
     	vehicles.add(v);
 	}

@@ -12,7 +12,7 @@ public class CityRoad extends Road {
 
     @Override
     void updateSpeedLimit() {
-    	if (reduceTotalContamination() )
+    	
         //Does nothing
     }
 
