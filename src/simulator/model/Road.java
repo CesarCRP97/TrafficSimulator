@@ -11,7 +11,7 @@ abstract public class Road extends SimulatedObject{
     private int maxSpeed;
     private int speedLimit;     //Limite de velocidad
     private int contAlarm;      //Alarma por contaminacion excesiva
-    protected Weather weather;
+    private Weather weather;
     private int totalCont;
     private List<Vehicle> vehicles;
 
@@ -67,7 +67,7 @@ abstract public class Road extends SimulatedObject{
     	
     	//falta actualizar la velocidad con el return de calculatevehiclespeed();
     	
-    	Vehicle.advance();//llamada del metodo de la clase vehicle??
+    	Vehicle.advance(time);//llamada del metodo de la clase vehicle??
     	
     	//falta ordenar la lista de vehiculos con respecto a la localizacion;
     	
