@@ -28,15 +28,14 @@ public class InterCityRoad extends Road {
     		getMaxSpeed();
     	} 
     }
-
+    
     @Override
     int calculateVehicleSpeed(Vehicle v) {
-    	
     	v.getSpeed();
-    	this.getSpeedLimit();
-    	
+    	int cvspeed;
+    	cvspeed = v.getSpeed();
     	Weather x = null;
-    	if (x == Weather.STORM) { weather = (int)(getSpeedLimit()*0.8)};
-    	return 0;
+    	if (x == Weather.STORM) { cvspeed = (int)(this.getSpeedLimit()*0.8);};
+    	return cvspeed;
     }
 }

@@ -19,7 +19,7 @@ public class CityRoad extends Road {
 
     @Override
     void updateSpeedLimit() {
-    	
+    	getMaxSpeed();
         //Does nothing
     }
 
