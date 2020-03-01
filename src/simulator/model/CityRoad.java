@@ -7,6 +7,13 @@ public class CityRoad extends Road {
 
     @Override
     void reduceTotalContamination(){
+    	Weather x = null;
+    	int tc = getTotalCont();//tc es el valor de la cantaminacion actual
+    	if(x == Weather.SUNNY) { tc = (int) (((100.0 - 2) / 100.0) * tc); }
+    	if(x == Weather.CLOUDY) { tc = (int) (((100.0 - 10) / 100.0) * tc); }
+    	if(x == Weather.RAINY) { tc = (int) (((100.0 - 2) / 100.0) * tc); }
+    	if(x == Weather.WINDY) { tc = (int) (((100.0 - 10) / 100.0) * tc); }
+    	if(x == Weather.STORM) { tc = (int) (((100.0 - 2) / 100.0) * tc); }
     	
     }
 

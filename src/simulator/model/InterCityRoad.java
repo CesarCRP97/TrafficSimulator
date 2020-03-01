@@ -16,20 +16,27 @@ public class InterCityRoad extends Road {
     	if(x == Weather.WINDY) { tc = (int) (((100.0 - 15) / 100.0) * tc); }
     	if(x == Weather.STORM) { tc = (int) (((100.0 - 20) / 100.0) * tc); }
     }	
+    
         //TODO
     @Override
     void updateSpeedLimit() {
     	int maxspd;
     	if( getTotalCont() > getContAlarm()) {
-    	maxspd = (int)(getMaxSpeed() * 0.5); //corregir aqui!!!
+    	maxspd = (int)(getMaxSpeed() * 0.5); 
     	}
     	else {
-    		maxspd = getMaxSpeed();
-    	}
+    		getMaxSpeed();
+    	} 
     }
 
     @Override
     int calculateVehicleSpeed(Vehicle v) {
-
+    	
+    	v.getSpeed();
+    	this.getSpeedLimit();
+    	
+    	Weather x = null;
+    	if (x == Weather.STORM) { weather = (int)(getSpeedLimit()*0.8)};
+    	return 0;
     }
 }

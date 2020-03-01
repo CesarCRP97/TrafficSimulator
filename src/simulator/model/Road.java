@@ -35,6 +35,11 @@ abstract public class Road extends SimulatedObject{
     public int getContAlarm(){
     	return contAlarm;
     }
+    
+    public int getSpeedLimit(){
+    	return speedLimit;
+    }
+    	
 
     public Junction getDest(){
         return dest;
@@ -75,7 +80,7 @@ abstract public class Road extends SimulatedObject{
     	
     	//falta actualizar la velocidad con el return de calculatevehiclespeed();
     	
-    	Vehicle.advance(time);//llamada del metodo de la clase vehicle??
+    	Vehicle.advance();//llamada del metodo de la clase vehicle??
     	
     	//falta ordenar la lista de vehiculos con respecto a la localizacion;
     	
