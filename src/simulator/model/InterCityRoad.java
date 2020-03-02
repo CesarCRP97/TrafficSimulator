@@ -11,10 +11,10 @@ public class InterCityRoad extends Road {
     	Weather x = null;
     	int tc = getTotalCont();//tc es el valor de la cantaminacion actual
     	if(x == Weather.SUNNY) { tc = (int) (((100.0 - 2) / 100.0) * tc); }
-    	if(x == Weather.CLOUDY) { tc = (int) (((100.0 - 3) / 100.0) * tc); }
-    	if(x == Weather.RAINY) { tc = (int) (((100.0 - 10) / 100.0) * tc); }
-    	if(x == Weather.WINDY) { tc = (int) (((100.0 - 15) / 100.0) * tc); }
-    	if(x == Weather.STORM) { tc = (int) (((100.0 - 20) / 100.0) * tc); }
+    	else if(x == Weather.CLOUDY) { tc = (int) (((100.0 - 3) / 100.0) * tc); }
+    	else if(x == Weather.RAINY) { tc = (int) (((100.0 - 10) / 100.0) * tc); }
+    	else if(x == Weather.WINDY) { tc = (int) (((100.0 - 15) / 100.0) * tc); }
+    	else if(x == Weather.STORM) { tc = (int) (((100.0 - 20) / 100.0) * tc); }
     }	
     
         //TODO

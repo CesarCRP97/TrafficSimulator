@@ -27,7 +27,6 @@ public class Vehicle extends SimulatedObject{
         this.contClass = contClass;
         this.totalCont = 0;
         this.totalTravel = 0;
-
         this.lastJunction = -1;
     }
 
@@ -98,6 +97,7 @@ public class Vehicle extends SimulatedObject{
 
     @Override
     public JSONObject report() {
+    	
         return null;
     }
 
@@ -105,5 +105,4 @@ public class Vehicle extends SimulatedObject{
     public Junction getNextJunction(){
         return(lastJunction == itinerary.size() - 1) ? null : itinerary.get(lastJunction + 1);
     }
-    
 }
