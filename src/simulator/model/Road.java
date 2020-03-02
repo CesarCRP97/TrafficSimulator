@@ -1,7 +1,12 @@
 package simulator.model;
 
+<<<<<<< HEAD
+import org.json.JSONObject;
+
+=======
 import java.util.Collections;
 import java.util.Comparator;
+>>>>>>> 639b762acda20d2d9f144e9a60de2c86d596e7d7
 import java.util.List;
 import java.util.ListIterator;
 
@@ -76,7 +81,7 @@ abstract public class Road extends SimulatedObject{
 	}
 
     void addContamination(int c){
-    	this.totalCont = c; //unidades de CO2 si son negatv lanazar excepcion 
+    	this.totalCont = c; //unidades de CO2 si son negatv lanazar excepcion
 	}
     
     //Abstract methods
@@ -88,11 +93,13 @@ abstract public class Road extends SimulatedObject{
     	reduceTotalContamination();//reduce el valor de c
     	updateSpeedLimit();
     	//recorrido de la lista
+        
     	for (int i=0; i<=vehicles.size(); i++ ) {
     		vehicles.get(i).setSpeed(maxSpeed);
     		vehicles.get(i).advance(t);
     	}
     	Collections.sort(vehicles, new SortByLocation());
+>>>>>>> 639b762acda20d2d9f144e9a60de2c86d596e7d7
     }
     
     @Override
