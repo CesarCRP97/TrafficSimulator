@@ -1,5 +1,7 @@
 package simulator.model;
 
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.ListIterator;
 
@@ -64,7 +66,7 @@ abstract public class Road extends SimulatedObject{
 	}
 
     void addContamination(int c){
-    	this.totalCont=c; //unidades de CO2 si son negatv lanazar excepcion 
+    	this.totalCont=c; //unidades de CO2 si son negatv lanazar excepcion
 	}
     
     //Abstract methods
@@ -77,7 +79,7 @@ abstract public class Road extends SimulatedObject{
     	updateSpeedLimit();
     	//recorrido de la lista
     	for (int indice=0; indice<=vehicles.size(); indice++ );
-    	
+
     	//falta actualizar la velocidad con el return de calculatevehiclespeed();
     	
     	Vehicle.advance();//llamada del metodo de la clase vehicle??

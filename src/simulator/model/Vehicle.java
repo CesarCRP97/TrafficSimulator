@@ -1,5 +1,7 @@
 package simulator.model;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,9 +26,12 @@ public class Vehicle extends SimulatedObject{
         //TODO complete exceptions
         this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
         this.maxSpeed = maxSpeed;
+        if(contClass < 0 || contClass > 10)
+            throw new
         this.contClass = contClass;
         this.totalCont = 0;
         this.totalTravel = 0;
+        this.status = VehicleStatus.PENDING;
 
         this.lastJunction = -1;
     }
@@ -69,29 +74,33 @@ public class Vehicle extends SimulatedObject{
 
 
     //Methods
+
+    //Adds the Vehicle to the next Road depending on its itinerary.
     void moveToNextRoad(){
         if(status == VehicleStatus.PENDING) {
-            //TODO A private with one of the Junctions is needed.
             itinerary.get(0).roadTo(itinerary.get(1)).enter(this);
             status = VehicleStatus.TRAVELING;
         }
-        else if(status == VehicleStatus.ARRIVED);
-        else{
-            //TODO Super raro no puede ser así.
-            itinerary.get(lastJunction).roadTo(itinerary.get(lastJunction + 1));
+        else if (lastJunction < itinerary.size() - 1){
+            itinerary.get(lastJunction).roadTo(itinerary.get(lastJunction + 1)).enter(this);
+            status = VehicleStatus.TRAVELING;
         }
+        else if (lastJunction == itinerary.size() - 1){
+            status = VehicleStatus.ARRIVED;
+        }
+        lastJunction++;
     }
 
     @Override
     void advance(int time) {
         int newLocation = Math.min((location + speed * time), road.getLength());
-        int c = contClass * (newLocation - location);
+        int c = (newLocation - location) * contClass;   // l = (newLocation - location); f = contClass;
 
         totalCont += c;
         road.addContamination(c);
         location = newLocation;
 
-        if(location >= road.getLength()) {
+        if(location == road.getLength()) {
             road.getDest().enter(this);
             status = VehicleStatus.WAITING;
         }
@@ -101,10 +110,7 @@ public class Vehicle extends SimulatedObject{
     public JSONObject report() {
         return null;
     }
-
-    //Additional Methods
-    public Junction getNextJunction(){
-        return(lastJunction == itinerary.size() - 1) ? null : itinerary.get(lastJunction + 1);
-    }
+    
     
 }
+
