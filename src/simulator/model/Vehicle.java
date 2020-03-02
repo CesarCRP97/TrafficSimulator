@@ -38,7 +38,7 @@ public class Vehicle extends SimulatedObject{
 
     //Getters
     int getLocation(){
-        return location;
+        return location; 
     }
 
     int getSpeed(){
@@ -67,8 +67,7 @@ public class Vehicle extends SimulatedObject{
     }
 
     void setContClass(int c){
-        this.contClass = c;
-        //TODO Exceptions
+        this.contClass = c; 
 
     }
 
