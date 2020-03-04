@@ -1,9 +1,9 @@
 package simulator.model;
 
 import org.json.JSONObject;
-
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedList;
 
 public class Junction extends SimulatedObject{
 
@@ -18,14 +18,21 @@ public class Junction extends SimulatedObject{
     //Not functional until next version.
     private int x;
     private int y;
-
-    Junction(String id) {
+    
+    Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int x, int y){
         super(id);
+        
     }
     int getX(){return x;}
     int getY(){return y;}
 
-    public void addIncomingRoad(Road r){}
+    public void addIncomingRoad(Road r){
+    	inRoads.add(r);
+    	queuesL.add((List<Vehicle>) r);
+    	queuesM.put(r,(List<Vehicle>) r);
+    	
+    	//compara si el cruse actual es igual al cruce destino, si no lanzar excepcion
+    }
 
     public void addOutgoingRoad(Road r){}
 

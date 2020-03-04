@@ -99,9 +99,7 @@ abstract public class Road extends SimulatedObject{
     		vehicles.get(i).advance(t);
     	}
     	Collections.sort(vehicles, new SortByLocation());
->>>>>>> 639b762acda20d2d9f144e9a60de2c86d596e7d7
     }
-    
     @Override
     public JSONObject report() {
         return null;
