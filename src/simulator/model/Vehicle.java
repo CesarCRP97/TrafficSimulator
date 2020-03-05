@@ -21,7 +21,7 @@ public class Vehicle extends SimulatedObject{
 
     private int lastJunction;
 
-    protected Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary ){
+    protected Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary ){ 
         super(id);
         //TODO complete exceptions
         this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));

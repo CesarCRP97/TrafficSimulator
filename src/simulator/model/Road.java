@@ -1,12 +1,8 @@
 package simulator.model;
 
-<<<<<<< HEAD
 import org.json.JSONObject;
-
-=======
 import java.util.Collections;
 import java.util.Comparator;
->>>>>>> 639b762acda20d2d9f144e9a60de2c86d596e7d7
 import java.util.List;
 import java.util.ListIterator;
 
@@ -28,9 +24,7 @@ abstract public class Road extends SimulatedObject{
 			// TODO Auto-generated method stub
 			return v1.getLocation() - v2.getLocation();
 		}
-    	
     }
-    
     
     Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
         super(id);
@@ -65,7 +59,6 @@ abstract public class Road extends SimulatedObject{
     public Junction getSrc() {
         return src;
     }
-
     void enter(Vehicle v){
     	//if ((location && speed) == 0) de vehicle
     	//falta hacer excepcion con esta sentencia;
@@ -106,8 +99,4 @@ abstract public class Road extends SimulatedObject{
         //TODO
     }
 		
-	}
 }
-
-
-
