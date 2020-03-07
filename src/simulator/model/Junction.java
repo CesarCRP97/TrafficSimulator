@@ -3,6 +3,7 @@ package simulator.model;
 import org.json.JSONObject;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Junction extends SimulatedObject{
@@ -18,7 +19,7 @@ public class Junction extends SimulatedObject{
     //Not functional until next version.
     private int x;
     private int y;
-	private Junction j; //estination road junstion
+	private Junction j; //destination road junction
     
     Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int x, int y){
         super(id);
@@ -30,7 +31,7 @@ public class Junction extends SimulatedObject{
 	public void addIncomingRoad(Road r){
     	inRoads.add(r);
     	//crear una cola de 
-    	((LinkedList) inRoads).addLast(r);
+    	((LinkedList) inRoads).addLast(r); 
     	queuesM.put(r,(List<Vehicle>) r);
     	//compara si el cruse actual es igual al cruce destino, si no lanzar excepcion
     }
@@ -48,6 +49,7 @@ public class Junction extends SimulatedObject{
     }
     
     Road roadTo(Junction j){
+    	outRoads.entrySet().forEach(null);
 		return (Road)outRoads;
 	}
 
