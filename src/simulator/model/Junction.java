@@ -55,6 +55,7 @@ public class Junction extends SimulatedObject{
 
     @Override
     void advance(int time) {
+    	
     }
 
     @Override
