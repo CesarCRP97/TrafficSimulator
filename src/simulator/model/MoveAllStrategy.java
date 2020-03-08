@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MoveAllStrategy implements DequeuingStrategy {
@@ -8,6 +9,10 @@ public class MoveAllStrategy implements DequeuingStrategy {
 
     @Override
     public List<Vehicle> dequeue(List<Vehicle> vs) {
-        return null;
+        List<Vehicle> list = new ArrayList<>();
+        for(Vehicle v : vs){
+            list.add(v);
+        }
+        return list;
     }
 }

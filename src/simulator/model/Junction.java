@@ -40,7 +40,7 @@ public class Junction extends SimulatedObject{
 		outRoads.put(j,r);  
 		if (j!=this || r==outRoads);  /*Tienes que comprobar que ninguna otra
     	carretera va desde this al cruce j y, que la carretera r, es realmente una carretera
-    	saliente al cruce actual. En otro caso debes lanzar una excepción*/
+    	saliente al cruce actual. En otro caso debes lanzar una excepciï¿½n*/
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })

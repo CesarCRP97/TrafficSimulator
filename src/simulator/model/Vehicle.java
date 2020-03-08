@@ -27,7 +27,7 @@ public class Vehicle extends SimulatedObject{
         this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
         this.maxSpeed = maxSpeed;
         if(contClass < 0 || contClass > 10)
-            throw new
+            throw new;
         this.contClass = contClass;
         this.totalCont = 0;
         this.totalTravel = 0;
@@ -110,11 +110,14 @@ public class Vehicle extends SimulatedObject{
     	
         return null;
     }
+//    static String jsonString = "{ \"a\": 1234, \"b\": 2e-10, \"c\": \"Hola!\", \"d\": [1,2,3], \"e\": { \"k\" : 123,  \"h\" : \"Helloooo!\", \"f\": 23.3e-10 }}";
+
 
     //Additional Methods
     public Junction getNextJunction(){
         return(lastJunction == itinerary.size() - 1) ? null : itinerary.get(lastJunction + 1);
     }
+
     
     
 }
