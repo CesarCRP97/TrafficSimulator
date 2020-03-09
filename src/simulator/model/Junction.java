@@ -78,7 +78,7 @@ public class Junction extends SimulatedObject{
     	if (i != greenIndex) {
     		remainingUntilLightSwitch = time;
     	}
-		greenIndex = i;
+		greenIndex = i; 
     }
 
     @Override
