@@ -66,6 +66,10 @@ abstract public class Road extends SimulatedObject{
     public Junction getSrc() {
         return src;
     }
+
+    public void setMaxSpeed(int s){
+        maxSpeed = s;
+    }
     void enter(Vehicle v){
     	//if ((location && speed) == 0) de vehicle
     	//falta hacer excepcion con esta sentencia;

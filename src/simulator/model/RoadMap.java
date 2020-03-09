@@ -80,12 +80,12 @@ public class RoadMap {
 		for(int i = 0; i < v.getItinerary().size() - 1; i++){
 
 		}
-
+		return true;	//TODO
 	}
 
 	//TODO Add methods to analize if valid.
 	private boolean validRoad(Road r){
-
+		return true;
 	}
 
 }
