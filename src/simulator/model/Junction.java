@@ -22,8 +22,8 @@ public class Junction extends SimulatedObject{
     
     Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int x, int y){
         super(id);
-        if(lsStrategy == null) throw;
-        if(dqStrategy == null) throw;
+        if(lsStrategy == null) //throw;
+        if(dqStrategy == null) //throw;
         if(x < 0);
         if(y < 0);
         this.lsStrategy = lsStrategy;
@@ -47,11 +47,7 @@ public class Junction extends SimulatedObject{
 
     public void addOutgoingRoad(Road r){
 		outRoads.put(r.getDest(),r);  
-		if (r.getDest()!=this || r==outRoads); 
-		
-		/*Tienes que comprobar que ninguna otra
-    	carretera va desde this al cruce j y, que la carretera r, es realmente una carretera
-    	saliente al cruce actual. En otro caso debes lanzar una excepciï¿½n*/
+		if (r.getDest()!=this || r==outRoads);
     }
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

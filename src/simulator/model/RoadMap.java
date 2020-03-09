@@ -1,5 +1,7 @@
 package simulator.model;
 
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,66 +13,79 @@ public class RoadMap {
 	protected Map<String,Road> roadsM;
 	protected Map<String,Vehicle> vehiclesM;
 	
-	RoadMap() {
-	}
+	protected RoadMap(){}
 	
 	void addJunction(Junction j) {
-		if(junctionsM.get(j.getId()) != null); //TODO Exception
-
-		junctions.add(j);
-		junctionsM.put(j.getId(), j);
+		if(junctionsM.get(j.getId()) == null){
+			junctions.add(j);
+			junctionsM.put(j.getId(), j);
+		}
 	}
 
 	void addRoad(Road r){
+		if((junctionsM.get(r.getDest().getId()) == null || junctionsM.get(r.getSrc().getId()) == null) || roadsM.get(r.getId()) != null); //throw
 		roads.add(r);
 		roadsM.put(r.getId(), r);
 	}
 	void addVehicle(Vehicle v) {
-<<<<<<< HEAD
+		if(vehiclesM.get(v.getId()) != null);
+		if(!validItinerary(v));// throw;
 		vehicles.add(v);
 		vehiclesM.put(v.getId(), v);
+	}
 
+	public Junction getJunction(String id){
+		return junctionsM.get(id);
 	}
-}
-=======
-		ve.add(v);
-		vehiclesMap.entrySet().forEach(null);
-		/*(i) no existe ning�n otro veh�culo con el mismo identificador; y (ii)
-		el itinerario es v�lido, es decir, existen carreteras que conecten los cruces consecutivos
-		de su itinerario. En caso de que no se cumplan (i) y (ii), el m�todo debe lanzar una
-		excepci�n.*/
+
+	public Road getRoad(String id){
+		return roadsM.get(id);
 	}
-	
-	public Junction getJunction(String id) {
-		return null;
+
+	public Vehicle getVehicle(String id){
+		return vehiclesM.get(id);
 	}
-	
-	public Road getRoad(String id) {
-		return null;
+
+	public List<Junction> getJunctions(){
+		return junctions;
 	}
-	
-	public Vehicle getVehicle(String id) {
-		return null;
-	}
-	
-	public List<Junction> getJunctions() {
-		return junct;
-	}
-	
-	public List<Road> getRoads() {
+
+
+	public List<Road> getRoads(){
 		return roads;
 	}
-	
-	public List<Vehicle> getVehicles() {
-		return ve;
+
+
+	public List<Vehicle> getVehicles(){
+		return vehicles;
 	}
 
-	void reset() {}
-	
-    @Override
-    public JSONObject report() {
-        return null;
-        //TODO
-    }
+	void reset(){
+		junctions.clear();
+		roads.clear();
+		vehicles.clear();
+
+		junctionsM.clear();
+		roadsM.clear();
+		vehiclesM.clear();
+	}
+
+	public JSONObject report(){
+		return null;
+	}
+	private boolean validItinerary(Vehicle v){
+		for(Junction j : v.getItinerary()){
+			if(junctionsM.get(j.getId()) == null) return false; 		//Si el Junction no existe ya devuelve falso.
+		}
+		for(int i = 0; i < v.getItinerary().size() - 1; i++){
+
+		}
+
+	}
+
+	//TODO Add methods to analize if valid.
+	private boolean validRoad(Road r){
+
+	}
+
 }
->>>>>>> 0b81b8519c271c95b64a589558673739c2afe2d1

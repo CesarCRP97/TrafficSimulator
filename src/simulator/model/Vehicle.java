@@ -27,7 +27,7 @@ public class Vehicle extends SimulatedObject{
         this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
         this.maxSpeed = maxSpeed;
         if(contClass < 0 || contClass > 10)
-            throw new;
+            //throw new;
         this.contClass = contClass;
         this.totalCont = 0;
         this.totalTravel = 0;
