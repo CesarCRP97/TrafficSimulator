@@ -8,14 +8,14 @@ import java.util.LinkedList;
 
 public class Junction extends SimulatedObject{
 
-    private List<Road> inRoads; 
-    private Map<Junction, Road> outRoads;
+    private List<Road> inRoads;         //Lista carreteras entrantes.
+    private Map<Junction, Road> outRoads; //
     private List<List<Vehicle>> queuesL;        //List for adding and iterating
     private Map<Road, List<Vehicle>> queuesM;   //Map for searching
     private int greenIndex;
     private int remainingUntilLightSwitch;
-    private LightSwitchingStrategy lStrategy;
-    private DequeuingStrategy dStrategy;
+    private LightSwitchingStrategy lsStrategy;
+    private DequeuingStrategy dqStrategy;
     //Not functional until next version.
     private int x;
     private int y;
@@ -23,17 +23,27 @@ public class Junction extends SimulatedObject{
     
     Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int x, int y){
         super(id);
+        if(lsStrategy == null) throw;
+        if(dqStrategy == null) throw;
+        if(x < 0);
+        if(y < 0);
+        this.lsStrategy = lsStrategy;
+        this.dqStrategy = dqStrategy;
+        this.x = x;
+        this.y = y;
+        this.greenIndex = -1;
+        this.remainingUntilLightSwitch = 0;
+        
     }
     int getX(){return x;}
     int getY(){return y;}
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addIncomingRoad(Road r){
-    	inRoads.add(r);
-    	//crear una cola de 
-    	((LinkedList) inRoads).addLast(r); 
-    	queuesM.put(r,(List<Vehicle>) r);
-    	//compara si el cruse actual es igual al cruce destino, si no lanzar excepcion
+        LinkedList<Vehicle> list = new LinkedList<>();
+        ((LinkedList)queuesL).addLast(list);
+        inRoads.add(r);
+        queuesM.put(r, list);
     }
 
     public void addOutgoingRoad(Road r){

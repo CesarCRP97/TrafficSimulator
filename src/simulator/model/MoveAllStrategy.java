@@ -10,6 +10,7 @@ public class MoveAllStrategy implements DequeuingStrategy {
     @Override
     public List<Vehicle> dequeue(List<Vehicle> vs) {
         List<Vehicle> list = new ArrayList<>();
+
         for(Vehicle v : vs){
             list.add(v);
         }
