@@ -56,6 +56,13 @@ abstract public class Road extends SimulatedObject{
         return dest;
     }
 
+    public Weather getWeather(){
+        return weather;
+    }
+
+    public List<Vehicle> getVehicles(){
+        return vehicles;
+    }
     public Junction getSrc() {
         return src;
     }
@@ -63,6 +70,9 @@ abstract public class Road extends SimulatedObject{
     	//if ((location && speed) == 0) de vehicle
     	//falta hacer excepcion con esta sentencia;
     	vehicles.add(v);
+    	v.setRoad(this);
+
+    	//TODO Setear velocidad y demás.
 	}
 
     void exit(Vehicle v){
@@ -95,8 +105,23 @@ abstract public class Road extends SimulatedObject{
     }
     @Override
     public JSONObject report() {
-        return null;
-        //TODO
+        String jsonString = "{"
+                + "\"id\" :" + getId()
+                + ", \"speedlimit\" :" + getSpeedLimit()
+                + ", \"weather\" :" + getWeather()
+                + ", \"co2\" :" + getTotalCont()
+                + ", \"vehicles\" :" + getJSONVList()
+                + "}";
+        return new JSONObject(jsonString);
     }
-		
+
+    private String getJSONVList(){
+        String list = "[";
+        for(Vehicle v : vehicles){
+            list = list + "\"" + v.getId() + "\",";
+        }
+        list += "]";
+        return list;
+    }
+
 }

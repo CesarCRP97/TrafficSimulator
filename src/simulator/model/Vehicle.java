@@ -21,7 +21,7 @@ public class Vehicle extends SimulatedObject{
 
     private int lastJunction;
 
-    protected Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary ){ 
+    protected Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary ) throws Exception {
         super(id);
         //TODO complete exceptions
         this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
@@ -41,12 +41,19 @@ public class Vehicle extends SimulatedObject{
         return location; 
     }
 
+    int getTotalTravel(){
+        return totalTravel;
+    }
     int getSpeed(){
         return speed;
     }
 
     int getContClass(){
         return contClass;
+    }
+
+    int getTotalCont(){
+        return totalCont;
     }
 
     public VehicleStatus getStatus(){
@@ -67,8 +74,11 @@ public class Vehicle extends SimulatedObject{
     }
 
     void setContClass(int c){
-        this.contClass = c; 
+        this.contClass = c;
+    }
 
+    void setRoad(Road r){
+        road = r;
     }
 
 
@@ -86,6 +96,7 @@ public class Vehicle extends SimulatedObject{
         }
         else if (lastJunction == itinerary.size() - 1){
             status = VehicleStatus.ARRIVED;
+            speed = 0;
         }
         lastJunction++;
     }
@@ -102,13 +113,23 @@ public class Vehicle extends SimulatedObject{
         if(location == road.getLength()) {
             road.getDest().enter(this);
             status = VehicleStatus.WAITING;
+            speed = 0;
         }
     }
 
     @Override
     public JSONObject report() {
-    	
-        return null;
+    	String jsonString = "{"
+                + " \"id\" : " + this.getId()
+                + ", \"speed\" : " + getSpeed()
+                + ", \"distance\" :" + getTotalTravel()
+                + ", \"co2\" :" + getTotalCont()
+                + ", \"class\" :" + getContClass()
+                + ", \"status\" :" + getStatus()
+                + ", \"road\" :" + getRoad().getId()
+                + ", \"location\" :" + getLocation()
+                + "}";
+        return new JSONObject(jsonString);
     }
 //    static String jsonString = "{ \"a\": 1234, \"b\": 2e-10, \"c\": \"Hola!\", \"d\": [1,2,3], \"e\": { \"k\" : 123,  \"h\" : \"Helloooo!\", \"f\": 23.3e-10 }}";
 
