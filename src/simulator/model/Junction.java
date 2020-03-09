@@ -19,7 +19,6 @@ public class Junction extends SimulatedObject{
     //Not functional until next version.
     private int x;
     private int y;
-	private Junction j; //destination road junction
     
     Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int x, int y){
         super(id);
@@ -47,25 +46,29 @@ public class Junction extends SimulatedObject{
     }
 
     public void addOutgoingRoad(Road r){
-		outRoads.put(j,r);  
-		if (j!=this || r==outRoads);  /*Tienes que comprobar que ninguna otra
+		outRoads.put(r.getDest(),r);  
+		if (r.getDest()!=this || r==outRoads); 
+		
+		/*Tienes que comprobar que ninguna otra
     	carretera va desde this al cruce j y, que la carretera r, es realmente una carretera
-    	saliente al cruce actual. En otro caso debes lanzar una excepci�n*/
+    	saliente al cruce actual. En otro caso debes lanzar una excepciï¿½n*/
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	void enter(Vehicle v){
-    	((LinkedList) inRoads).addLast(v);
+    	queuesM.get(v.getRoad()).add(v);
     }
     
-    Road roadTo(Junction j){
-    	outRoads.entrySet().forEach(null);
-		return (Road)outRoads;
+    @SuppressWarnings("unlikely-arg-type")
+	Road roadTo(Junction j){
+    	queuesM.get(j);
+		return outRoads.get(j);
 	}
 
     @Override
     void advance(int time) {
-    	
+    	dqStrategy.dequeue(queuesL.get(greenIndex));
+    	lsStrategy.chooseNextGreen(inRoads, queuesL, greenIndex, remainingUntilLightSwitch, time);
     }
 
     @Override
