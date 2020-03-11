@@ -20,7 +20,7 @@ public class Vehicle extends SimulatedObject{
     private int totalTravel;
 
     private int lastJunction;
-
+   
     protected Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary ) throws Exception {
         super(id);
         //TODO complete exceptions
@@ -32,8 +32,7 @@ public class Vehicle extends SimulatedObject{
         this.totalCont = 0;
         this.totalTravel = 0;
         this.status = VehicleStatus.PENDING;
-
-        this.lastJunction = -1;
+        this.lastJunction = - 1;
     }
 
     //Getters
@@ -70,11 +69,21 @@ public class Vehicle extends SimulatedObject{
 
     //Setters
     void setSpeed(int s){
-        this.speed = Math.min(s, maxSpeed);
+    	if (s < 0) {
+    		throw new IllegalArgumentException ("invalid speed value, must be positive" );
+    	}
+    	else {
+    		this.speed = Math.min(s, maxSpeed);
+    	}
     }
 
     void setContClass(int c){
+    	if ( 0 < c && c > 10) {
         this.contClass = c;
+    	}
+    	else {
+    		throw new IllegalArgumentException ("invalid road value, must be between 0 and 10" );
+    	}
     }
 
     void setRoad(Road r){
@@ -86,19 +95,24 @@ public class Vehicle extends SimulatedObject{
 
     //Adds the Vehicle to the next Road depending on its itinerary.
     void moveToNextRoad(){
-        if(status == VehicleStatus.PENDING) {
-            itinerary.get(0).roadTo(itinerary.get(1)).enter(this);
-            status = VehicleStatus.TRAVELING;
-        }
-        else if (lastJunction < itinerary.size() - 1){
-            itinerary.get(lastJunction).roadTo(itinerary.get(lastJunction + 1)).enter(this);
-            status = VehicleStatus.TRAVELING;
-        }
-        else if (lastJunction == itinerary.size() - 1){
-            status = VehicleStatus.ARRIVED;
-            speed = 0;
-        }
+    	if (status != VehicleStatus.PENDING || status != VehicleStatus.WAITING) {
+    		throw new IllegalArgumentException ("invalid road value, must be between 0 and 10" );
+    	}	
+    	else {
+    		if(status == VehicleStatus.PENDING) {
+    			itinerary.get(0).roadTo(itinerary.get(1)).enter(this);
+    			status = VehicleStatus.TRAVELING;
+    		}
+    		else if (lastJunction < itinerary.size() - 1){
+    			itinerary.get(lastJunction).roadTo(itinerary.get(lastJunction + 1)).enter(this);
+    			status = VehicleStatus.TRAVELING;
+    		}
+    		else if (lastJunction == itinerary.size() - 1){
+    			status = VehicleStatus.ARRIVED;
+    			speed = 0;
+    		}
         lastJunction++;
+    	}
     }
 
     @Override

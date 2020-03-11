@@ -39,15 +39,24 @@ public class Junction extends SimulatedObject{
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addIncomingRoad(Road r){
-        LinkedList<Vehicle> list = new LinkedList<>();
-        ((LinkedList)queuesL).addLast(list);
-        inRoads.add(r);
-        queuesM.put(r, list);
+    	if (r == inRoads) {//TODO acomodar sentencia
+    		LinkedList<Vehicle> list = new LinkedList<>();
+    		((LinkedList)queuesL).addLast(list);
+    		inRoads.add(r);
+    		queuesM.put(r, list);
+    	}
+    	else {
+    		throw new IllegalArgumentException ("invalid  incoming road");
+    	}
     }
 
     public void addOutgoingRoad(Road r){
-		outRoads.put(r.getDest(),r);  
-		if (r.getDest()!=this || r==outRoads);
+		if (r.getDest()!=this || r==outRoads) {
+			outRoads.put(r.getDest(),r);
+		}
+		else {
+    		throw new IllegalArgumentException ("invalid  incoming road");
+		}
     }
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -55,7 +64,7 @@ public class Junction extends SimulatedObject{
     	queuesM.get(v.getRoad()).add(v);
     }
     
-    @SuppressWarnings("unlikely-arg-type")
+	@SuppressWarnings("unlikely-arg-type")
 	Road roadTo(Junction j){
     	queuesM.get(j);
 		return outRoads.get(j);
@@ -79,6 +88,6 @@ public class Junction extends SimulatedObject{
 
     @Override
     public JSONObject report() {
-        return null;
+    	return null ;
     }
 }

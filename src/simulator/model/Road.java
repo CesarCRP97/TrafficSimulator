@@ -71,11 +71,14 @@ abstract public class Road extends SimulatedObject{
         maxSpeed = s;
     }
     void enter(Vehicle v){
-    	//if ((location && speed) == 0) de vehicle
-    	//falta hacer excepcion con esta sentencia;
-    	vehicles.add(v);
-    	v.setRoad(this);
-
+    	// duda no se si es SetSpeed o getSpeed???  
+    	if (v.getLocation() == 0 && v.getSpeed() == 0 ) {
+    		vehicles.add(v);
+    		v.setRoad(this);
+    	}
+    	else {
+    		throw new IllegalArgumentException ("invalid Vehicle value" );
+    	}
     	//TODO Setear velocidad y demás.
 	}
 
@@ -84,12 +87,22 @@ abstract public class Road extends SimulatedObject{
     }
     
     void setWeather(Weather w){
-    	this.weather = w; //lazar excepcion si w es null
+    	if (w != null) {
+    		this.weather = w;
+    	}
+    	else {
+    		throw new IllegalArgumentException ("weather shouldnt be null" );
+    	}
 	}
 
     void addContamination(int c){
-    	this.totalCont = c; //unidades de CO2 si son negatv lanazar excepcion
-	}
+    	if (c >= 0) {
+    		this.totalCont = c; 
+    	}
+    	else {
+    		throw new IllegalArgumentException ("invalid contamination value");
+    	}
+    }
     
     //Abstract methods
     abstract void reduceTotalContamination();
@@ -107,6 +120,7 @@ abstract public class Road extends SimulatedObject{
     	}
     	Collections.sort(vehicles, new SortByLocation());
     }
+    
     @Override
     public JSONObject report() {
         String jsonString = "{"
