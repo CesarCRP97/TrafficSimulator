@@ -92,16 +92,16 @@ public class Junction extends SimulatedObject{
                 + "\"id\" :" + getId()
                 + ", \"green\" :" + //TODO
                 + ", \"weather\" :" + jsonWeather()
+                + "}";
         return new JSONObject(jsonString);
     }
-    
+   
     public JSONObject jsonWeather() {
 		String jsonString = "{"
                 + "\"road\" :" + this.getId()
                 + ", \"vehicles\" :" + getJSONVList()
-                "}";
+                + "}";
         return new JSONObject(jsonString);
-    	
     }
     
     String getJSONVList(){

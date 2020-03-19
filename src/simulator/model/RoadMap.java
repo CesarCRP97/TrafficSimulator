@@ -81,6 +81,12 @@ public class RoadMap {
 	}
 
 	public JSONObject report(){
+        String jsonString = "{"
+                + "\"junctions\" :" + ((RoadMap) getJunctions()).getJSONVList()
+                + ", \"road\" :" + ((RoadMap) getRoads()).getJSONVList()
+                + ", \"vehicles\" :" + ((RoadMap) getVehicles()).getJSONVList()
+                + "}";
+        return new JSONObject(jsonString);
 		return null;
 	}
 	private boolean validItinerary(Vehicle v){
@@ -97,5 +103,14 @@ public class RoadMap {
 	private boolean validRoad(Road r){
 		return true;
 	}
+	
+	String getJSONVList(){
+        String list = "[";
+        for(Vehicle v : vehicles){
+            list = list + "\"" + v.getId() + "\",";
+        }
+        list += "]";
+        return list;
+    }
 
 }
