@@ -26,15 +26,19 @@ public class Vehicle extends SimulatedObject{
         //TODO complete exceptions
         this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
         this.maxSpeed = maxSpeed;
-        if(contClass < 0 || contClass > 10)
+        if(contClass < 0 || contClass > 10) {
             //throw new;
-        this.contClass = contClass;
-        this.totalCont = 0;
-        this.totalTravel = 0;
-        this.status = VehicleStatus.PENDING;
-        this.lastJunction = - 1;
+        	this.contClass = contClass;
+        	this.totalCont = 0;
+        	this.totalTravel = 0;
+        	this.status = VehicleStatus.PENDING;
+        	this.lastJunction = - 1;
+        }
+        else {
+        	throw new IllegalArgumentException ("invalid value of "+ contClass);
+        }
     }
-
+    
     //Getters
     int getLocation(){
         return location; 

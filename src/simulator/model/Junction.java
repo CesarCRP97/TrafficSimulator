@@ -88,6 +88,13 @@ public class Junction extends SimulatedObject{
 
     @Override
     public JSONObject report() {
-    	return null ;
+        String jsonString = "{"
+                + "\"id\" :" + getId()
+                + ", \"green\" :" + 
+                + ", \"weather\" :" +
+                "}";
+        return new JSONObject(jsonString);
     }
+    
+    
 }
