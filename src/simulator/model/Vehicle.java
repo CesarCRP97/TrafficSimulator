@@ -151,13 +151,9 @@ public class Vehicle extends SimulatedObject{
     }
 //    static String jsonString = "{ \"a\": 1234, \"b\": 2e-10, \"c\": \"Hola!\", \"d\": [1,2,3], \"e\": { \"k\" : 123,  \"h\" : \"Helloooo!\", \"f\": 23.3e-10 }}";
 
-
-    //Additional Methods
+//Additional Methods
     public Junction getNextJunction(){
         return(lastJunction == itinerary.size() - 1) ? null : itinerary.get(lastJunction + 1);
-    }
-
-    
-    
+    }   
 }
 

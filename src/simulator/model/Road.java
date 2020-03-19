@@ -133,7 +133,7 @@ abstract public class Road extends SimulatedObject{
         return new JSONObject(jsonString);
     }
 
-    private String getJSONVList(){
+    String getJSONVList(){
         String list = "[";
         for(Vehicle v : vehicles){
             list = list + "\"" + v.getId() + "\",";
