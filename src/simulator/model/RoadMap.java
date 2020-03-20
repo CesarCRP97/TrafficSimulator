@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RoadMap {
+	private static final Road Road = null;
 	protected List<Junction> junctions;
 	protected List<Road> roads;
 	protected List<Vehicle> vehicles;
@@ -26,6 +27,7 @@ public class RoadMap {
 		}
 		
 	}
+	
 
 	void addRoad(Road r){
 		if(validRoad(r)) {
@@ -36,6 +38,8 @@ public class RoadMap {
     		throw new IllegalArgumentException ("the new road is invalid");
 		}
 	}
+	
+	
 	
 	void addVehicle(Vehicle v) {
 		if(vehiclesM.get(v.getId()) != null){
@@ -88,14 +92,8 @@ public class RoadMap {
 
 	public JSONObject report(){
 		JSONObject o = new JSONObject();
-
-		JSONArray jArray = new JSONArray();
-		o.put("junctions", jArray);
-		for(Junction j : getJunctions()) {
-			jArray.put(j.getReport());
-		}
-
 		JSONArray  rArray = new JSONArray();
+
 		o.put("roads", rArray);
 		for(Road r : getRoads()){
 			rArray.put(r.getReport());
@@ -108,6 +106,7 @@ public class RoadMap {
 		}
 		return o;
 	}
+
 	private boolean validItinerary(Vehicle v){
 		List<Junction> itinerary = v.getItinerary();
 		for(int i = 0 ; i < itinerary.size()-1 ; i++){
@@ -116,18 +115,9 @@ public class RoadMap {
 		return true;	//TODO
 	}
 
-	//TODO Add methods to analize if valid.
 	private boolean validRoad(Road r){
 		return junctionsM.get(r.getDest().getId()) != null && junctionsM.get(r.getSrc().getId()) != null && roadsM.get(r.getId()) == null;
 	}
-	
-	String getJSONVList(){
-        String list = "[";
-        for(Vehicle v : vehicles){
-            list = list + "\"" + v.getId() + "\",";
-        }
-        list += "]";
-        return list;
-    }
+
 
 }

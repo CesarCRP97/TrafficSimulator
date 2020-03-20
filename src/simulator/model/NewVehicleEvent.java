@@ -1,6 +1,4 @@
 package simulator.model;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class NewVehicleEvent extends Event {
@@ -36,5 +34,6 @@ public class NewVehicleEvent extends Event {
             junctions.add(map.getJunction(j));
         }
         return junctions;
+
     }
 }
