@@ -2,17 +2,20 @@ package simulator.model;
 
 public class NewInterCityRoadEvent extends NewRoadEvent {
 
-    public NewInterCityRoadEvent(int i, String s, String s1, String s2, int i1, int i2, int i3, Weather w) {
-        super(i, s, s1, s2, i1, i2, i3, w);
+    public NewInterCityRoadEvent(int time, String id, String srcJun, String
+            destJunc, int length, int co2Limit, int maxSpeed, Weather weather){
+        super(time, id, srcJun, destJunc, length, co2Limit, maxSpeed, weather);
+
     }
 
     @Override
     void execute(simulator.model.RoadMap map) {
-        //TODO
+        super.execute(map);
     }
 
-    private Road createRoadMap(){
-        //TODO
-        return null;
+    @Override
+    Road createRoadObject(RoadMap map, String id, String srcJun, String destJunc, int length, int co2Limit, int maxSpeed, Weather weather){
+        return new InterCityRoad(id, map.getJunction(srcJun), map.getJunction(destJunc), maxSpeed, co2Limit, length, weather);
     }
+
 }
