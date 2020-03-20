@@ -14,7 +14,7 @@ public class Vehicle extends SimulatedObject{
     private int speed;
     private VehicleStatus status;
     private Road road;
-    private int location;       //Posicion en la carretera.
+    private int location; //Posicion en la carretera.
     private int contClass;
     private int totalCont;
     private int totalTravel;
@@ -96,8 +96,6 @@ public class Vehicle extends SimulatedObject{
     void setRoad(Road r){
         road = r;
     }
-
-
     //Methods
 
     //Adds the Vehicle to the next Road depending on its itinerary.
