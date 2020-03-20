@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RoadMap {
+	private static final Road Road = null;
 	protected List<Junction> junctions;
 	protected List<Road> roads;
 	protected List<Vehicle> vehicles;
@@ -22,6 +23,7 @@ public class RoadMap {
 		}
 		
 	}
+	
 
 	void addRoad(Road r){
 		if((junctionsM.get(r.getDest().getId()) == null || junctionsM.get(r.getSrc().getId()) == null) || roadsM.get(r.getId()) != null) { //throw
@@ -32,6 +34,8 @@ public class RoadMap {
     		throw new IllegalArgumentException ("the new road is invalid");
 		}
 	}
+	
+	
 	
 	void addVehicle(Vehicle v) {
 		if(vehiclesM.get(v.getId()) != null);
@@ -86,7 +90,7 @@ public class RoadMap {
                 + ", \"road\" :" + ((RoadMap) getRoads()).getJSONVList()
                 + ", \"vehicles\" :" + ((RoadMap) getVehicles()).getJSONVList()
                 + "}";
-        return new JSONObject(jsonString);
+        return new JSONObject(jsonString);e
 		return null;
 	}
 	private boolean validItinerary(Vehicle v){
