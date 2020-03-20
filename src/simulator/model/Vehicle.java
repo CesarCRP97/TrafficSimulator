@@ -71,6 +71,9 @@ public class Vehicle extends SimulatedObject{
         return road;
     }
 
+    public JSONObject getReport(){
+        return report();
+    }
     //Setters
     void setSpeed(int s){
     	if (s < 0) {
@@ -137,21 +140,23 @@ public class Vehicle extends SimulatedObject{
 
     @Override
     public JSONObject report() {
-    	String jsonString = "{"
-                + " \"id\" : " + this.getId()
-                + ", \"speed\" : " + getSpeed()
-                + ", \"distance\" :" + getTotalTravel()
-                + ", \"co2\" :" + getTotalCont()
-                + ", \"class\" :" + getContClass()
-                + ", \"status\" :" + getStatus()
-                + ", \"road\" :" + getRoad().getId()
-                + ", \"location\" :" + getLocation()
-                + "}";
-        return new JSONObject(jsonString);
-    }
-//    static String jsonString = "{ \"a\": 1234, \"b\": 2e-10, \"c\": \"Hola!\", \"d\": [1,2,3], \"e\": { \"k\" : 123,  \"h\" : \"Helloooo!\", \"f\": 23.3e-10 }}";
+    	JSONObject o = new JSONObject();
 
-//Additional Methods
+    	o.put("id", getId());
+    	o.put("distance", getTotalTravel());
+    	o.put("co2", getTotalCont());
+    	o.put("class", getContClass());
+    	o.put("status", getStatus());
+    	if(status != VehicleStatus.PENDING && status != VehicleStatus.ARRIVED) {
+            o.put("road", getRoad().getId());
+            o.put("location", getLocation());
+        }
+
+    	return o;
+    }
+
+    //Additional Methods
+
     public Junction getNextJunction(){
         return(lastJunction == itinerary.size() - 1) ? null : itinerary.get(lastJunction + 1);
     }   

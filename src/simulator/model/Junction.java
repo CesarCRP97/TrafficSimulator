@@ -1,5 +1,6 @@
 package simulator.model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,9 @@ public class Junction extends SimulatedObject{
     int getX(){return x;}
     int getY(){return y;}
 
+    public JSONObject getReport(){
+        return report();
+    }
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addIncomingRoad(Road r){
     	if (r == inRoads) {//TODO acomodar sentencia
@@ -88,28 +92,34 @@ public class Junction extends SimulatedObject{
 
     @Override
     public JSONObject report() {
-        String jsonString = "{"
-                + "\"id\" :" + getId()
-                + ", \"green\" :" + //TODO
-                + ", \"weather\" :" + jsonWeather()
-                + "}";
-        return new JSONObject(jsonString);
-    }
-   
-    public JSONObject jsonWeather() {
-		String jsonString = "{"
-                + "\"road\" :" + this.getId()
-                + ", \"vehicles\" :" + getJSONVList()
-                + "}";
-        return new JSONObject(jsonString);
-    }
-    
-    String getJSONVList(){
-        String list = "[";
-        for(List<Vehicle> v : queuesL){
-            list = list + "\"" + ((SimulatedObject) v).getId() + "\",";
+    	JSONObject object = new JSONObject();
+    	object.put("id", this.getId());
+    	if(greenIndex == -1){
+    	    object.put("green", "none");
+    	}
+    	else
+            object.put("green", inRoads.get(greenIndex).getId());
+
+        JSONArray jsonList = new JSONArray();
+        object.put("queues", jsonList);
+
+
+        /*
+        * Para cada Road:
+        * "road", "r1"
+        * "vehicles", ["v1", "v2", ...]
+        * */
+        for(Road r : inRoads){
+            JSONObject o = new JSONObject();
+            jsonList.put(o);
+            o.put("road", r.getId());
+
+            JSONArray vArray = new JSONArray();
+            o.put("vehicles", vArray);
+            for(Vehicle v : queuesM.get(r)){
+                vArray.put(v.getId());
+            }
         }
-        list += "]";
-        return list;
+        return object;
     }
 }

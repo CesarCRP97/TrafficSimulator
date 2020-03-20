@@ -19,17 +19,17 @@ public class InterCityRoad extends Road {
 
     @Override
     void updateSpeedLimit() {
-    	int maxspd;
+    	int maxSpeed;
     	if( getTotalCont() > getContAlarm()) {
-			maxspd = (int) (getMaxSpeed() * 0.5);
-			this.setMaxSpeed(maxspd);
+			maxSpeed = (int) (getMaxSpeed() * 0.5);
+			this.setMaxSpeed(maxSpeed);
 		}
     }
     
     @Override
     int calculateVehicleSpeed(Vehicle v) {
-    	int cvspeed = v.getSpeed();
-    	if (this.getWeather() == Weather.STORM) { cvspeed = (int)(this.getSpeedLimit()*0.8);};
-    	return cvspeed;
+    	int vehicleSpeed = v.getSpeed();
+    	if (this.getWeather() == Weather.STORM) { vehicleSpeed = (int)(this.getSpeedLimit()*0.8);};
+    	return vehicleSpeed;
     }
 }
