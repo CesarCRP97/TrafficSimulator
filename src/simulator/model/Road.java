@@ -1,5 +1,6 @@
 package simulator.model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.Collections;
 import java.util.Comparator;
@@ -63,8 +64,13 @@ abstract public class Road extends SimulatedObject{
     public List<Vehicle> getVehicles(){
         return vehicles;
     }
+
     public Junction getSrc() {
         return src;
+    }
+
+    public JSONObject getReport(){
+        return report();
     }
 
     public void setMaxSpeed(int s){
@@ -123,23 +129,19 @@ abstract public class Road extends SimulatedObject{
     
     @Override
     public JSONObject report() {
-        String jsonString = "{"
-                + "\"id\" :" + getId()
-                + ", \"speedlimit\" :" + getSpeedLimit()
-                + ", \"weather\" :" + getWeather()
-                + ", \"co2\" :" + getTotalCont()
-                + ", \"vehicles\" :" + getJSONVList()
-                + "}";
-        return new JSONObject(jsonString);
-    }
+        JSONObject o = new JSONObject();
+        o.put("id", getId());
+        o.put("speedlimit", getSpeedLimit());
+        o.put("weather", getWeather());
+        o.put("co2", getTotalCont());
 
-    private String getJSONVList(){
-        String list = "[";
-        for(Vehicle v : vehicles){
-            list = list + "\"" + v.getId() + "\",";
+        JSONArray vArray = new JSONArray();
+        o.put("vehicles", vArray);
+
+        for(Vehicle v : getVehicles()){
+            vArray.put(v.getId());
         }
-        list += "]";
-        return list;
+        return o;
     }
 
 }

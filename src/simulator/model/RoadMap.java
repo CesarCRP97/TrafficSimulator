@@ -1,5 +1,6 @@
 package simulator.model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -20,11 +21,14 @@ public class RoadMap {
 			junctions.add(j);
 			junctionsM.put(j.getId(), j);
 		}
+		else{
+			throw new IllegalArgumentException("Junction already existing");
+		}
 		
 	}
 
 	void addRoad(Road r){
-		if((junctionsM.get(r.getDest().getId()) == null || junctionsM.get(r.getSrc().getId()) == null) || roadsM.get(r.getId()) != null) { //throw
+		if(validRoad(r)) {
 			roads.add(r);
 			roadsM.put(r.getId(), r);
 		}
@@ -34,8 +38,10 @@ public class RoadMap {
 	}
 	
 	void addVehicle(Vehicle v) {
-		if(vehiclesM.get(v.getId()) != null);
-		if(!validItinerary(v)) {// throw;
+		if(vehiclesM.get(v.getId()) != null){
+			throw new IllegalArgumentException("Already existing Vehicle");
+		}
+		if(validItinerary(v)) {// throw;
 			vehicles.add(v);
 			vehiclesM.put(v.getId(), v);
 		}
@@ -81,21 +87,38 @@ public class RoadMap {
 	}
 
 	public JSONObject report(){
-		return null;
+		JSONObject o = new JSONObject();
+
+		JSONArray jArray = new JSONArray();
+		o.put("junctions", jArray);
+		for(Junction j : getJunctions()) {
+			jArray.put(j.getReport());
+		}
+
+		JSONArray  rArray = new JSONArray();
+		o.put("roads", rArray);
+		for(Road r : getRoads()){
+			rArray.put(r.getReport());
+		}
+
+		JSONArray vArray = new JSONArray();
+		o.put("vehicles", vArray);
+		for(Vehicle v : getVehicles()){
+			vArray.put(v.getReport());
+		}
+		return o;
 	}
 	private boolean validItinerary(Vehicle v){
-		for(Junction j : v.getItinerary()){
-			if(junctionsM.get(j.getId()) == null) return false; 		//Si el Junction no existe ya devuelve falso.
-		}
-		for(int i = 0; i < v.getItinerary().size() - 1; i++){
-
+		List<Junction> itinerary = v.getItinerary();
+		for(int i = 0 ; i < itinerary.size()-1 ; i++){
+			if(itinerary.get(i).roadTo(itinerary.get(i+1)) == null) return false;
 		}
 		return true;	//TODO
 	}
 
 	//TODO Add methods to analize if valid.
 	private boolean validRoad(Road r){
-		return true;
+		return junctionsM.get(r.getDest().getId()) != null && junctionsM.get(r.getSrc().getId()) != null && roadsM.get(r.getId()) == null;
 	}
 
 }
