@@ -120,5 +120,14 @@ public class RoadMap {
 	private boolean validRoad(Road r){
 		return junctionsM.get(r.getDest().getId()) != null && junctionsM.get(r.getSrc().getId()) != null && roadsM.get(r.getId()) == null;
 	}
+	
+	String getJSONVList(){
+        String list = "[";
+        for(Vehicle v : vehicles){
+            list = list + "\"" + v.getId() + "\",";
+        }
+        list += "]";
+        return list;
+    }
 
 }
