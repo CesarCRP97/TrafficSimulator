@@ -1,14 +1,15 @@
 package simulator.model;
+
 import java.util.List;
 
 public class NewVehicleEvent extends Event {
+    List<String> itinerary;
     private String id;
     private int maxSpeed;
     private int contClass;
-    List<String> itinerary;
 
     public NewVehicleEvent(int time, String id, int maxSpeed, int
-                            contClass, List<String> itinerary){
+            contClass, List<String> itinerary) {
         super(time);
         this.id = id;
         this.maxSpeed = maxSpeed;
@@ -28,9 +29,9 @@ public class NewVehicleEvent extends Event {
         v.moveToNextRoad();
     }
 
-    private List<Junction> stringListToJunctionList(RoadMap map){
+    private List<Junction> stringListToJunctionList(RoadMap map) {
         List<Junction> junctions = null;
-        for(String j : itinerary){
+        for (String j : itinerary) {
             junctions.add(map.getJunction(j));
         }
         return junctions;

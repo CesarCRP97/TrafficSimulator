@@ -1,5 +1,4 @@
 package simulator.model;
-import java.util.List;
 
 import simulator.misc.Pair;
 
@@ -9,23 +8,21 @@ public class SetContClassEvent extends Event {
 
     private List<Pair<String, Integer>> cs;
 
-    public SetContClassEvent(int time, List<Pair<String,Integer>> cs){
+    public SetContClassEvent(int time, List<Pair<String, Integer>> cs) {
         super(time);
-        if(cs != null) {
+        if (cs != null) {
             this.cs = cs;
-        }
-        else
+        } else
             throw new IllegalArgumentException("List given is null");
     }
 
     @Override
     void execute(simulator.model.RoadMap map) {
-        for(Pair<String, Integer> pair : cs){
+        for (Pair<String, Integer> pair : cs) {
             Vehicle v = map.getVehicle(pair.getFirst());
-            if(v != null){
+            if (v != null) {
                 v.setContClass(pair.getSecond());
-            }
-            else
+            } else
                 throw new IllegalArgumentException("Vehicle not valid");
         }
     }

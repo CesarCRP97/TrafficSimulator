@@ -5,13 +5,14 @@ import java.util.List;
 
 public class MoveAllStrategy implements DequeuingStrategy {
 
-    public MoveAllStrategy(){}
+    public MoveAllStrategy() {
+    }
 
     @Override
     public List<Vehicle> dequeue(List<Vehicle> vs) {
         List<Vehicle> list = new ArrayList<>();
 
-        for(Vehicle v : vs){
+        for (Vehicle v : vs) {
             list.add(v);
         }
         return list;

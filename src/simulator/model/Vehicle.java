@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Vehicle extends SimulatedObject{
+public class Vehicle extends SimulatedObject {
 
     private String id;
     private List<Junction> itinerary;
@@ -20,46 +20,63 @@ public class Vehicle extends SimulatedObject{
     private int totalTravel;
 
     private int lastJunction;
-   
-    protected Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary ) throws Exception {
+
+    protected Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) throws Exception {
         super(id);
         //TODO complete exceptions
         this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
         this.maxSpeed = maxSpeed;
-        if(contClass < 0 || contClass > 10) {
+        if (contClass < 0 || contClass > 10) {
             //throw new;
-        	this.contClass = contClass;
-        	this.totalCont = 0;
-        	this.totalTravel = 0;
-        	this.status = VehicleStatus.PENDING;
-        	this.lastJunction = - 1;
+            this.contClass = contClass;
+            this.totalCont = 0;
+            this.totalTravel = 0;
+            this.status = VehicleStatus.PENDING;
+            this.lastJunction = -1;
+        } else {
+            throw new IllegalArgumentException("invalid value of " + contClass);
         }
-        else {
-        	throw new IllegalArgumentException ("invalid value of "+ contClass);
-        }
-    }
-    
-    //Getters
-    int getLocation(){
-        return location; 
     }
 
-    int getTotalTravel(){
+    //Getters
+    int getLocation() {
+        return location;
+    }
+
+    int getTotalTravel() {
         return totalTravel;
     }
-    int getSpeed(){
+
+    int getSpeed() {
         return speed;
     }
 
-    int getContClass(){
+    //Setters
+    void setSpeed(int s) {
+        if (s < 0) {
+            throw new IllegalArgumentException("invalid speed value, must be positive");
+        } else {
+            this.speed = Math.min(s, maxSpeed);
+        }
+    }
+
+    int getContClass() {
         return contClass;
     }
 
-    int getTotalCont(){
+    void setContClass(int c) {
+        if (0 < c && c > 10) {
+            this.contClass = c;
+        } else {
+            throw new IllegalArgumentException("invalid road value, must be between 0 and 10");
+        }
+    }
+
+    int getTotalCont() {
         return totalCont;
     }
 
-    public VehicleStatus getStatus(){
+    public VehicleStatus getStatus() {
         return status;
     }
 
@@ -67,57 +84,36 @@ public class Vehicle extends SimulatedObject{
         return itinerary;
     }
 
-    public Road getRoad(){
+    public Road getRoad() {
         return road;
     }
 
-    public JSONObject getReport(){
-        return report();
-    }
-    //Setters
-    void setSpeed(int s){
-    	if (s < 0) {
-    		throw new IllegalArgumentException ("invalid speed value, must be positive" );
-    	}
-    	else {
-    		this.speed = Math.min(s, maxSpeed);
-    	}
-    }
-
-    void setContClass(int c){
-    	if ( 0 < c && c > 10) {
-        this.contClass = c;
-    	}
-    	else {
-    		throw new IllegalArgumentException ("invalid road value, must be between 0 and 10" );
-    	}
-    }
-
-    void setRoad(Road r){
+    void setRoad(Road r) {
         road = r;
+    }
+
+    public JSONObject getReport() {
+        return report();
     }
     //Methods
 
     //Adds the Vehicle to the next Road depending on its itinerary.
-    void moveToNextRoad(){
-    	if (status != VehicleStatus.PENDING || status != VehicleStatus.WAITING) {
-    		throw new IllegalArgumentException ("invalid road value, must be between 0 and 10" );
-    	}	
-    	else {
-    		if(status == VehicleStatus.PENDING) {
-    			itinerary.get(0).roadTo(itinerary.get(1)).enter(this);
-    			status = VehicleStatus.TRAVELING;
-    		}
-    		else if (lastJunction < itinerary.size() - 1){
-    			itinerary.get(lastJunction).roadTo(itinerary.get(lastJunction + 1)).enter(this);
-    			status = VehicleStatus.TRAVELING;
-    		}
-    		else if (lastJunction == itinerary.size() - 1){
-    			status = VehicleStatus.ARRIVED;
-    			speed = 0;
-    		}
-        lastJunction++;
-    	}
+    void moveToNextRoad() {
+        if (status != VehicleStatus.PENDING || status != VehicleStatus.WAITING) {
+            throw new IllegalArgumentException("invalid road value, must be between 0 and 10");
+        } else {
+            if (status == VehicleStatus.PENDING) {
+                itinerary.get(0).roadTo(itinerary.get(1)).enter(this);
+                status = VehicleStatus.TRAVELING;
+            } else if (lastJunction < itinerary.size() - 1) {
+                itinerary.get(lastJunction).roadTo(itinerary.get(lastJunction + 1)).enter(this);
+                status = VehicleStatus.TRAVELING;
+            } else if (lastJunction == itinerary.size() - 1) {
+                status = VehicleStatus.ARRIVED;
+                speed = 0;
+            }
+            lastJunction++;
+        }
     }
 
     @Override
@@ -129,7 +125,7 @@ public class Vehicle extends SimulatedObject{
         road.addContamination(c);
         location = newLocation;
 
-        if(location == road.getLength()) {
+        if (location == road.getLength()) {
             road.getDest().enter(this);
             status = VehicleStatus.WAITING;
             speed = 0;
@@ -138,25 +134,25 @@ public class Vehicle extends SimulatedObject{
 
     @Override
     public JSONObject report() {
-    	JSONObject o = new JSONObject();
+        JSONObject o = new JSONObject();
 
-    	o.put("id", getId());
-    	o.put("distance", getTotalTravel());
-    	o.put("co2", getTotalCont());
-    	o.put("class", getContClass());
-    	o.put("status", getStatus());
-    	if(status != VehicleStatus.PENDING && status != VehicleStatus.ARRIVED) {
+        o.put("id", getId());
+        o.put("distance", getTotalTravel());
+        o.put("co2", getTotalCont());
+        o.put("class", getContClass());
+        o.put("status", getStatus());
+        if (status != VehicleStatus.PENDING && status != VehicleStatus.ARRIVED) {
             o.put("road", getRoad().getId());
             o.put("location", getLocation());
         }
 
-    	return o;
+        return o;
     }
 
     //Additional Methods
 
-    public Junction getNextJunction(){
-        return(lastJunction == itinerary.size() - 1) ? null : itinerary.get(lastJunction + 1);
-    }   
+    public Junction getNextJunction() {
+        return (lastJunction == itinerary.size() - 1) ? null : itinerary.get(lastJunction + 1);
+    }
 }
 

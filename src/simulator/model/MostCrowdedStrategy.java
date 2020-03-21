@@ -6,27 +6,27 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy {
 
     private int timeSlot;
 
-    public MostCrowdedStrategy(int i){
+    public MostCrowdedStrategy(int i) {
         timeSlot = i;
     }
 
     @Override
     public int chooseNextGreen(List<Road> roads, List<List<Vehicle>> qs, int currGreen, int lastSwitchingTime, int currTime) {
-        if(roads.isEmpty()) return -1;
-        if(currGreen == -1)
+        if (roads.isEmpty()) return -1;
+        if (currGreen == -1)
             return firstMostCrowdedQueue(qs);
 
-        if(currTime - lastSwitchingTime < timeSlot) return currGreen;
-        else{
+        if (currTime - lastSwitchingTime < timeSlot) return currGreen;
+        else {
             return nextMostCrowded(qs, currGreen);
         }
     }
 
-    private int firstMostCrowdedQueue(List<List<Vehicle>> qs){
+    private int firstMostCrowdedQueue(List<List<Vehicle>> qs) {
         int i = 0, mostCrowded = 0;
         //TODO Seguro que se puede hacer con un iterator. Y poner en un método privado auxiliar.
-        while(i < qs.size()){
-            if(qs.get(i).size() > mostCrowded) mostCrowded = i;
+        while (i < qs.size()) {
+            if (qs.get(i).size() > mostCrowded) mostCrowded = i;
             i++;
         }
         return mostCrowded;
