@@ -8,7 +8,7 @@ import simulator.model.NewVehicleEvent;
 import java.util.List;
 
 public class NewVehicleEventBuilder extends Builder<Event> {
-    NewVehicleEventBuilder() {
+    public NewVehicleEventBuilder() {
         super("new_vehicle");
     }
 

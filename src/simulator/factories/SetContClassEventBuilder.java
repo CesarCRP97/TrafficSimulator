@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import simulator.model.Event;
 
 public class SetContClassEventBuilder extends Builder<Event> {
-    SetContClassEventBuilder() {
+    public SetContClassEventBuilder() {
         super("set_cont_class");
     }
 

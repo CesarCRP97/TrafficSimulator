@@ -1,10 +1,13 @@
 package simulator.launcher;
 
 import org.apache.commons.cli.*;
-import simulator.factories.Factory;
-import simulator.model.Event;
+import simulator.control.Controller;
+import simulator.factories.*;
+import simulator.model.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -77,13 +80,34 @@ public class Main {
     }
 
     private static void initFactories() {
-
         // TODO complete this method to initialize _eventsFactory
+        List<Builder<LightSwitchingStrategy>> lsbs = new ArrayList<>();
+        lsbs.add( new RoundRobinStrategyBuilder() );
+        lsbs.add( new MostCrowdedStrategyBuilder() );
+        Factory<LightSwitchingStrategy> lssFactory = new BuilderBasedFactory<>(lsbs);
+
+        List<Builder<DequeuingStrategy>> dqbs = new ArrayList<>();
+        dqbs.add( new MoveFirstStrategyBuilder() );
+        dqbs.add( new MoveAllStrategyBuilder() );
+        Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(dqbs);
+
+        //Builders list
+        List<Builder<Event>> eventList = null;
+        eventList.add(new NewJunctionEventBuilder(lssFactory, dqsFactory));
+        eventList.add(new NewCityRoadEventBuilder());
+        eventList.add(new NewInterCityRoadEventBuilder());
+        eventList.add(new NewVehicleEventBuilder());
+        eventList.add(new SetContClassEventBuilder());
+        eventList.add(new SetWeatherEventBuilder());
+
+        _eventsFactory = new BuilderBasedFactory<>(eventList);
 
     }
 
     private static void startBatchMode() throws IOException {
         // TODO complete this method to start the simulation
+        Controller controller = new Controller( new TrafficSimulator(), _eventsFactory);
+        controller.run();
     }
 
     private static void start(String[] args) throws IOException {

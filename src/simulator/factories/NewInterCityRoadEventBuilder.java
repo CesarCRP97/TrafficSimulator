@@ -6,7 +6,8 @@ import simulator.model.NewInterCityRoadEvent;
 import simulator.model.Weather;
 
 public class NewInterCityRoadEventBuilder extends Builder<Event> {
-    NewInterCityRoadEventBuilder() {
+
+    public NewInterCityRoadEventBuilder() {
         super("new_inter_city_road");
         //TODO
     }
