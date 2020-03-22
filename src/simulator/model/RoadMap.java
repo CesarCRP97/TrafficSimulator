@@ -109,7 +109,7 @@ public class RoadMap {
         for (int i = 0; i < itinerary.size() - 1; i++) {
             if (itinerary.get(i).roadTo(itinerary.get(i + 1)) == null) return false;
         }
-        return true;    //TODO
+        return true;
     }
 
     private boolean validRoad(Road r) {

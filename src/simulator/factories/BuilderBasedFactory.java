@@ -10,7 +10,7 @@ public class BuilderBasedFactory<T> implements Factory<T> {
     private List<Builder<T>> _builders;
 
     public BuilderBasedFactory(List<Builder<T>> builders) {
-        _builders = new ArrayList<>(builders);
+        _builders = builders;
     }
 
     @Override

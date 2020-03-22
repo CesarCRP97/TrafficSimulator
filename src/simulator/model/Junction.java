@@ -99,6 +99,12 @@ public class Junction extends SimulatedObject {
     public JSONObject report() {
         JSONObject object = new JSONObject();
         object.put("id", this.getId());
+
+        JSONArray coor = new JSONArray();
+        object.put("coor", coor);
+        coor.put(x);
+        coor.put(y);
+
         if (greenIndex == -1) {
             object.put("green", "none");
         } else

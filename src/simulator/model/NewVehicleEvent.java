@@ -29,6 +29,7 @@ public class NewVehicleEvent extends Event {
         v.moveToNextRoad();
     }
 
+
     private List<Junction> stringListToJunctionList(RoadMap map) {
         List<Junction> junctions = null;
         for (String j : itinerary) {
