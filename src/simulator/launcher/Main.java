@@ -5,7 +5,12 @@ import simulator.control.Controller;
 import simulator.factories.*;
 import simulator.model.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,8 +111,23 @@ public class Main {
 
     private static void startBatchMode() throws IOException {
         // TODO complete this method to start the simulation
-        Controller controller = new Controller( new TrafficSimulator(), _eventsFactory);
-        controller.run();
+    	
+    	TrafficSimulator simulator = new TrafficSimulator();
+    	Controller controller = new Controller (simulator, _eventsFactory);
+    	InputStream input = new FileInputStream (new File(_inFile));
+    	controller.loadEvents(input);
+    	
+    	OutputStream outStr = null;
+    	
+    	if (_outFile != null) {
+    		outStr = new FileOutputStream (new File(_inFile));
+    	}
+    	
+    	controller.run(time, outStr);
+
+    	
+        /*Controller controller = new Controller( new TrafficSimulator(), _eventsFactory);
+        controller.run();*/
     }
 
     private static void start(String[] args) throws IOException {
