@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class Vehicle extends SimulatedObject {
-
-    private String id;
     private List<Junction> itinerary;
     private int maxSpeed;
     private int speed;
@@ -95,7 +93,6 @@ public class Vehicle extends SimulatedObject {
         return report();
     }
     //Methods
-
     //Adds the Vehicle to the next Road depending on its itinerary.
     void moveToNextRoad() {
         if (status != VehicleStatus.PENDING || status != VehicleStatus.WAITING) {
@@ -151,12 +148,6 @@ public class Vehicle extends SimulatedObject {
         }
 
         return o;
-    }
-
-    //Additional Methods
-
-    public Junction getNextJunction() {
-        return (lastJunction == itinerary.size() - 1) ? null : itinerary.get(lastJunction + 1);
     }
 }
 
