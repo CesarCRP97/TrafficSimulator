@@ -15,7 +15,6 @@ public class TrafficSimulator {
     }
 
     public void addEvent(Event e) {
-        //TODO Mirar apuntes o documentación para ver cómo funciona la SortedArrayList.
         eventList.add(e);
     }
 

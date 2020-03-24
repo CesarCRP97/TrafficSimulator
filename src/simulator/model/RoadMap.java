@@ -33,6 +33,10 @@ public class RoadMap {
         if (validRoad(r)) {
             roads.add(r);
             roadsM.put(r.getId(), r);
+
+            //Añade la carretera a los Junction
+            r.getSrc().addOutgoingRoad(r);
+            r.getDest().addIncomingRoad(r);
         } else {
             throw new IllegalArgumentException("the new road is invalid");
         }

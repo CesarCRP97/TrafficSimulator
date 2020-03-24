@@ -24,7 +24,6 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy {
 
     private int firstMostCrowdedQueue(List<List<Vehicle>> qs) {
         int i = 0, mostCrowded = 0;
-        //TODO Seguro que se puede hacer con un iterator. Y poner en un método privado auxiliar.
         while (i < qs.size()) {
             if (qs.get(i).size() > mostCrowded) mostCrowded = i;
             i++;

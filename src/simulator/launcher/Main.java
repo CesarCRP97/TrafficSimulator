@@ -85,7 +85,6 @@ public class Main {
     }
 
     private static void initFactories() {
-        // TODO complete this method to initialize _eventsFactory
         List<Builder<LightSwitchingStrategy>> lsbs = new ArrayList<>();
         lsbs.add( new RoundRobinStrategyBuilder() );
         lsbs.add( new MostCrowdedStrategyBuilder() );

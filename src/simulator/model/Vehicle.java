@@ -23,7 +23,6 @@ public class Vehicle extends SimulatedObject {
 
     protected Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) throws Exception {
         super(id);
-        //TODO complete exceptions
         this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
         this.maxSpeed = maxSpeed;
         if (contClass < 0 || contClass > 10) {
@@ -106,8 +105,12 @@ public class Vehicle extends SimulatedObject {
                 itinerary.get(0).roadTo(itinerary.get(1)).enter(this);
                 status = VehicleStatus.TRAVELING;
             } else if (lastJunction < itinerary.size() - 1) {
+                //Para eliminarlo de la carretera anterior.
+                this.getRoad().exit(this);
+
                 itinerary.get(lastJunction).roadTo(itinerary.get(lastJunction + 1)).enter(this);
                 status = VehicleStatus.TRAVELING;
+
             } else if (lastJunction == itinerary.size() - 1) {
                 status = VehicleStatus.ARRIVED;
                 speed = 0;
@@ -121,9 +124,10 @@ public class Vehicle extends SimulatedObject {
         int newLocation = Math.min((location + speed * time), road.getLength());
         int c = (newLocation - location) * contClass;   // l = (newLocation - location); f = contClass;
 
+        location = newLocation;
         totalCont += c;
         road.addContamination(c);
-        location = newLocation;
+
 
         if (location == road.getLength()) {
             road.getDest().enter(this);

@@ -22,6 +22,12 @@ abstract public class Road extends SimulatedObject {
 
     Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
         super(id);
+        this.src = srcJunc;
+        this.dest = destJunc;
+        this.length = length;
+        this.speedLimit = maxSpeed;
+        this.contAlarm = contLimit;
+        this.weather = weather;
         //Complete constructor
     }
 
@@ -79,14 +85,13 @@ abstract public class Road extends SimulatedObject {
     }
 
     void enter(Vehicle v) {
-        // duda no se si es SetSpeed o getSpeed???
+
         if (v.getLocation() == 0 && v.getSpeed() == 0) {
             vehicles.add(v);
             v.setRoad(this);
         } else {
             throw new IllegalArgumentException("invalid Vehicle value");
         }
-        //TODO Setear velocidad y demás.
     }
 
     void exit(Vehicle v) {
@@ -114,7 +119,7 @@ abstract public class Road extends SimulatedObject {
         //recorrido de la lista
 
         for (int i = 0; i <= vehicles.size(); i++) {
-            vehicles.get(i).setSpeed(maxSpeed);
+            vehicles.get(i).setSpeed(calculateVehicleSpeed(vehicles.get(i)));
             vehicles.get(i).advance(t);
         }
         Collections.sort(vehicles, new SortByLocation());
@@ -140,7 +145,6 @@ abstract public class Road extends SimulatedObject {
     class SortByLocation implements Comparator<Vehicle> {
         @Override
         public int compare(Vehicle v1, Vehicle v2) {
-            // TODO Auto-generated method stub
             return v1.getLocation() - v2.getLocation();
         }
     }

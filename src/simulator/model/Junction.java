@@ -11,7 +11,7 @@ public class Junction extends SimulatedObject {
 
     private List<Road> inRoads;         //Lista carreteras entrantes.
     private Map<Junction, Road> outRoads; //
-    private List<List<Vehicle>> queuesL;        //List for adding and iterating
+    private List<List<Vehicle>> queuesL;        //List for addinsentenciag and iterating
     private Map<Road, List<Vehicle>> queuesM;   //Map for searching
     private int greenIndex;
     private int remainingUntilLightSwitch;
@@ -35,22 +35,18 @@ public class Junction extends SimulatedObject {
         this.remainingUntilLightSwitch = 0;
 
     }
-
+//------------NOT USED FOR NOW---------
     int getX() {
         return x;
     }
-
     int getY() {
         return y;
     }
-
-    public JSONObject getReport() {
-        return report();
-    }
+//-------------------------------------
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void addIncomingRoad(Road r) {
-        if (r == inRoads) {//TODO acomodar sentencia
+        if (r.getDest().getId() == this.getId() && !inRoads.contains(r)) {
             LinkedList<Vehicle> list = new LinkedList<>();
             ((LinkedList) queuesL).addLast(list);
             inRoads.add(r);
@@ -61,7 +57,7 @@ public class Junction extends SimulatedObject {
     }
 
     public void addOutgoingRoad(Road r) {
-        if (r.getDest() != this || r == outRoads) {
+        if (r.getDest().getId() != this.getId() && !outRoads.containsKey(r.getDest())) {
             outRoads.put(r.getDest(), r);
         } else {
             throw new IllegalArgumentException("invalid  incoming road");
