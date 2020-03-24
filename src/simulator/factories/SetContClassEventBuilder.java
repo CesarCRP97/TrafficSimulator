@@ -1,7 +1,14 @@
 package simulator.factories;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+import simulator.misc.Pair;
 import simulator.model.Event;
+import simulator.model.SetContClassEvent;
+import simulator.model.SetWeatherEvent;
+import simulator.model.Weather;
+
+import java.util.List;
 
 public class SetContClassEventBuilder extends Builder<Event> {
     public SetContClassEventBuilder() {
@@ -10,6 +17,22 @@ public class SetContClassEventBuilder extends Builder<Event> {
 
     @Override
     protected Event createTheInstance(JSONObject data) {
-        return null;
-    }   //TODO LO MISMO QUE CON EL SetWeatherEventBuilder.
+        JSONArray list = data.getJSONArray("info");
+        List<Pair<String, Integer>> ws = null;
+
+        //Extraemos cada JSONObject del JSONArray.
+        for(int i = 0 ; i < list.length(); i++){
+            JSONObject o  = list.getJSONObject(i);
+
+            ws.add(extractPair(o));
+        }
+        return new SetContClassEvent(data.getInt("time"), ws);
+    }
+
+    //Devuelve el Par (String, Integer) del JSONObject pasado.
+    private Pair<String, Integer> extractPair(JSONObject o){
+        String s = o.getString("vehicle");
+        Integer i = o.getInt("class");
+        return new Pair<>(s, i);
+    }
 }

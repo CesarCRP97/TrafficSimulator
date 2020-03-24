@@ -9,7 +9,6 @@ public class NewInterCityRoadEventBuilder extends Builder<Event> {
 
     public NewInterCityRoadEventBuilder() {
         super("new_inter_city_road");
-        //TODO
     }
 
     @Override

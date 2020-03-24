@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-
+    private final static int TIME = 100;
     private final static Integer _timeLimitDefaultValue = 10;
     private static String _inFile = null;
     private static String _outFile = null;
@@ -109,7 +109,7 @@ public class Main {
 
     }
 
-    private static void startBatchMode() throws IOException {
+    private static void startBatchMode() throws Exception {
         // TODO complete this method to start the simulation
     	
     	TrafficSimulator simulator = new TrafficSimulator();
@@ -123,7 +123,7 @@ public class Main {
     		outStr = new FileOutputStream (new File(_inFile));
     	}
     	
-    	controller.run(time, outStr);
+    	controller.run(TIME, outStr);
 
     	
         /*Controller controller = new Controller( new TrafficSimulator(), _eventsFactory);
@@ -133,7 +133,11 @@ public class Main {
     private static void start(String[] args) throws IOException {
         initFactories();
         parseArgs(args);
-        startBatchMode();
+        try {
+            startBatchMode();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // example command lines:
