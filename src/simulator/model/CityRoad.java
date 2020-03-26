@@ -20,6 +20,7 @@ public class CityRoad extends Road {
         } else if (x == Weather.STORM) {
             tc = (int) (((100.0 - 2) / 100.0) * tc);
         }
+        this.setTotalCont(tc);
     }
 
     @Override

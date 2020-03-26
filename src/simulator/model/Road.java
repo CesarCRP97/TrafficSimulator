@@ -22,12 +22,18 @@ abstract public class Road extends SimulatedObject {
 
     Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
         super(id);
-        this.src = srcJunc;
-        this.dest = destJunc;
-        this.length = length;
-        this.speedLimit = maxSpeed;
-        this.contAlarm = contLimit;
-        this.weather = weather;
+        if(srcJunc != null && destJunc != null && maxSpeed > 0 && contLimit >= 0 && length > 0 && weather != null) {
+            this.src = srcJunc;
+            this.dest = destJunc;
+            this.length = length;
+            this.speedLimit = maxSpeed;
+            this.maxSpeed = maxSpeed;
+            this.contAlarm = contLimit;
+            this.weather = weather;
+            this.vehicles = null;
+        }
+        else
+            throw new IllegalArgumentException("Not valid road parameters");
         //Complete constructor
     }
 
@@ -39,12 +45,16 @@ abstract public class Road extends SimulatedObject {
         return maxSpeed;
     }
 
-    public void setMaxSpeed(int s) {
-        maxSpeed = s;
+    public void setSpeedLimit(int s) {
+        speedLimit = s;
     }
 
     public int getTotalCont() {
         return totalCont;
+    }
+
+    public void setTotalCont(int tc){
+        totalCont = tc;
     }
 
     public int getContAlarm() {
@@ -68,7 +78,7 @@ abstract public class Road extends SimulatedObject {
         if (w != null) {
             this.weather = w;
         } else {
-            throw new IllegalArgumentException("weather shouldnt be null");
+            throw new IllegalArgumentException("weather shouldn't be null");
         }
     }
 
@@ -100,7 +110,7 @@ abstract public class Road extends SimulatedObject {
 
     void addContamination(int c) {
         if (c >= 0) {
-            this.totalCont = c;
+            this.totalCont += c;
         } else {
             throw new IllegalArgumentException("invalid contamination value");
         }

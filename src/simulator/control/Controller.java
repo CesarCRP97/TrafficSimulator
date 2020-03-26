@@ -48,13 +48,14 @@ public class Controller {
         JSONObject j = new JSONObject(new JSONTokener(i));
         if (!j.has("events") || j.getJSONArray("events") == null) {
             throw new IllegalArgumentException("invalid simulator or fatcory value");
-        } else {
+        }
+        else {
             JSONArray jo = j.getJSONArray("events");
             for (int k = 0; k < jo.length(); k++) {
                 if (jo.getJSONObject(k) == null) {
                     throw new IllegalArgumentException("invalid simulator or fatcory value");
-                } else {
-
+                }
+                else {
                     Event e = eventsFactory.createInstance(jo.getJSONObject(k));
                     simulator.addEvent(e);
                 }

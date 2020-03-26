@@ -138,6 +138,7 @@ public class Vehicle extends SimulatedObject {
         JSONObject o = new JSONObject();
 
         o.put("id", getId());
+        o.put("speed", getSpeed());
         o.put("distance", getTotalTravel());
         o.put("co2", getTotalCont());
         o.put("class", getContClass());

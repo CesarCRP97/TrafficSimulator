@@ -9,7 +9,7 @@ public class InterCityRoad extends Road {
     @Override
     void reduceTotalContamination() {
         Weather x = this.getWeather();
-        int tc = getTotalCont();//tc es el valor de la cantaminacion actual
+        int tc = getTotalCont();
         if (x == Weather.SUNNY) {
             tc = (int) (((100.0 - 2) / 100.0) * tc);
         } else if (x == Weather.CLOUDY) {
@@ -21,15 +21,17 @@ public class InterCityRoad extends Road {
         } else if (x == Weather.STORM) {
             tc = (int) (((100.0 - 20) / 100.0) * tc);
         }
+        setTotalCont(tc);
     }
 
     @Override
     void updateSpeedLimit() {
-        int maxSpeed;
+        int maxSpeed = getMaxSpeed();
         if (getTotalCont() > getContAlarm()) {
             maxSpeed = (int) (getMaxSpeed() * 0.5);
-            this.setMaxSpeed(maxSpeed);
+            this.setSpeedLimit(maxSpeed);
         }
+        this.setSpeedLimit(maxSpeed);
     }
 
     @Override

@@ -11,7 +11,7 @@ public class Junction extends SimulatedObject {
 
     private List<Road> inRoads;         //Lista carreteras entrantes.
     private Map<Junction, Road> outRoads; //
-    private List<List<Vehicle>> queuesL;        //List for addinsentenciag and iterating
+    private List<List<Vehicle>> queuesL;        //List for add and iterating
     private Map<Road, List<Vehicle>> queuesM;   //Map for searching
     private int greenIndex;
     private int remainingUntilLightSwitch;
@@ -44,7 +44,10 @@ public class Junction extends SimulatedObject {
     }
 //-------------------------------------
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    public JSONObject getReport(){
+        return this.report();
+    }
+
     public void addIncomingRoad(Road r) {
         if (r.getDest().getId() == this.getId() && !inRoads.contains(r)) {
             LinkedList<Vehicle> list = new LinkedList<>();
@@ -64,7 +67,6 @@ public class Junction extends SimulatedObject {
         }
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
     void enter(Vehicle v) {
         queuesM.get(v.getRoad()).add(v);
     }
@@ -80,6 +82,8 @@ public class Junction extends SimulatedObject {
         List<Vehicle> qL = dqStrategy.dequeue(queuesL.get(greenIndex));
         for (Vehicle v : qL) {
             queuesM.get(v.getRoad()).remove(v);
+            queuesL.get(greenIndex).remove(v);
+
             v.getRoad().getVehicles().remove(v);
             v.moveToNextRoad();
         }

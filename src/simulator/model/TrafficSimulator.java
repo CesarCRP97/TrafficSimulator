@@ -10,7 +10,7 @@ public class TrafficSimulator {
 
     public TrafficSimulator() {
         roadMap = new RoadMap();
-        eventList = new SortedArrayList<Event>();
+        eventList = new SortedArrayList<>();
         _time = 0;
     }
 

@@ -5,10 +5,7 @@ import java.util.List;
 
 public class MoveFirstStrategy implements DequeuingStrategy {
 
-    public MoveFirstStrategy() {
-    }
-
-    ;
+    public MoveFirstStrategy() {}
 
     @Override
     public List<Vehicle> dequeue(List<Vehicle> q) {

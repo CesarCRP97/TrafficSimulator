@@ -16,6 +16,12 @@ public class RoadMap {
     protected Map<String, Vehicle> vehiclesM;
 
     protected RoadMap() {
+        junctions = null;
+        roads = null;
+        vehicles = null;
+        junctionsM = null;
+        roadsM = null;
+        vehiclesM = null;
     }
 
     void addJunction(Junction j) {
@@ -67,15 +73,14 @@ public class RoadMap {
         return vehiclesM.get(id);
     }
 
+
     public List<Junction> getJunctions() {
         return junctions;
     }
 
-
     public List<Road> getRoads() {
         return roads;
     }
-
 
     public List<Vehicle> getVehicles() {
         return vehicles;
@@ -93,8 +98,14 @@ public class RoadMap {
 
     public JSONObject report() {
         JSONObject o = new JSONObject();
-        JSONArray rArray = new JSONArray();
 
+        JSONArray jArray = new JSONArray();
+        o.put("junctions", jArray);
+        for(Junction j : getJunctions()){
+            jArray.put(j.getReport());
+        }
+
+        JSONArray rArray = new JSONArray();
         o.put("roads", rArray);
         for (Road r : getRoads()) {
             rArray.put(r.getReport());
