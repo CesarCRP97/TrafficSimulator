@@ -3,6 +3,8 @@ package simulator.model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,12 +18,12 @@ public class RoadMap {
     protected Map<String, Vehicle> vehiclesM;
 
     protected RoadMap() {
-        junctions = null;
-        roads = null;
-        vehicles = null;
-        junctionsM = null;
-        roadsM = null;
-        vehiclesM = null;
+        junctions = new ArrayList<>();
+        roads = new ArrayList<>();
+        vehicles = new ArrayList<>();
+        junctionsM = new HashMap<>();
+        roadsM = new HashMap<>();
+        vehiclesM = new HashMap<>();
     }
 
     void addJunction(Junction j) {

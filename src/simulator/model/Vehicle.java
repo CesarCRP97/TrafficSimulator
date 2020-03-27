@@ -21,7 +21,7 @@ public class Vehicle extends SimulatedObject {
 
     protected Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) throws Exception {
         super(id);
-        this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
+        this.itinerary = Collections.unmodifiableList(itinerary);
         this.maxSpeed = maxSpeed;
         if (contClass < 0 || contClass > 10) {
             //throw new;

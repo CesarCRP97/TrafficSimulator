@@ -7,6 +7,7 @@ import simulator.model.Event;
 import simulator.model.SetWeatherEvent;
 import simulator.model.Weather;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SetWeatherEventBuilder extends Builder<Event> {
@@ -17,7 +18,7 @@ public class SetWeatherEventBuilder extends Builder<Event> {
     @Override
     protected Event createTheInstance(JSONObject data) {
         JSONArray list = data.getJSONArray("info");
-        List<Pair<String, Weather>> ws = null;
+        List<Pair<String, Weather>> ws = new ArrayList<>();
 
         //Extraemos cada JSONObject del JSONArray.
         for(int i = 0 ; i < list.length(); i++){

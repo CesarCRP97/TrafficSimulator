@@ -3,6 +3,7 @@ package simulator.model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -30,7 +31,7 @@ abstract public class Road extends SimulatedObject {
             this.maxSpeed = maxSpeed;
             this.contAlarm = contLimit;
             this.weather = weather;
-            this.vehicles = null;
+            this.vehicles = new ArrayList<>();
         }
         else
             throw new IllegalArgumentException("Not valid road parameters");

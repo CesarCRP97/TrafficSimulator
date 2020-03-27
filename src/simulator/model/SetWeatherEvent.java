@@ -14,7 +14,6 @@ public class SetWeatherEvent extends Event {
         this.ws = ws;
         if (ws != null) ;
         else throw new IllegalArgumentException("invalid value");
-        // ...
     }
 
     @Override

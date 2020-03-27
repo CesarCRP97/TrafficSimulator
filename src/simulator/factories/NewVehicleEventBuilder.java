@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import simulator.model.Event;
 import simulator.model.NewVehicleEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewVehicleEventBuilder extends Builder<Event> {
@@ -16,7 +17,7 @@ public class NewVehicleEventBuilder extends Builder<Event> {
     protected Event createTheInstance(JSONObject data) {
         JSONArray itinerary = data.getJSONArray("itinerary");
 
-        List<String> list = null;
+        List<String> list = new ArrayList<>();
         for(Object o : itinerary){
             list.add(o.toString());
         }
