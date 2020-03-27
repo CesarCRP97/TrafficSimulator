@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    private final static int TIME = 100;
     private final static Integer _timeLimitDefaultValue = 10;
     private static String _inFile = null;
     private static String _outFile = null;
+    private static Integer _timeLimit = null;
     private static Factory<Event> _eventsFactory = null;
 
     private static void parseArgs(String[] args) {
@@ -61,7 +61,8 @@ public class Main {
         cmdLineOptions.addOption(
                 Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
         cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Print this message").build());
-
+        cmdLineOptions.addOption(
+                Option.builder("t").longOpt("ticks").hasArg().desc("Ticks to the simulator's main loop (default value is 10).").build());
         return cmdLineOptions;
     }
 
@@ -82,6 +83,15 @@ public class Main {
 
     private static void parseOutFileOption(CommandLine line) throws ParseException {
         _outFile = line.getOptionValue("o");
+    }
+
+    private static void parseTickOption(CommandLine line) throws ParseException{
+        String in = line.getOptionValue("t");
+        if(in != null){
+            _timeLimit = Integer.parseInt(in);
+        }
+        else
+            _timeLimit = _timeLimitDefaultValue;
     }
 
     private static void initFactories() {
@@ -109,24 +119,25 @@ public class Main {
     }
 
     private static void startBatchMode() throws Exception {
-        // TODO complete this method to start the simulation
     	
     	TrafficSimulator simulator = new TrafficSimulator();
     	Controller controller = new Controller (simulator, _eventsFactory);
     	InputStream input = new FileInputStream (new File(_inFile));
-    	controller.loadEvents(input);
-    	
-    	OutputStream outStr = null;
+    	OutputStream outStr;
     	
     	if (_outFile != null) {
     		outStr = new FileOutputStream (new File(_inFile));
     	}
-    	
-    	controller.run(TIME, outStr);
+    	else
+    	    outStr = System.out;
 
-    	
-        /*Controller controller = new Controller( new TrafficSimulator(), _eventsFactory);
-        controller.run();*/
+    	try {
+            controller.loadEvents(input);
+            controller.run(_timeLimit, outStr);
+        }catch (Exception e){
+    	    e.printStackTrace();
+        }
+
     }
 
     private static void start(String[] args) throws IOException {
