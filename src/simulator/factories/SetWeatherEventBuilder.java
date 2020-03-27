@@ -31,7 +31,7 @@ public class SetWeatherEventBuilder extends Builder<Event> {
 
     private Pair<String, Weather> extractPair(JSONObject o){
         String s = o.getString("road");
-        Weather w = Weather.valueOf(o.getString("class"));
+        Weather w = Weather.valueOf(o.getString("weather"));
         return new Pair<>(s, w);
     }
 }

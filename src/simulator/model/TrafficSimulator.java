@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import simulator.misc.SortedArrayList;
 
 public class TrafficSimulator {
-    private RoadMap roadMap;
+    private final RoadMap roadMap;
     private SortedArrayList<Event> eventList;
     private int _time;
 

@@ -7,11 +7,9 @@ import simulator.model.Event;
 import simulator.model.LightSwitchingStrategy;
 import simulator.model.NewJunctionEvent;
 
-import java.util.List;
-
 public class NewJunctionEventBuilder extends Builder <Event> {
-    private Factory<LightSwitchingStrategy> lssFactory;
-    private Factory<DequeuingStrategy> dqsFactory;
+    private final Factory<LightSwitchingStrategy> lssFactory;
+    private final Factory<DequeuingStrategy> dqsFactory;
 
     public NewJunctionEventBuilder(Factory<LightSwitchingStrategy> lssFactory, Factory<DequeuingStrategy> dqsFactory ) {
         super("new_junction");
@@ -22,12 +20,11 @@ public class NewJunctionEventBuilder extends Builder <Event> {
     @Override
     protected Event createTheInstance(JSONObject data) {
         JSONArray coor = data.getJSONArray("coor");
-        Event e = new NewJunctionEvent(data.getInt("time"), data.getString("id"),
-                                        lssFactory.createInstance(data.getJSONObject("ls.strategy")),
+        return new NewJunctionEvent(data.getInt("time"), data.getString("id"),
+                                        lssFactory.createInstance(data.getJSONObject("ls_strategy")),
                                         dqsFactory.createInstance(data.getJSONObject("dq_strategy")),
                                         coor.getInt(0),
                                         coor.getInt(1)
                                         );
-        return e;
     }
 }

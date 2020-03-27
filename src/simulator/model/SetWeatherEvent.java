@@ -6,14 +6,13 @@ import java.util.List;
 
 public class SetWeatherEvent extends Event {
 
-    private List<Pair<String, Weather>> ws;
+    private final List<Pair<String, Weather>> ws;
 
 
     public SetWeatherEvent(int time, List<Pair<String, Weather>> ws) {
         super(time);
         this.ws = ws;
-        if (ws != null) ;
-        else throw new IllegalArgumentException("invalid value");
+        if (ws == null) throw new IllegalArgumentException("invalid value");
     }
 
     @Override

@@ -11,8 +11,8 @@ public class MostCrowdedStrategyBuilder extends Builder<LightSwitchingStrategy> 
 
     @Override
     protected LightSwitchingStrategy createTheInstance(JSONObject data) {
-        MostCrowdedStrategy s = new MostCrowdedStrategy((data.getInt("timeslot")));
-        return s;
+        int timeSlot = data.has("timeslot") ? data.getInt("timeslot") : 1;
+        return new MostCrowdedStrategy(timeSlot);
 
     }
 }

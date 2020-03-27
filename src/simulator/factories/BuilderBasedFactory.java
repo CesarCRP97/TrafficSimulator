@@ -2,12 +2,10 @@ package simulator.factories;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BuilderBasedFactory<T> implements Factory<T> {
-
-    private List<Builder<T>> _builders;
+    private final List<Builder<T>> _builders;
 
     public BuilderBasedFactory(List<Builder<T>> builders) {
         _builders = builders;

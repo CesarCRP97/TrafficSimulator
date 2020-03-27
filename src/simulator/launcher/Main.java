@@ -35,6 +35,7 @@ public class Main {
             parseHelpOption(line, cmdLineOptions);
             parseInFileOption(line);
             parseOutFileOption(line);
+            parseTickOption(line);
 
             // if there are some remaining arguments, then something wrong is
             // provided in the command line!
@@ -81,11 +82,11 @@ public class Main {
         }
     }
 
-    private static void parseOutFileOption(CommandLine line) throws ParseException {
+    private static void parseOutFileOption(CommandLine line) {
         _outFile = line.getOptionValue("o");
     }
 
-    private static void parseTickOption(CommandLine line) throws ParseException{
+    private static void parseTickOption(CommandLine line) {
         String in = line.getOptionValue("t");
         if(in != null){
             _timeLimit = Integer.parseInt(in);
@@ -140,7 +141,7 @@ public class Main {
 
     }
 
-    private static void start(String[] args) throws IOException {
+    private static void start(String[] args) {
         initFactories();
         parseArgs(args);
         try {

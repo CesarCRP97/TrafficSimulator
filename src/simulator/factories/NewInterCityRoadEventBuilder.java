@@ -13,10 +13,9 @@ public class NewInterCityRoadEventBuilder extends Builder<Event> {
 
     @Override
     protected Event createTheInstance(JSONObject data) {
-        Event e = new NewInterCityRoadEvent(data.getInt("time"), data.getString("id"), data.getString("src"),
+        return new NewInterCityRoadEvent(data.getInt("time"), data.getString("id"), data.getString("src"),
                 data.getString("dest"), data.getInt("length"), data.getInt("co2limit"),
-                data.getInt("maxspeed"), Weather.valueOf(data.getString("weather").toUpperCase())
+                data.getInt("maxspeed"), Weather.valueOf(data.getString("weather"))
         );
-        return e;
     }
 }

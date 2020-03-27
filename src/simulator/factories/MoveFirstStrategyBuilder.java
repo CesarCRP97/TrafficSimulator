@@ -12,7 +12,6 @@ public class MoveFirstStrategyBuilder extends Builder<DequeuingStrategy> {
 
     @Override
     protected DequeuingStrategy createTheInstance(JSONObject data) {
-        DequeuingStrategy s = new MoveFirstStrategy();
-        return s;
+        return new MoveFirstStrategy();
     }
 }

@@ -129,7 +129,7 @@ abstract public class Road extends SimulatedObject {
         updateSpeedLimit();
         //recorrido de la lista
 
-        for (int i = 0; i <= vehicles.size(); i++) {
+        for (int i = 0; i < vehicles.size(); i++) {
             vehicles.get(i).setSpeed(calculateVehicleSpeed(vehicles.get(i)));
             vehicles.get(i).advance(t);
         }
@@ -153,7 +153,7 @@ abstract public class Road extends SimulatedObject {
         return o;
     }
 
-    class SortByLocation implements Comparator<Vehicle> {
+    static class SortByLocation implements Comparator<Vehicle> {
         @Override
         public int compare(Vehicle v1, Vehicle v2) {
             return v1.getLocation() - v2.getLocation();

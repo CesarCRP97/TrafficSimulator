@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 public abstract class SimulatedObject {
 
-    protected String _id;
+    protected final String _id;
 
     SimulatedObject(String id) {
         _id = id;

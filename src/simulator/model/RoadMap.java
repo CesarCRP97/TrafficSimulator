@@ -10,12 +10,12 @@ import java.util.Map;
 
 public class RoadMap {
     //private static final Road Road = null;
-    protected List<Junction> junctions;
-    protected List<Road> roads;
-    protected List<Vehicle> vehicles;
-    protected Map<String, Junction> junctionsM;
-    protected Map<String, Road> roadsM;
-    protected Map<String, Vehicle> vehiclesM;
+    protected final List<Junction> junctions;
+    protected final List<Road> roads;
+    protected final List<Vehicle> vehicles;
+    protected final Map<String, Junction> junctionsM;
+    protected final Map<String, Road> roadsM;
+    protected final Map<String, Vehicle> vehiclesM;
 
     protected RoadMap() {
         junctions = new ArrayList<>();

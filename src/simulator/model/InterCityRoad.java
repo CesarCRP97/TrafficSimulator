@@ -40,7 +40,6 @@ public class InterCityRoad extends Road {
         if (this.getWeather() == Weather.STORM) {
             vehicleSpeed = (int) (this.getSpeedLimit() * 0.8);
         }
-        ;
         return vehicleSpeed;
     }
 }

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewVehicleEvent extends Event {
-    List<String> itinerary;
-    private String id;
-    private int maxSpeed;
-    private int contClass;
+    final List<String> itinerary;
+    private final String id;
+    private final int maxSpeed;
+    private final int contClass;
 
     public NewVehicleEvent(int time, String id, int maxSpeed, int
             contClass, List<String> itinerary) {
@@ -20,14 +20,13 @@ public class NewVehicleEvent extends Event {
 
     @Override
     void execute(simulator.model.RoadMap map) {
-        Vehicle v = null;
         try {
-            v = new Vehicle(id, maxSpeed, contClass, stringListToJunctionList(map));
+            Vehicle v = new Vehicle(id, maxSpeed, contClass, stringListToJunctionList(map));
+            map.addVehicle(v);
+            v.moveToNextRoad();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        map.addVehicle(v);
-        v.moveToNextRoad();
     }
 
 

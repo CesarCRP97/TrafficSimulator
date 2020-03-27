@@ -2,13 +2,12 @@ package simulator.model;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Vehicle extends SimulatedObject {
-    private List<Junction> itinerary;
-    private int maxSpeed;
+    private final List<Junction> itinerary;
+    private final int maxSpeed;
     private int speed;
     private VehicleStatus status;
     private Road road;
@@ -19,11 +18,11 @@ public class Vehicle extends SimulatedObject {
 
     private int lastJunction;
 
-    protected Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) throws Exception {
+    protected Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) {
         super(id);
         this.itinerary = Collections.unmodifiableList(itinerary);
         this.maxSpeed = maxSpeed;
-        if (contClass < 0 || contClass > 10) {
+        if (contClass >= 0 || contClass <= 10) {
             //throw new;
             this.contClass = contClass;
             this.totalCont = 0;
@@ -62,7 +61,7 @@ public class Vehicle extends SimulatedObject {
     }
 
     void setContClass(int c) {
-        if (0 < c && c > 10) {
+        if (0 <= c && c <= 10) {
             this.contClass = c;
         } else {
             throw new IllegalArgumentException("invalid road value, must be between 0 and 10");
@@ -95,9 +94,8 @@ public class Vehicle extends SimulatedObject {
     //Methods
     //Adds the Vehicle to the next Road depending on its itinerary.
     void moveToNextRoad() {
-        if (status != VehicleStatus.PENDING || status != VehicleStatus.WAITING) {
-            throw new IllegalArgumentException("invalid road value, must be between 0 and 10");
-        } else {
+        if (status == VehicleStatus.PENDING || status == VehicleStatus.WAITING) {
+
             if (status == VehicleStatus.PENDING) {
                 itinerary.get(0).roadTo(itinerary.get(1)).enter(this);
                 status = VehicleStatus.TRAVELING;
@@ -113,6 +111,10 @@ public class Vehicle extends SimulatedObject {
                 speed = 0;
             }
             lastJunction++;
+        }
+        else {
+            throw new IllegalArgumentException("invalid road value, must be between 0 and 10");
+
         }
     }
 

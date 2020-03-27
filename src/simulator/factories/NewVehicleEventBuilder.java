@@ -22,9 +22,8 @@ public class NewVehicleEventBuilder extends Builder<Event> {
             list.add(o.toString());
         }
 
-        Event e = new NewVehicleEvent(data.getInt("time"), data.getString("id"), data.getInt("maxspeed"),
+        return new NewVehicleEvent(data.getInt("time"), data.getString("id"), data.getInt("maxspeed"),
                                         data.getInt("class"), list
                                         );
-        return e;
     }
 }

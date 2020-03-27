@@ -10,7 +10,7 @@ public class SortedArrayList<E> extends ArrayList<E> {
      *
      */
     private static final long serialVersionUID = 1L;
-    private Comparator<E> _cmp;
+    private final Comparator<E> _cmp;
 
     public SortedArrayList(Comparator<E> cmp) {
         super();

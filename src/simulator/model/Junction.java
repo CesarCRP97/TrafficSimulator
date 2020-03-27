@@ -3,37 +3,37 @@ package simulator.model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Junction extends SimulatedObject {
 
-    private List<Road> inRoads;         //Lista carreteras entrantes.
-    private Map<Junction, Road> outRoads; //
-    private List<List<Vehicle>> queuesL;        //List for add and iterating
-    private Map<Road, List<Vehicle>> queuesM;   //Map for searching
+    private final List<Road> inRoads;         //Lista carreteras entrantes.
+    private final Map<Junction, Road> outRoads; //
+    private final List<List<Vehicle>> queuesL;        //List for add and iterating
+    private final Map<Road, LinkedList<Vehicle>> queuesM;   //Map for searching
     private int greenIndex;
     private int remainingUntilLightSwitch;
-    private LightSwitchingStrategy lsStrategy;
-    private DequeuingStrategy dqStrategy;
+    private final LightSwitchingStrategy lsStrategy;
+    private final DequeuingStrategy dqStrategy;
     //Not functional until next version.
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int x, int y) {
         super(id);
-        if (lsStrategy == null) //throw;
-            if (dqStrategy == null) //throw;
-                if (x < 0) ;
-        if (y < 0) ;
+        if (lsStrategy == null) throw new IllegalArgumentException("LightSwitchingStrategy not valid");
+        if (dqStrategy == null) throw new IllegalArgumentException("DequeuingStrategy not valid");
+
         this.lsStrategy = lsStrategy;
         this.dqStrategy = dqStrategy;
         this.x = x;
         this.y = y;
         this.greenIndex = -1;
         this.remainingUntilLightSwitch = 0;
-
+        this.inRoads = new ArrayList<>();
+        this.outRoads = new HashMap<>();
+        this.queuesL = new ArrayList<>();
+        this.queuesM = new HashMap<>();
     }
 //------------NOT USED FOR NOW---------
     int getX() {
@@ -49,9 +49,9 @@ public class Junction extends SimulatedObject {
     }
 
     public void addIncomingRoad(Road r) {
-        if (r.getDest().getId() == this.getId() && !inRoads.contains(r)) {
+        if (r.getDest().getId().equals(this.getId()) && !inRoads.contains(r)) {
             LinkedList<Vehicle> list = new LinkedList<>();
-            ((LinkedList) queuesL).addLast(list);
+            queuesL.add(list);
             inRoads.add(r);
             queuesM.put(r, list);
         } else {
@@ -60,7 +60,7 @@ public class Junction extends SimulatedObject {
     }
 
     public void addOutgoingRoad(Road r) {
-        if (r.getDest().getId() != this.getId() && !outRoads.containsKey(r.getDest())) {
+        if (!r.getDest().getId().equals(this.getId()) && !outRoads.containsKey(r.getDest())) {
             outRoads.put(r.getDest(), r);
         } else {
             throw new IllegalArgumentException("invalid  incoming road");
@@ -68,25 +68,26 @@ public class Junction extends SimulatedObject {
     }
 
     void enter(Vehicle v) {
-        queuesM.get(v.getRoad()).add(v);
+        queuesM.get(v.getRoad()).addLast(v);
     }
 
-    @SuppressWarnings("unlikely-arg-type")
     Road roadTo(Junction j) {
-        queuesM.get(j);
         return outRoads.get(j);
     }
 
     @Override
     void advance(int time) {
-        List<Vehicle> qL = dqStrategy.dequeue(queuesL.get(greenIndex));
-        for (Vehicle v : qL) {
-            queuesM.get(v.getRoad()).remove(v);
-            queuesL.get(greenIndex).remove(v);
+        if(greenIndex != -1) {
+            List<Vehicle> qL = dqStrategy.dequeue(queuesL.get(greenIndex));
+            for (Vehicle v : qL) {
+                queuesM.get(v.getRoad()).remove(v);
+                queuesL.get(greenIndex).remove(v);
 
-            v.getRoad().getVehicles().remove(v);
-            v.moveToNextRoad();
+                v.getRoad().getVehicles().remove(v);
+                v.moveToNextRoad();
+            }
         }
+
 
         int i = lsStrategy.chooseNextGreen(inRoads, queuesL, greenIndex, remainingUntilLightSwitch, time);
         if (i != greenIndex) {

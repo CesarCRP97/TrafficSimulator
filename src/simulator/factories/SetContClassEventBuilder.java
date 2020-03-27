@@ -6,6 +6,7 @@ import simulator.misc.Pair;
 import simulator.model.Event;
 import simulator.model.SetContClassEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SetContClassEventBuilder extends Builder<Event> {
@@ -16,7 +17,7 @@ public class SetContClassEventBuilder extends Builder<Event> {
     @Override
     protected Event createTheInstance(JSONObject data) {
         JSONArray list = data.getJSONArray("info");
-        List<Pair<String, Integer>> ws = null;
+        List<Pair<String, Integer>> ws = new ArrayList<>();
 
         //Extraemos cada JSONObject del JSONArray.
         for(int i = 0 ; i < list.length(); i++){

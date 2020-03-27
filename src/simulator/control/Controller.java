@@ -25,24 +25,6 @@ public class Controller {
         }
     }
 
-    //Getter&Setters
-    public TrafficSimulator getSimulator() {
-        return simulator;
-    }
-
-    public void setSimulator(TrafficSimulator simulator) {
-        this.simulator = simulator;
-    }
-
-    public Factory<Event> getEventsFactory() {
-        return eventsFactory;
-    }
-
-    public void setEventsFactory(Factory<Event> eventsFactory) {
-        this.eventsFactory = eventsFactory;
-    }
-
-
     //Methods
     public void loadEvents(InputStream i) {
         JSONObject j = new JSONObject(new JSONTokener(i));
@@ -63,7 +45,7 @@ public class Controller {
         }
     }
 
-    public void run(int n, OutputStream out) throws Exception {
+    public void run(int n, OutputStream out) {
         PrintStream p = new PrintStream(out);
         p.println("{");
         p.println("\"states\": [");

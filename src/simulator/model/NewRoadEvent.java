@@ -1,13 +1,13 @@
 package simulator.model;
 
 abstract class NewRoadEvent extends Event {
-    private String id;
-    private String srcJunc;
-    private String destJunc;
-    private int length;
-    private int co2Limit;
-    private int maxSpeed;
-    private Weather weather;
+    private final String id;
+    private final String srcJunc;
+    private final String destJunc;
+    private final int length;
+    private final int co2Limit;
+    private final int maxSpeed;
+    private final Weather weather;
 
     public NewRoadEvent(int time, String id, String srcJun, String
             destJunc, int length, int co2Limit, int maxSpeed, Weather weather) {
