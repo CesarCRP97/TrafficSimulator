@@ -52,13 +52,9 @@ public class Controller {
         for (int i = 0; i < n; i++) {
             this.simulator.advance();
             p.print(this.simulator.report());
-            p.print(",");
+            p.println(",\n");
         }
-        this.simulator.advance();
-        p.print(this.simulator.report());
-        p.println();
-        p.println("]");
-        p.println("}");
+        p.println("]}");
     }
 
     public void reset() {

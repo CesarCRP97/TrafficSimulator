@@ -24,6 +24,7 @@ public class TrafficSimulator {
         for (Event e : eventList) {
             if (e.getTime() == _time)
                 e.execute(roadMap);
+            //No hace falta eliminar los eventos, dado que _time siempre incrementa.
         }
 
         for (Junction j : roadMap.getJunctions()) {

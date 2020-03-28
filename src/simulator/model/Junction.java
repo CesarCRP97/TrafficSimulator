@@ -77,13 +77,13 @@ public class Junction extends SimulatedObject {
 
     @Override
     void advance(int time) {
+
         if(greenIndex != -1) {
+            //Sacamos la lista de vehículos a mover de la cola de a la que apunta greenIndex.
             List<Vehicle> qL = dqStrategy.dequeue(queuesL.get(greenIndex));
             for (Vehicle v : qL) {
                 queuesM.get(v.getRoad()).remove(v);
                 queuesL.get(greenIndex).remove(v);
-
-                v.getRoad().getVehicles().remove(v);
                 v.moveToNextRoad();
             }
         }

@@ -99,36 +99,38 @@ public class Vehicle extends SimulatedObject {
             if (status == VehicleStatus.PENDING) {
                 itinerary.get(0).roadTo(itinerary.get(1)).enter(this);
                 status = VehicleStatus.TRAVELING;
-            } else if (lastJunction < itinerary.size() - 1) {
+            }
+            else if (lastJunction < itinerary.size() - 1) {
                 //Para eliminarlo de la carretera anterior.
                 this.getRoad().exit(this);
 
                 itinerary.get(lastJunction).roadTo(itinerary.get(lastJunction + 1)).enter(this);
                 status = VehicleStatus.TRAVELING;
 
-            } else if (lastJunction == itinerary.size() - 1) {
+            }
+            else if (lastJunction == itinerary.size() - 1) {
                 status = VehicleStatus.ARRIVED;
                 speed = 0;
             }
             lastJunction++;
         }
         else {
-            throw new IllegalArgumentException("invalid road value, must be between 0 and 10");
+            throw new IllegalArgumentException("Vehicle not PENDING or WAITING");
 
         }
     }
 
     @Override
     void advance(int time) {
-        int newLocation = Math.min((location + speed * time), road.getLength());
+        int newLocation = Math.min((location + speed), road.getLength());
         int c = (newLocation - location) * contClass;   // l = (newLocation - location); f = contClass;
+        totalTravel += (newLocation - location);
+        totalCont += c;
 
         location = newLocation;
-        totalCont += c;
         road.addContamination(c);
 
-
-        if (location == road.getLength()) {
+        if (location >= road.getLength()) {
             road.getDest().enter(this);
             status = VehicleStatus.WAITING;
             speed = 0;

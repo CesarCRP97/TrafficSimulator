@@ -130,8 +130,10 @@ abstract public class Road extends SimulatedObject {
         //recorrido de la lista
 
         for (int i = 0; i < vehicles.size(); i++) {
-            vehicles.get(i).setSpeed(calculateVehicleSpeed(vehicles.get(i)));
-            vehicles.get(i).advance(t);
+            if(vehicles.get(i).getStatus() == VehicleStatus.TRAVELING) {
+                vehicles.get(i).setSpeed(calculateVehicleSpeed(vehicles.get(i)));
+                vehicles.get(i).advance(t);
+            }
         }
         Collections.sort(vehicles, new SortByLocation());
     }
