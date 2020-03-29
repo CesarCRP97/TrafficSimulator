@@ -7,18 +7,19 @@ import java.util.*;
 
 public class Junction extends SimulatedObject {
 
-    private final List<Road> inRoads;         //Lista carreteras entrantes.
-    private final Map<Junction, Road> outRoads; //
-    private final List<List<Vehicle>> queuesL;        //List for add and iterating
-    private final Map<Road, LinkedList<Vehicle>> queuesM;   //Map for searching
+    private final List<Road> inRoads;                       //Lista carreteras entrantes.
+    private final Map<Junction, Road> outRoads;             //Mapa para buscar.
+    private final List<List<Vehicle>> queuesL;              //Lista de las colas
+    private final Map<Road, LinkedList<Vehicle>> queuesM;   //Map para buscar.
     private int greenIndex;
     private int remainingUntilLightSwitch;
     private final LightSwitchingStrategy lsStrategy;
     private final DequeuingStrategy dqStrategy;
+
     //Not functional until next version.
     private final int x;
     private final int y;
-
+    //--------------------------------//
     Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int x, int y) {
         super(id);
         if (lsStrategy == null) throw new IllegalArgumentException("LightSwitchingStrategy not valid");
@@ -79,7 +80,7 @@ public class Junction extends SimulatedObject {
     void advance(int time) {
 
         if(greenIndex != -1) {
-            //Sacamos la lista de vehículos a mover de la cola de a la que apunta greenIndex.
+            //Sacamos la lista de vehículos a mover de la cola a la que apunta greenIndex.
             List<Vehicle> qL = dqStrategy.dequeue(queuesL.get(greenIndex));
             for (Vehicle v : qL) {
                 queuesM.get(v.getRoad()).remove(v);

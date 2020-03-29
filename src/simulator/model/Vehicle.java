@@ -101,7 +101,7 @@ public class Vehicle extends SimulatedObject {
                 status = VehicleStatus.TRAVELING;
             }
             else if (lastJunction < itinerary.size() - 1) {
-                //Para eliminarlo de la carretera anterior.
+                //Para eliminarlo de la carretera anterior => Sale de la carretera y pone location a 0.
                 this.getRoad().exit(this);
                 this.location = 0;
                 itinerary.get(lastJunction).roadTo(itinerary.get(lastJunction + 1)).enter(this);

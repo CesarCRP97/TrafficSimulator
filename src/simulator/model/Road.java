@@ -117,12 +117,6 @@ abstract public class Road extends SimulatedObject {
         }
     }
 
-    //Abstract methods
-    abstract void reduceTotalContamination();
-
-    abstract void updateSpeedLimit();
-
-    abstract int calculateVehicleSpeed(Vehicle v);
 
     public void advance(int t) {
         reduceTotalContamination();//reduce el valor de c
@@ -155,6 +149,15 @@ abstract public class Road extends SimulatedObject {
         return o;
     }
 
+
+    //Abstract methods
+    abstract void reduceTotalContamination();
+
+    abstract void updateSpeedLimit();
+
+    abstract int calculateVehicleSpeed(Vehicle v);
+
+    //For sorting the vehicles' list.
     static class SortByLocation implements Comparator<Vehicle> {
         @Override
         public int compare(Vehicle v1, Vehicle v2) {

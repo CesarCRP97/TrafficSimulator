@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 public class RoadMap {
-    //private static final Road Road = null;
     protected final List<Junction> junctions;
     protected final List<Road> roads;
     protected final List<Vehicle> vehicles;
