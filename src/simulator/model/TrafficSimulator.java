@@ -40,9 +40,9 @@ public class TrafficSimulator implements TrafficSimObserver {
 
     public void reset() {
         roadMap.reset();
-        onReset(roadMap, eventList, _time);
         eventList = new SortedArrayList<Event>();
         _time = 0;
+        onReset(roadMap, eventList, _time);
     }
 
     public JSONObject report() {
@@ -50,6 +50,8 @@ public class TrafficSimulator implements TrafficSimObserver {
         o.put("time", _time);
         o.put("state", roadMap.report());
         return o;
+        //??????
+        onRegister(roadMap, eventList, _time);
     }
     
 	@Override
@@ -60,6 +62,7 @@ public class TrafficSimulator implements TrafficSimObserver {
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {}
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {}
+///
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {}
 	@Override
