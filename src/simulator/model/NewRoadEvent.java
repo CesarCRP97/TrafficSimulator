@@ -25,10 +25,20 @@ abstract class NewRoadEvent extends Event {
 
     @Override
     void execute(RoadMap map) {
-        Road r = createRoadObject(map, id, srcJunc, destJunc, length, co2Limit, maxSpeed, weather);
+        Road r = createRoadObject(map, getId(), srcJunc, destJunc, length, co2Limit, maxSpeed, weather);
         map.addRoad(r);
     }
 
     abstract Road createRoadObject(RoadMap map, String id, String srcJun, String
             destJunc, int length, int co2Limit, int maxSpeed, Weather weather);
+
+
+	public String getId() {
+		return id;
+	}
+	
+	@Override
+	public String toString() {
+	return "New Road '"+id+"'";
+	}
 }

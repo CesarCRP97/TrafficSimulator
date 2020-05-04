@@ -17,5 +17,10 @@ public class NewInterCityRoadEvent extends NewRoadEvent {
     Road createRoadObject(RoadMap map, String id, String srcJun, String destJunc, int length, int co2Limit, int maxSpeed, Weather weather) {
         return new InterCityRoad(id, map.getJunction(srcJun), map.getJunction(destJunc), maxSpeed, co2Limit, length, weather);
     }
+    
+    @Override
+    public String toString() {
+    	return "New Inter City Road '"+getId()+"'";
+    }
 
 }

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import simulator.factories.Factory;
 import simulator.model.Event;
+import simulator.model.TrafficSimObserver;
 import simulator.model.TrafficSimulator;
 
 import java.io.InputStream;
@@ -13,10 +14,12 @@ import java.io.PrintStream;
 
 public class Controller {
 
-    private TrafficSimulator simulator;
+    @SuppressWarnings("rawtypes")
+	private TrafficSimulator simulator;
     private Factory<Event> eventsFactory;
 
-    public Controller(TrafficSimulator simulator, Factory<Event> eventsFactory) {
+    @SuppressWarnings("rawtypes")
+	public Controller(TrafficSimulator simulator, Factory<Event> eventsFactory) {
         if (simulator != null || eventsFactory != null) {
             this.simulator = simulator;
             this.eventsFactory = eventsFactory;
@@ -59,5 +62,17 @@ public class Controller {
 
     public void reset() {
         this.simulator.reset();
+    }
+    
+    public void addObserver(TrafficSimObserver o){
+    	addObserver(o);
+    }
+    
+    public void removeObserver(TrafficSimObserver o){
+    	removeObserver(o);
+    }
+    
+    public void addEvent(Event e){
+    	addEvent(e);
     }
 }

@@ -1,4 +1,4 @@
-package simulator.model;
+ package simulator.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,5 +37,10 @@ public class NewVehicleEvent extends Event {
         }
         return junctions;
 
+    }
+    
+    @Override
+    public String toString() {
+    return "New Vehicle '"+id+"'";
     }
 }

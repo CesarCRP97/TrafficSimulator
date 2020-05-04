@@ -16,6 +16,10 @@ public class NewCityRoadEvent extends NewRoadEvent {
     Road createRoadObject(RoadMap map, String id, String srcJun, String destJunc, int length, int co2Limit, int maxSpeed, Weather weather) {
         return new CityRoad(id, map.getJunction(srcJun), map.getJunction(destJunc), maxSpeed, co2Limit, length, weather);
     }
-
+    
+    @Override
+    public String toString() {
+		return "New City Road '"+ getId() +"'";
+    }
 
 }

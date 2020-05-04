@@ -5,7 +5,7 @@ import java.util.List;
 import org.json.JSONObject;
 import simulator.misc.SortedArrayList;
 
-public class TrafficSimulator implements TrafficSimObserver {
+public class TrafficSimulator<T> implements TrafficSimObserver, Observable<T> {
     private final RoadMap roadMap;
     private SortedArrayList<Event> eventList;
     private int _time;
@@ -24,7 +24,7 @@ public class TrafficSimulator implements TrafficSimObserver {
     public void advance(){
         _time++;
 		onAdvanceStart(roadMap, eventList, _time);
-        for (Event e : eventList) {
+		for (Event e : eventList) {
             if (e.getTime() == _time)
                 e.execute(roadMap);
             //No hace falta eliminar los eventos, dado que _time siempre incrementa.
@@ -50,22 +50,42 @@ public class TrafficSimulator implements TrafficSimObserver {
         o.put("time", _time);
         o.put("state", roadMap.report());
         return o;
-        //??????
+        //¿¿¿¿
         onRegister(roadMap, eventList, _time);
+        //????
     }
     
 	@Override
-	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {}
+	public void onAdvanceStart(RoadMap Map, List<Event> events, int time) {
+		
+	}
 	@Override
-	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {}
+	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
+	}
 	@Override
-	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {}
+	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
+		
+	}
 	@Override
-	public void onReset(RoadMap map, List<Event> events, int time) {}
-///
+	public void onReset(RoadMap map, List<Event> events, int time) {
+		
+	}
+	
 	@Override
-	public void onRegister(RoadMap map, List<Event> events, int time) {}
+	public void onRegister(RoadMap map, List<Event> events, int time) {
+		
+	}
 	@Override
-	public void onError(String err) {}
+	public void onError(String err) {
+		
+	}
+	@Override
+	public void addObserver(T o) {
+		// TODO Auto-generated method stub
+	}
+	@Override
+	public void removeObserver(T o) {
+		// TODO Auto-generated method stub
+	}
     
 }
