@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import simulator.control.ControlPanel;
 import simulator.control.Controller;
 import simulator.view.MapComponent;
 
@@ -35,15 +36,19 @@ public class MainWindow extends JFrame {
 		this.setContentPane(mainPanel);
 		mainPanel.add(new ControlPanel(_ctrl), BorderLayout.PAGE_START);
 		mainPanel.add(new StatusBar(_ctrl),BorderLayout.PAGE_END);
+		
 		JPanel viewsPanel = new JPanel(new GridLayout(1, 2));
 		mainPanel.add(viewsPanel, BorderLayout.CENTER);
+		
 		JPanel tablesPanel = new JPanel();
 		tablesPanel.setLayout((LayoutManager) new BoxLayout(tablesPanel, BoxLayout.Y_AXIS));
 		viewsPanel.add(tablesPanel);
+		
 		JPanel mapsPanel = new JPanel();
 		mapsPanel.setLayout(new BoxLayout(mapsPanel, BoxLayout.Y_AXIS));
 		viewsPanel.add(mapsPanel);
 		// tables
+		
 		JPanel eventsView = createViewPanel(new JTable(new EventsTableModel(_ctrl)), "Events");
 		eventsView.setPreferredSize(new Dimension(500, 200));
 		tablesPanel.add(eventsView);
@@ -56,18 +61,16 @@ public class MainWindow extends JFrame {
 		mapsPanel.add(mapView);
 		// TODO add a map for MapByRoadComponent
 		// ...
+		
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
-		}
+	}
 	
-		private JPanel createViewPanel(JComponent c, String title) {
-			JPanel p = new JPanel( new BorderLayout() );
-			// TODO add a framed border to p with title
-			p.add(new JScrollPane(c));
-			return p;
-		}
-
-	
-	
+	private JPanel createViewPanel(JComponent c, String title) {
+		JPanel p = new JPanel( new BorderLayout() );
+		// TODO add a framed border to p with title
+		p.add(new JScrollPane(c));
+		return p;
+	}
 }
