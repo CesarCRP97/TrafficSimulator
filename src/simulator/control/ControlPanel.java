@@ -35,6 +35,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			int v = fc.showOpenDialog(null);
 			if (v==JFileChooser.APPROVE_OPTION) {
 				File file = fc.getSelectedFile();
+				//si el fichero no existe o loadEvent...
 				if (file == null) {
 					//throw new IllegalArgumentException("Not valid road parameters");
 					JOptionPane.showMessageDialog(null, "FILE DOESN´T EXIST!!", null, JOptionPane.WARNING_MESSAGE);
