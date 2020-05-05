@@ -23,6 +23,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	public void FileEvents () {
 		this.fc = new JFileChooser();
+		fc.setCurrentDirectory(new File("C:/Users/usuario/Documents/GitHub/TrafficSimulator/resources/icons/open.png"));
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -32,7 +33,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		
 		if (e.getSource() == this.fc) {
 			int v = fc.showOpenDialog(null);
-			if (v==JFileChooser.OPEN_DIALOG) {
+			if (v==JFileChooser.APPROVE_OPTION) {
 				File file = fc.getSelectedFile();
 				if (file == null) {
 					//throw new IllegalArgumentException("Not valid road parameters");
@@ -40,16 +41,13 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 					// se supone que hay q lanzar una excepcion con un message dialog
 				}
 				else {
+					file.getName();
 					c.reset();
 					c.loadEvents(i);
 				}
 			}
 		}
 	}
-		
-
-	
-	
 	
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
