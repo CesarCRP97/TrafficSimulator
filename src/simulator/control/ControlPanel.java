@@ -23,7 +23,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	public void FileEvents () {
 		this.fc = new JFileChooser();
-		fc.setCurrentDirectory(new File("C:/Users/usuario/Documents/GitHub/TrafficSimulator/resources/icons/open.png"));
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -38,7 +37,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				//si el fichero no existe o loadEvent...
 				if (file == null) {
 					//throw new IllegalArgumentException("Not valid road parameters");
-					JOptionPane.showMessageDialog(null, "FILE DOESN´T EXIST!!", null, JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "FILE DOESN´T EXIST!!", null, JOptionPane.ERROR_MESSAGE);
 					// se supone que hay q lanzar una excepcion con un message dialog
 				}
 				else {
@@ -47,8 +46,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 					c.loadEvents(i);
 				}
 			}
-		}
+		}	
 	}
+	
 	
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
