@@ -36,14 +36,20 @@ public class Junction extends SimulatedObject {
         this.queuesL = new ArrayList<>();
         this.queuesM = new HashMap<>();
     }
-//------------NOT USED FOR NOW---------
-    int getX() {
+
+    public int getX() {
         return x;
     }
-    int getY() {
+    public int getY() {
         return y;
     }
-//-------------------------------------
+    public int getGreenLightIndex(){
+        return greenIndex;
+    }
+
+    public List<Road> getInRoads(){
+        return inRoads;
+    }
 
     public JSONObject getReport(){
         return this.report();

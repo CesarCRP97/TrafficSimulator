@@ -1,4 +1,4 @@
-package simulator.control;
+package simulator.view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -19,6 +19,8 @@ import javax.swing.SpinnerNumberModel;
 
 import excepciones.Excepciones;
 import javafx.util.Pair;
+import simulator.control.Controller;
+import simulator.misc.Pair;
 import simulator.model.Road;
 import simulator.model.SetWeatherEvent;
 import simulator.model.Weather;
@@ -46,13 +48,13 @@ public class ChangeWeatherDialog extends JDialog{
 		
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.pack(); // ajusta la ventana al tamaño de las componentes
+		this.pack(); // ajusta la ventana al tamaï¿½o de las componentes
 		this.setVisible(true);
 	}
 	
 	//vehicle options
 	private Component RoadDialog (String string) {
-		road = new JComboBox<Road>(c.getid());//TO DO poner el array de r1,r2...
+		road = new JComboBox<Road>(c.getid());//TODO poner el array de r1,r2...
 		road.setSelectedIndex(0);
 		road.setEditable(true);
 		road.addActionListener((ActionListener) this);
@@ -63,7 +65,7 @@ public class ChangeWeatherDialog extends JDialog{
 
 	//co2 class options
 	private Component WeatherDialog(String string) {
-		weather = new JComboBox<Weather>(c.getid());//TO DO poner el array de weathers...
+		weather = new JComboBox<Weather>(c.getid());//TODO poner el array de weathers...
 		weather.setSelectedIndex(0);
 		weather.setEditable(true);
 		weather.addActionListener((ActionListener) this);
@@ -110,10 +112,10 @@ public class ChangeWeatherDialog extends JDialog{
             @Override
             public void actionPerformed(ActionEvent ae) {
         		List<Pair<String, Weather>> cs = new ArrayList<>();
-        		cs.add(new Pair<String,Weather> (road.getSelectedItem().toString(), (Weather) weather.getSelectedItem()));
+        		cs.add(new Pair<> (road.getSelectedItem().toString(), (Weather) weather.getSelectedItem()));
         		try {
 						c.addEvent(new SetWeatherEvent((int) ticks.getValue(),cs));
-					} catch (Excepciones e1) {
+					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}

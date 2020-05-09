@@ -35,37 +35,20 @@ public class Vehicle extends SimulatedObject {
     }
 
     //Getters
-    int getLocation() {
+    public int getLocation() {
         return location;
     }
 
-    int getTotalTravel() {
+    public int getTotalTravel() {
         return totalTravel;
     }
 
-    int getSpeed() {
+    public int getSpeed() {
         return speed;
     }
 
-    //Setters
-    void setSpeed(int s) {
-        if (s < 0) {
-            throw new IllegalArgumentException("invalid speed value, must be positive");
-        } else {
-            this.speed = Math.min(s, maxSpeed);
-        }
-    }
-
-    int getContClass() {
+    public int getContClass() {
         return contClass;
-    }
-
-    void setContClass(int c) {
-        if (0 <= c && c <= 10) {
-            this.contClass = c;
-        } else {
-            throw new IllegalArgumentException("invalid road value, must be between 0 and 10");
-        }
     }
 
     int getTotalCont() {
@@ -82,6 +65,25 @@ public class Vehicle extends SimulatedObject {
 
     public Road getRoad() {
         return road;
+    }
+
+    //Setters
+    void setSpeed(int s) {
+        if (s < 0) {
+            throw new IllegalArgumentException("invalid speed value, must be positive");
+        } else {
+            this.speed = Math.min(s, maxSpeed);
+        }
+    }
+
+
+
+    void setContClass(int c) {
+        if (0 <= c && c <= 10) {
+            this.contClass = c;
+        } else {
+            throw new IllegalArgumentException("invalid road value, must be between 0 and 10");
+        }
     }
 
     void setRoad(Road r) {

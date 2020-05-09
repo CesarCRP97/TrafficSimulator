@@ -1,4 +1,4 @@
-package simulator.control;
+package simulator.view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -17,7 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import javafx.util.Pair;
+import simulator.control.Controller;
+import simulator.misc.Pair;
 import simulator.model.SetWeatherEvent;
 import simulator.model.Vehicle;
 import simulator.model.Weather;
@@ -46,13 +47,13 @@ public class ChangeCO2ClassDialog extends JDialog{
 		
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.pack(); // ajusta la ventana al tamaño de las componentes
+		this.pack(); // ajusta la ventana al tamaï¿½o de las componentes
 		this.setVisible(true);
 	}
 	
 	//vehicle options
 	private Component VehicleDialog (String string) {
-		vehicle = new JComboBox<Vehicle>(c.getid());//TO DO poner el array de v1,v
+		vehicle = new JComboBox<Vehicle>(c.getId());//TO DO poner el array de v1,v
 		vehicle.setSelectedIndex(0);
 		vehicle.setEditable(true);
 		vehicle.addActionListener((ActionListener) this);
@@ -63,7 +64,7 @@ public class ChangeCO2ClassDialog extends JDialog{
 
 	//co2 class options
 	private Component Co2Dialog(String string) {
-		co2 = new JComboBox<Vehicle>(c.getid());//TO DO poner el array de co1
+		co2 = new JComboBox<Vehicle>(c.getId());//TO DO poner el array de co1
 		co2.setSelectedIndex(0);
 		co2.setEditable(true);
 		co2.addActionListener((ActionListener) this);

@@ -37,7 +37,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				//si el fichero no existe o loadEvent...
 				if (file == null) {
 					//throw new IllegalArgumentException("Not valid road parameters");
-					JOptionPane.showMessageDialog(null, "FILE DOESN´T EXIST!!", null, JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "FILE DOESNï¿½T EXIST!!", null, JOptionPane.ERROR_MESSAGE);
 					// se supone que hay q lanzar una excepcion con un message dialog
 				}
 				else {

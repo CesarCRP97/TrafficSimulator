@@ -9,7 +9,7 @@ public class SetWeatherEvent extends Event {
     private final List<Pair<String, Weather>> ws;
 
 
-    public SetWeatherEvent(int time, List<javafx.util.Pair<String, Weather>> cs) {
+    public SetWeatherEvent(int time, List<Pair<String, Weather>> cs) {
         super(time);
         this.ws = cs;
         if (cs == null) throw new IllegalArgumentException("invalid value");

@@ -7,6 +7,7 @@ import simulator.factories.Factory;
 import simulator.model.Event;
 import simulator.model.TrafficSimObserver;
 import simulator.model.TrafficSimulator;
+import simulator.model.Vehicle;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -65,14 +66,16 @@ public class Controller {
     }
     
     public void addObserver(TrafficSimObserver o){
-    	addObserver(o);
+    	simulator.addObserver(o);
     }
     
     public void removeObserver(TrafficSimObserver o){
-    	removeObserver(o);
+        simulator.removeObserver(o);
     }
     
     public void addEvent(Event e){
-    	addEvent(e);
+    	simulator.addEvent(e);
     }
+
+
 }
