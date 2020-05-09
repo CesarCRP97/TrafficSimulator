@@ -108,7 +108,7 @@ public class ChangeWeatherDialog extends JDialog{
 		JButton ok = new JButton("OK");
         ok.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) {
+            public void actionPerformed(ActionEvent action) {
         		List<Pair<String, Weather>> cs = new ArrayList<>();
         		cs.add(new Pair<String,Weather> (road.getSelectedItem().toString(), (Weather) weather.getSelectedItem()));
         		try {
