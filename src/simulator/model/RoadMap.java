@@ -3,10 +3,7 @@ package simulator.model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RoadMap {
     protected final List<Junction> junctions;
@@ -76,15 +73,15 @@ public class RoadMap {
 
 
     public List<Junction> getJunctions() {
-        return junctions;
+        return Collections.unmodifiableList(junctions);
     }
 
     public List<Road> getRoads() {
-        return roads;
+        return Collections.unmodifiableList(roads);
     }
 
     public List<Vehicle> getVehicles() {
-        return vehicles;
+        return Collections.unmodifiableList(vehicles);
     }
 
     void reset() {
@@ -97,6 +94,8 @@ public class RoadMap {
         vehiclesM.clear();
     }
 
+
+    //TODO CAMBIAR BÚSQUEDAS CIRCULARES (creo)
     public JSONObject report() {
         JSONObject o = new JSONObject();
 

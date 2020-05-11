@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -27,11 +28,13 @@ public class TrafficSimulator<T> implements Observable<TrafficSimObserver> {
     public void advance(){
         _time++;
         observer.onAdvanceStart(roadMap, eventList, _time);
-		for (Event e : eventList) {
-            if (e.getTime() == _time)
-                e.execute(roadMap);
-            //No hace falta eliminar los eventos, dado que _time siempre incrementa.
+
+        //Al ser una lista ordenada respecto al tiempo, si el primero coincide, se ejecuta y elimina de la lista desplazando el resto.
+        while(eventList.get(0).getTime() == _time && !eventList.isEmpty()){
+            eventList.get(0).execute(roadMap);
+            eventList.remove(0);
         }
+
         for (Junction j : roadMap.getJunctions()) {
             try {
                 j.advance(_time);
@@ -40,6 +43,7 @@ public class TrafficSimulator<T> implements Observable<TrafficSimObserver> {
                 observer.onError(e.getMessage());
             }
         }
+
         for (Road r : roadMap.getRoads()) {
             try {
                 r.advance(_time);
@@ -54,7 +58,7 @@ public class TrafficSimulator<T> implements Observable<TrafficSimObserver> {
 
     public void reset() {
         roadMap.reset();
-        eventList = new SortedArrayList<Event>();
+        eventList.clear();
         _time = 0;
         observer.onReset(roadMap, eventList, _time);
     }
