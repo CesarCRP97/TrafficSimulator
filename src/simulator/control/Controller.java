@@ -7,8 +7,6 @@ import simulator.factories.Factory;
 import simulator.model.Event;
 import simulator.model.TrafficSimObserver;
 import simulator.model.TrafficSimulator;
-import simulator.model.Vehicle;
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;

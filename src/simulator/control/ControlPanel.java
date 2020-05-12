@@ -1,13 +1,18 @@
 package simulator.control;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 
 import simulator.model.Event;
 import simulator.model.RoadMap;
@@ -19,13 +24,14 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JFileChooser fc;
+	private JFileChooser fc;
+	private JButton _exit;
 	
 	public void FileEvents () {
 		this.fc = new JFileChooser();
 	}
 	
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed1(ActionEvent e) {
 		
 		Controller c = new Controller(null, null);
 		InputStream i = null;
@@ -48,6 +54,73 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			}
 		}	
 	}
+	
+	
+	
+	
+	
+	
+	JButton _run = new JButton();
+	JButton _stopped = new JButton();
+	JSpinner ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
+	
+	
+	//new SpinnerNumberModel(value, min, max, step)
+	
+	
+	private void run_sim(int n){
+		if (n > 0 && !_stopped) {
+			try {
+				_ctrl.run(1);
+			}
+			catch (Exception e) {
+				// TODO show error message
+				_stopped = true;
+				return;
+			}
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					run_sim(n - 1);
+				}});
+			} 
+		else {
+			enableToolBar(true);
+			_stopped = true;
+		}
+	}
+	
+	private void stop() {
+		_stopped = true;
+	}
+	
+	
+	
+	
+	public void ExitButton() {
+        setLayout(null);
+        _exit = new JButton("Exit");
+        _exit.setBounds(300,250,100,30);
+        add(_exit);
+        _exit.addActionListener((ActionListener) this);
+        actionPerformed(null);
+   }
+   public void actionPerformed(ActionEvent e) {
+	   if (e.getSource() == _exit) {
+		   System.exit(0);
+       }
+   }
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	@Override

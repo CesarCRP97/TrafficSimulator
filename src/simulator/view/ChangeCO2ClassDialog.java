@@ -76,7 +76,6 @@ public class ChangeCO2ClassDialog extends JDialog{
 	//ticks options
 	private Component TicksDialog (String string) {		
 		ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
-    	ticks.setToolTipText("Simulation tick to run: 1-10000");
 		JButton button = new JButton();
 		System.out.println(button);
 		return ticks;
