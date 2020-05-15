@@ -104,7 +104,7 @@ public class ChangeWeatherDialog extends JDialog{
 	}
     
 	//TODO OK BUTTON
-	private Component OkButton (String string) {
+	Component OkButton (String string) {
 		
 		JButton ok = new JButton("OK");
         ok.addActionListener(new ActionListener() {

@@ -94,7 +94,7 @@ public class ChangeCO2ClassDialog extends JDialog{
 	}
 
 	private Component CancelButton(String string) {
-		JButton cancela = new JButton("Cancel");
+		JButton cancela = new JButton();
         cancela.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {setVisible(false);}
@@ -103,16 +103,14 @@ public class ChangeCO2ClassDialog extends JDialog{
 	}
     
 	//TODO OK BUTTON
-	private Component OkButton (String string) {
-		JButton button = new JButton();
-		return button;
+	Component OkButton (String string) {
 		
-		/*JButton ok = new JButton("OK");
+		JButton ok = new JButton();
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-        		List<Pair<String, Weather>> cs = new ArrayList<>();
-        		cs.add(new Pair<String,Weather> (road.getSelectedItem().toString(), (Weather) weather.getSelectedItem()));
+        		List<Pair<String, Vehicle>> cs = new ArrayList<>();
+        		cs.add(new Pair<String, Vehicle> (vehicle.getSelectedItem().toString(), (Vehicle) co2.getSelectedItem()));
         		try {
 						c.addEvent(new SetWeatherEvent((int) ticks.getValue(),cs));
 					} catch (Excepciones e1) {
@@ -122,7 +120,7 @@ public class ChangeCO2ClassDialog extends JDialog{
             	setVisible(false);
             }
 		});
-		return ok;*/
+		return ok;
 	}
 	 
 }

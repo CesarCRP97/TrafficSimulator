@@ -96,7 +96,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	
 	
-	
+	//salida del simuador
 	public void ExitButton() {
         setLayout(null);
         _exit = new JButton("Exit");

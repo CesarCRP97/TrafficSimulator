@@ -32,24 +32,30 @@ public class StatusBar extends JPanel implements TrafficSimObserver{
 	public Component TimeAndEvents() {
 		JPanel te = new JPanel(new BorderLayout());
 		te.add(SetTime(null),BorderLayout.WEST);
-		te.add(SetEvent(null), BorderLayout.EAST);
+		te.add(SetEvent(null, null), BorderLayout.EAST);
 		return te;
 	}
+
 	
-	private Component SetEvent(Event e) {
-		ChangeWeatherDialog cw;
-		ChangeCO2ClassDialog co;
+	private Component SetEvent(ChangeWeatherDialog cw, ChangeCO2ClassDialog co){
+		cw = new ChangeWeatherDialog();
+		co = new ChangeCO2ClassDialog();
 		
-		if( == getselected) {
-			
+		if (((Object) cw.OkButton(paramString())).isSelected()) {
+			System.out.print("Event added:" + cw.getName());
+		}
+		else if (((Object) co.OkButton(paramString())).isSelected()) {
+			System.out.print("Event added:" + co.getName());
 		}
 		return null;
 	}
-
-	private Component SetTime(ControlPanel c) {
-		e.toString();
+	
+	private Component SetTime(ControlPanel e) {
 		return null;
 	}
+	
+	
+	
 	
 	
 	
