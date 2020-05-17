@@ -1,28 +1,17 @@
 package simulator.view;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import javafx.util.Pair;
-import simulator.control.ControlPanel;
 import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
-import simulator.model.Weather;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class StatusBar extends JPanel implements TrafficSimObserver{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+
+	//TODO : Creo que a la constructora se la pasa un parámetro Controller, no ControlPanel.
 	public void StatusBarPanel (ControlPanel ticks) {
 		JPanel status = new JPanel(new BorderLayout());
 		status.add(TimeAndEvents(), BorderLayout.SOUTH);

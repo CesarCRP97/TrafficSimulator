@@ -18,7 +18,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import excepciones.Excepciones;
-import javafx.util.Pair;
 import simulator.control.Controller;
 import simulator.misc.Pair;
 import simulator.model.Road;
