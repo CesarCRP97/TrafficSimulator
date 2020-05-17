@@ -36,7 +36,6 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 	private static final Color _JUNCTION_LABEL_COLOR = new Color(200, 100, 0);
 	private static final Color _GREEN_LIGHT_COLOR = Color.GREEN;
 	private static final Color _RED_LIGHT_COLOR = Color.RED;
-    int i=0;   
 
 	private RoadMap _map;
 
@@ -77,7 +76,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 		drawRoads(g);
 		drawVehicles(g);
 		drawJunctions(g);
-		drawIcons(g);
+		loadImage(null);
 	}
 	
 	private void drawRoads(Graphics g) {
@@ -95,9 +94,9 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			int roadColorValue = 200 - (int) (200.0 * Math.min(1.0, (double) r.getTotalCont() / (1.0 + (double) r.getTotalCont())));
 			Color roadColor = new Color(roadColorValue, roadColorValue, roadColorValue);
 			
-			//TO DO: poner la i-esima (no se si esta bien????)
+			//TO DO: poner la i-esima
 			for (Object o : _map.getRoads()) {
-				g.drawLine(x1=50, y1=(i+1)*50, x2=getWidth() , y2=(i+1)*50);
+				g.drawLine(x1=50, y1=(v+1)*50, x2=getWidth() , y2=(i+1)*50);
 			}
 			
 			Vehicle v ;
