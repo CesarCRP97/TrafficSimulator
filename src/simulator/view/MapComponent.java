@@ -79,14 +79,14 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 			int y1 = r.getSrc().getY();
 			int x2 = r.getDest().getX();
 			int y2 = r.getDest().getY();
-
+			
 			// choose a color for the arrow depending on the traffic light of the road
 			Color arrowColor = _RED_LIGHT_COLOR;
 			int idx = r.getDest().getGreenLightIndex();
 			if (idx != -1 && r.equals(r.getDest().getInRoads().get(idx))) {
 				arrowColor = _GREEN_LIGHT_COLOR;
 			}
-
+			
 			// choose a color for the road depending on the total contamination, the darker
 			// the
 			// more contaminated (wrt its co2 limit)
