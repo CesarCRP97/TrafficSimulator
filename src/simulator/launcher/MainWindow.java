@@ -1,4 +1,4 @@
-package extra.jtable;
+package simulator.launcher;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import extra.jtable.EventsTableModel;
 import simulator.control.ControlPanel;
 import simulator.control.Controller;
 import simulator.view.MapComponent;
