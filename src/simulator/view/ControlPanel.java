@@ -1,4 +1,4 @@
-package simulator.control;
+package simulator.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +14,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
+import simulator.control.Controller;
 import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
@@ -26,10 +27,15 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private static final long serialVersionUID = 1L;
 	private JFileChooser fc;
 	private JButton _exit;
-	
+
+	JButton _run = new JButton();
+	JButton _stopped = new JButton();
+	JSpinner ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
 	public void FileEvents () {
 		this.fc = new JFileChooser();
 	}
+
+	private Controller _ctrl;
 	
 	public void actionPerformed1(ActionEvent e) {
 		
@@ -60,9 +66,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	
 	
-	JButton _run = new JButton();
-	JButton _stopped = new JButton();
-	JSpinner ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
+
 	
 	
 	//new SpinnerNumberModel(value, min, max, step)
