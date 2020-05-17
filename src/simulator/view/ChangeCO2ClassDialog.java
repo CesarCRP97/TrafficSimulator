@@ -35,15 +35,15 @@ public class ChangeCO2ClassDialog extends JDialog{
     private Controller c;
     private JPanel infPanel;
 	
-	public void ChangeCo2Class(JFrame panel, Controller cont) {
+    protected ChangeCO2ClassDialog(JFrame panel, Controller cont) {
 		
-		JPanel changeCo2 = new JPanel (new BorderLayout());
+		JPanel co2Panel = new JPanel (new BorderLayout());
 		
-		changeCo2.add(VehicleDialog("Road: "),BorderLayout.WEST);
-		changeCo2.add(Co2Dialog("Weather: "),BorderLayout.CENTER);
-		changeCo2.add(TicksDialog("Ticks: "),BorderLayout.EAST);
-		changeCo2.add(message(),BorderLayout.NORTH);
-		changeCo2.add(createInferiorPanel(),BorderLayout.SOUTH);
+		co2Panel.add(VehicleDialog("Road: "),BorderLayout.WEST);
+		co2Panel.add(Co2Dialog("Weather: "),BorderLayout.CENTER);
+		co2Panel.add(TicksDialog("Ticks: "),BorderLayout.EAST);
+		co2Panel.add(message(),BorderLayout.NORTH);
+		co2Panel.add(createInferiorPanel(),BorderLayout.SOUTH);
 		
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

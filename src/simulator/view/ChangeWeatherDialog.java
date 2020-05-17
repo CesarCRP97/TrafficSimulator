@@ -17,10 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import excepciones.Excepciones;
 import javafx.util.Pair;
 import simulator.control.Controller;
-import simulator.misc.Pair;
 import simulator.model.Road;
 import simulator.model.SetWeatherEvent;
 import simulator.model.Weather;
@@ -36,15 +34,15 @@ public class ChangeWeatherDialog extends JDialog{
     private Controller c;
     private JPanel infPanel;
 	
-	public void ChangeCo2Class(JFrame panel, Controller cont) {
+	protected ChangeWeatherDialog(JFrame panel, Controller cont) {
 		
-		JPanel changeCo2 = new JPanel (new BorderLayout());
+		JPanel weatherPanel = new JPanel (new BorderLayout());
 		
-		changeCo2.add(RoadDialog("Vehicle: "),BorderLayout.WEST);
-		changeCo2.add(WeatherDialog("CO2 Class: "),BorderLayout.CENTER);
-		changeCo2.add(TicksDialog("Ticks: "),BorderLayout.EAST);
-		changeCo2.add(message(),BorderLayout.NORTH);
-		changeCo2.add(createInferiorPanel(),BorderLayout.SOUTH);
+		weatherPanel.add(RoadDialog("Vehicle: "),BorderLayout.WEST);
+		weatherPanel.add(WeatherDialog("CO2 Class: "),BorderLayout.CENTER);
+		weatherPanel.add(TicksDialog("Ticks: "),BorderLayout.EAST);
+		weatherPanel.add(message(),BorderLayout.NORTH);
+		weatherPanel.add(createInferiorPanel(),BorderLayout.SOUTH);
 		
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
