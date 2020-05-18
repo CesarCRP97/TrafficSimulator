@@ -9,13 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.*;
 
 import simulator.control.Controller;
 import simulator.misc.Pair;
@@ -24,25 +18,28 @@ import simulator.model.Vehicle;
 import simulator.model.Weather;
 
 public class ChangeCO2ClassDialog extends JDialog{
-	
-	/**
-	 * 
-	 */
+
+
 	private static final long serialVersionUID = 1L;
-	private JComboBox<Vehicle> vehicle;
-    private JComboBox<Vehicle> co2;
+	private JComboBox vehicle;
+    private JComboBox co2;
     private JSpinner ticks;
-    private Controller c;
+    private Controller controller;
     private JPanel infPanel;
 	
     protected ChangeCO2ClassDialog(JFrame panel, Controller cont) {
-		
+		controller = cont;
 		JPanel co2Panel = new JPanel (new BorderLayout());
-		
-		co2Panel.add(VehicleDialog("Road: "),BorderLayout.WEST);
-		co2Panel.add(Co2Dialog("Weather: "),BorderLayout.CENTER);
-		co2Panel.add(TicksDialog("Ticks: "),BorderLayout.EAST);
+		//Mensaje principal.
 		co2Panel.add(message(),BorderLayout.NORTH);
+
+		JPanel comboBoxes = new JPanel();
+		comboBoxes.setLayout(new BoxLayout(comboBoxes, BoxLayout.LINE_AXIS));
+
+		comboBoxes.add(vehicleComboBox());
+		comboBoxes.add(Co2Dialog("Weather: "));
+		comboBoxes.add(TicksDialog("Ticks: "),BorderLayout.EAST);
+
 		co2Panel.add(createInferiorPanel(),BorderLayout.SOUTH);
 		
 		
@@ -52,10 +49,10 @@ public class ChangeCO2ClassDialog extends JDialog{
 	}
 	
 	//vehicle options
-	private Component VehicleDialog (String string) {
-		vehicle = new JComboBox<Vehicle>(c.getId());//TO DO poner el array de v1,v
+	private Component vehicleComboBox (String[] strings) {
+		vehicle = new JComboBox(strings);//TO DO poner el array de v1,v
 		vehicle.setSelectedIndex(0);
-		vehicle.setEditable(true);
+		vehicle.setEditable(false);
 		vehicle.addActionListener((ActionListener) this);
 		JButton button = new JButton();
 		System.out.println(button);
@@ -64,7 +61,7 @@ public class ChangeCO2ClassDialog extends JDialog{
 
 	//co2 class options
 	private Component Co2Dialog(String string) {
-		co2 = new JComboBox<Vehicle>(c.getId());//TO DO poner el array de co1
+		co2 = new JComboBox<Vehicle>(controller.);//TO DO poner el array de co1
 		co2.setSelectedIndex(0);
 		co2.setEditable(true);
 		co2.addActionListener((ActionListener) this);
@@ -82,8 +79,11 @@ public class ChangeCO2ClassDialog extends JDialog{
 	}
 
 	private Component message() {
-		System.out.print("Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.");
-		return null;
+    	JTextArea text = new JTextArea("Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.");
+    	text.setEditable(false);
+    	text.setVisible(true);
+    	text.setLineWrap(true);
+		return text;
 	}
 	
 	private Component createInferiorPanel() {

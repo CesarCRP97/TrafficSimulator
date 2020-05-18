@@ -24,9 +24,7 @@ import simulator.model.SetWeatherEvent;
 import simulator.model.Weather;
 
 public class ChangeWeatherDialog extends JDialog{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JComboBox<Road> road;
     private JComboBox<Weather> weather;
