@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -29,13 +30,17 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JButton _exit;
 
 	JButton _run = new JButton();
-	JButton _stopped = new JButton();
+	boolean _stopped;
 	JSpinner ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
 	public void FileEvents () {
 		this.fc = new JFileChooser();
 	}
 
 	private Controller _ctrl;
+	private AbstractButton load;
+	private Object contClass;
+	private Object weather;
+	private Object run;
 	
 	public void actionPerformed1(ActionEvent e) {
 		
@@ -61,24 +66,17 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		}	
 	}
 	
-	
-	
-	
-	
-	
-
-	
-	
-	//new SpinnerNumberModel(value, min, max, step)
-	
-	
+	@SuppressWarnings("unused")
 	private void run_sim(int n){
+		
 		if (n > 0 && !_stopped) {
 			try {
-				_ctrl.run(1);
+				enableToolBar(false);
+				_ctrl.run(1, null);
 			}
 			catch (Exception e) {
 				// TODO show error message
+				JOptionPane.showMessageDialog(ControlPanel.this, e.getMessage());
 				_stopped = true;
 				return;
 			}
@@ -93,12 +91,27 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			_stopped = true;
 		}
 	}
-	
+
+	@SuppressWarnings("unused")
 	private void stop() {
 		_stopped = true;
 	}
 	
-	
+	private void enableToolBar(boolean enable) {
+		if (enable == true) {
+			load.setEnabled(enable);
+			((AbstractButton) contClass).setEnabled(enable);
+			((AbstractButton) weather).setEnabled(enable);
+			((AbstractButton) run).setEnabled(enable);
+		}
+		else {
+			load.setEnabled(enable);
+			((AbstractButton) contClass).setEnabled(enable);
+			((AbstractButton) weather).setEnabled(enable);
+			((AbstractButton) run).setEnabled(enable);
+			
+		}
+	}
 	
 	//salida del simuador
 	public void ExitButton() {
