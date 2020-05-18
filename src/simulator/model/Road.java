@@ -42,7 +42,7 @@ abstract public class Road extends SimulatedObject {
         return length;
     }
 
-    int getMaxSpeed() {
+    public int getMaxSpeed() {
         return maxSpeed;
     }
 

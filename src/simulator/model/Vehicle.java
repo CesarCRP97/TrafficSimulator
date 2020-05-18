@@ -46,12 +46,15 @@ public class Vehicle extends SimulatedObject {
     public int getSpeed() {
         return speed;
     }
+    public int getMaxSpeed(){
+        return maxSpeed;
+    }
 
     public int getContClass() {
         return contClass;
     }
 
-    int getTotalCont() {
+    public int getTotalCont() {
         return totalCont;
     }
 

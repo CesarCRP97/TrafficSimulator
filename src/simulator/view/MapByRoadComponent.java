@@ -110,7 +110,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			int y = ((_map.getRoads().indexOf(r)) + 1)*50 	;
 			int x2 = getWidth()-100;
 			
-			drawLine(g, x1, x2, y, _BLACK_LIGHT_COLOR);	
+			g.drawLine(x1, y, x2, y);
 			
 			if ( Weather.SUNNY != null) {
 				g.drawImage(_sun, 32, 32, this);
@@ -153,12 +153,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			}
 		}
 	}
-	
-	private void drawLine(Graphics g, int x1, int x2, int y, Color blackLightColor) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+
 	private void drawVehicles(Graphics g) {
 		for (Vehicle v : _map.getVehicles()) {
 			if (v.getStatus() != VehicleStatus.ARRIVED) {
@@ -236,41 +231,33 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 		_map = map;
 		repaint();
 	}
-		
+
+
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		update(map);
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
-		
+		update(map);
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		update(map);
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		update(map);
 	}
 
 	@Override
 	public void onError(String err) {
-		// TODO Auto-generated method stub
-		
 	}
-
 }
