@@ -36,11 +36,11 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.fc = new JFileChooser();
 	}
 
-	private Controller _ctrl;
+	private AbstractButton _ctrl;
 	private AbstractButton load;
-	private Object contClass;
-	private Object weather;
-	private Object run;
+	private AbstractButton contClass;
+	private AbstractButton weather;
+	private AbstractButton run;
 	
 	public void actionPerformed1(ActionEvent e) {
 		
@@ -108,8 +108,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			load.setEnabled(enable);
 			((AbstractButton) contClass).setEnabled(enable);
 			((AbstractButton) weather).setEnabled(enable);
-			((AbstractButton) run).setEnabled(enable);
-			
+			((AbstractButton) run).setEnabled(enable);	
 		}
 	}
 	
