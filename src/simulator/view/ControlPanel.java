@@ -36,7 +36,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	JButton _run = new JButton();
 	boolean _stopped;
-	JSpinner ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
 	
 	private Controller _ctrl;
 	private AbstractButton load;
@@ -46,7 +45,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	ChangeWeatherDialog w;
 	ChangeCO2ClassDialog c;
 	
-	protected ControlPanel (Controller ctrl) {
+	protected ControlPanel (JFrame panel, Controller cont) {
 		
 		JPanel panel = new JPanel (new BorderLayout());
 
@@ -59,11 +58,22 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		
 		JButton co2D =  new JButton();
 		co2D.setIcon(new ImageIcon("icons/co2class.png"));
-		co2D.add(c.ChangeCO2ClassDialog(), BorderLayout.WEST);
+		co2D.setAction(c.ChangeCO2ClassDialog(panel,cont));
 		
 		JButton weather =  new JButton();
 		weather.setIcon(new ImageIcon("icons/weather.png"));
-		weather.add(File(null), BorderLayout.WEST);
+		weather.setAction(w.ChangeWeatherDialog(panel, cont));
+		
+		JButton run = new JButton();
+		run.setIcon(new ImageIcon("icons/run.png"));
+		
+		JButton stop =new JButton();
+		stop.setIcon(new ImageIcon("stop.png"));
+		
+		JSpinner ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
+		
+		JButton exit = new JButton();
+		exit.setIcon(new ImageIcon("icons/exit.png"));
 		
 		this.setVisible(true);
 	}
