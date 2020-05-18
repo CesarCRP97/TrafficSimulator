@@ -36,7 +36,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.fc = new JFileChooser();
 	}
 
-	private AbstractButton _ctrl;
+	private Controller _ctrl;
 	private AbstractButton load;
 	private AbstractButton contClass;
 	private AbstractButton weather;
