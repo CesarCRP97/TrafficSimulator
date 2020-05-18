@@ -1,5 +1,7 @@
 package simulator.view;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -7,11 +9,14 @@ import java.io.InputStream;
 import java.util.List;
 
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JToolBar;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
@@ -32,17 +37,38 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	JButton _run = new JButton();
 	boolean _stopped;
 	JSpinner ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
-	public void FileEvents () {
-		this.fc = new JFileChooser();
-	}
-
+	
 	private Controller _ctrl;
 	private AbstractButton load;
 	private AbstractButton contClass;
 	private AbstractButton weather;
 	private AbstractButton run;
+	ChangeWeatherDialog w;
+	ChangeCO2ClassDialog c;
 	
-	public void actionPerformed1(ActionEvent e) {
+	protected ControlPanel (Controller ctrl) {
+		
+		JPanel panel = new JPanel (new BorderLayout());
+
+		JToolBar toolBar = new JToolBar();
+		panel.add(toolBar, BorderLayout.PAGE_START);
+		
+		JButton file =  new JButton();
+		file.setIcon(new ImageIcon("icons/open.png"));
+		file.add(File(null), BorderLayout.WEST);
+		
+		JButton co2D =  new JButton();
+		co2D.setIcon(new ImageIcon("icons/co2class.png"));
+		co2D.add(c.ChangeCO2ClassDialog(), BorderLayout.WEST);
+		
+		JButton weather =  new JButton();
+		weather.setIcon(new ImageIcon("icons/weather.png"));
+		weather.add(File(null), BorderLayout.WEST);
+		
+		this.setVisible(true);
+	}
+	
+	public Component File (ActionEvent e) {
 		
 		Controller c = new Controller(null, null);
 		InputStream i = null;
@@ -63,7 +89,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 					c.loadEvents(i);
 				}
 			}
-		}	
+		}
+		return fc;	
 	}
 	
 	@SuppressWarnings("unused")
