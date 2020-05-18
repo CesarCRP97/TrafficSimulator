@@ -121,7 +121,6 @@ public class ChangeWeatherDialog extends JDialog{
 		});
 		return ok;
 	}
-	 
 }
 
 

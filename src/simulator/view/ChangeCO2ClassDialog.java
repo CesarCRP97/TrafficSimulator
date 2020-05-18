@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -122,7 +123,6 @@ public class ChangeCO2ClassDialog extends JDialog{
 		});
 		return ok;
 	}
-	 
 }
 
 
