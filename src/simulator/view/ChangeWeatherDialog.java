@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import javafx.util.Pair;
+import simulator.misc.Pair;
 import simulator.control.Controller;
 import simulator.model.Road;
 import simulator.model.SetWeatherEvent;

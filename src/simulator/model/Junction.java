@@ -47,6 +47,10 @@ public class Junction extends SimulatedObject {
         return greenIndex;
     }
 
+    public List<Vehicle> getQueue(int index){
+        return queuesL.get(index);
+    }
+
     public List<Road> getInRoads(){
         return inRoads;
     }

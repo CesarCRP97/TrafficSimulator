@@ -32,6 +32,7 @@ public class MainWindow extends JFrame {
 	private void initGUI() {
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		this.setContentPane(mainPanel);
+		//TODO: Que las constructoras de ControlPanel y StatusBar vayan con un solo parámetro.
 		mainPanel.add(new ControlPanel(_ctrl), BorderLayout.PAGE_START);
 		mainPanel.add(new StatusBar(_ctrl),BorderLayout.PAGE_END);
 		
