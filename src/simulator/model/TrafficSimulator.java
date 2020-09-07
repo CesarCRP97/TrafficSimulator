@@ -1,14 +1,4 @@
 package simulator.model;
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 1a1c926396dc23b95ad9a4d0c79687ff2059771a
-import java.util.Iterator;
-import java.util.List;
-
->>>>>>> 1a1c926396dc23b95ad9a4d0c79687ff2059771a
 import org.json.JSONObject;
 import simulator.misc.SortedArrayList;
 

@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -25,82 +27,98 @@ import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
-public class ControlPanel extends JPanel implements TrafficSimObserver {
+public class ControlPanel extends JPanel implements TrafficSimObserver{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JFileChooser fc;
-	private JButton _exit;
 
-	JButton _run = new JButton();
 	boolean _stopped;
 	
 	private Controller _ctrl;
+	//Boton carga de archivo
 	private AbstractButton load;
+	//Boton cambio del nivel de contaminación
 	private AbstractButton contClass;
+	//Boton para cambiar clima
 	private AbstractButton weather;
+	//Panel controlador del tiempo
 	private AbstractButton run;
+	private AbstractButton stop;
+	private JSpinner ticks;
+	//Boton para salir
+	private AbstractButton exit;
+
 	ChangeWeatherDialog w;
 	ChangeCO2ClassDialog c;
-	
-	protected ControlPanel (JFrame panel, Controller cont) {
-		
-		JPanel panel = new JPanel (new BorderLayout());
+
+	//TODO: Cambios estéticos, que el boton exit esté pegado a la derecha, etc...
+	protected ControlPanel (Controller cont) {
+
+		_ctrl = cont;
+		fc = new JFileChooser();
+
+		//TODO: cambios en los Dialog
+		//w = new ChangeWeatherDialog(panel, _ctrl);
+		//c = new ChangeCO2ClassDialog(panel, _ctrl);
 
 		JToolBar toolBar = new JToolBar();
-		panel.add(toolBar, BorderLayout.PAGE_START);
+
+		load =  new JButton();
+		load.setIcon(new ImageIcon("icons/open.png"));
+		toolBar.add(load);
 		
-		JButton file =  new JButton();
-		file.setIcon(new ImageIcon("icons/open.png"));
-		file.add(File(null), BorderLayout.WEST);
+		contClass =  new JButton();
+		contClass.setIcon(new ImageIcon("icons/co2class.png"));
+		toolBar.add(contClass);
 		
-		JButton co2D =  new JButton();
-		co2D.setIcon(new ImageIcon("icons/co2class.png"));
-		co2D.setAction(c.ChangeCO2ClassDialog(panel,cont));
-		
-		JButton weather =  new JButton();
+		weather =  new JButton();
 		weather.setIcon(new ImageIcon("icons/weather.png"));
-		weather.setAction(w.ChangeWeatherDialog(panel, cont));
+		toolBar.add(weather);
 		
-		JButton run = new JButton();
+		run = new JButton();
 		run.setIcon(new ImageIcon("icons/run.png"));
+		toolBar.add(run);
 		
-		JButton stop =new JButton();
+		stop =new JButton();
 		stop.setIcon(new ImageIcon("stop.png"));
-		
-		JSpinner ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
-		
-		JButton exit = new JButton();
+		toolBar.add(stop);
+
+		ticks = new JSpinner();
+		ticks.setValue(10);
+		toolBar.add(ticks);
+
+		exit = new JButton();
 		exit.setIcon(new ImageIcon("icons/exit.png"));
-		
+
 		this.setVisible(true);
 	}
-	
-	public Component File (ActionEvent e) {
-		
-		Controller c = new Controller(null, null);
-		InputStream i = null;
-		
-		if (e.getSource() == this.fc) {
-			int v = fc.showOpenDialog(null);
-			if (v==JFileChooser.APPROVE_OPTION) {
-				File file = fc.getSelectedFile();
-				//si el fichero no existe o loadEvent...
-				if (file == null) {
-					//throw new IllegalArgumentException("Not valid road parameters");
-					JOptionPane.showMessageDialog(null, "FILE DOESN�T EXIST!!", null, JOptionPane.ERROR_MESSAGE);
-					// se supone que hay q lanzar una excepcion con un message dialog
-				}
-				else {
-					file.getName();
-					c.reset();
-					c.loadEvents(i);
-				}
+
+	public void actionPerformed(ActionEvent e) throws FileNotFoundException {
+		if (e.getSource() == exit) {
+			System.exit(0);
+		}
+		if(e.getSource() == this.load) loadFile();
+
+	}
+
+
+	//Selecciona un archivo mediante un JFileChooser, si no se encuentra el archivo lanza excepción y enseña una ventana de error.
+	private void loadFile() throws FileNotFoundException {
+		int v = fc.showOpenDialog(null);
+		if(v == JFileChooser.APPROVE_OPTION){
+			File buf = fc.getSelectedFile();
+			if(buf == null){
+				JOptionPane.showMessageDialog(null, "File not found", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				FileInputStream file = new FileInputStream(buf);
+				_ctrl.reset();
+				_ctrl.loadEvents(file);
 			}
 		}
-		return fc;	
 	}
 	
 	@SuppressWarnings("unused")
@@ -158,11 +176,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
         _exit.addActionListener((ActionListener) this);
         actionPerformed(null);
    }
-   public void actionPerformed(ActionEvent e) {
-	   if (e.getSource() == _exit) {
-		   System.exit(0);
-       }
-   }
+
 
 	
 	

@@ -46,6 +46,8 @@ public class ChangeWeatherDialog extends JDialog{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack(); // ajusta la ventana al tama�o de las componentes
 		this.setVisible(true);
+
+		this.c = cont;
 	}
 	
 	//vehicle options

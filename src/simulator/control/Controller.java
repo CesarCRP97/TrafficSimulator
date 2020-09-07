@@ -17,7 +17,7 @@ public class Controller {
 	private TrafficSimulator simulator;
     private Factory<Event> eventsFactory;
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("rawtypes")File
 	public Controller(TrafficSimulator simulator, Factory<Event> eventsFactory) {
         if (simulator != null || eventsFactory != null) {
             this.simulator = simulator;

@@ -8,14 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.*;
-
 import simulator.control.Controller;
 import simulator.misc.Pair;
 import simulator.model.SetWeatherEvent;
 import simulator.model.Vehicle;
-import simulator.model.Weather;
 
 public class ChangeCO2ClassDialog extends JDialog{
 
