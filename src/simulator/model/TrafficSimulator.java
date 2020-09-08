@@ -2,19 +2,21 @@ package simulator.model;
 import org.json.JSONObject;
 import simulator.misc.SortedArrayList;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class TrafficSimulator<T> implements Observable<TrafficSimObserver> {
+public class TrafficSimulator implements Observable<TrafficSimObserver> {
 
     private final RoadMap roadMap;
     private SortedArrayList<Event> eventList;
     private int _time;
 
-    private TrafficSimObserver observer;
+    private List<TrafficSimObserver> observerList;
 
     public TrafficSimulator() {
         roadMap = new RoadMap();
         eventList = new SortedArrayList<>();
+        observerList = new ArrayList<>();
         _time = 0;
     }
 
@@ -24,15 +26,15 @@ public class TrafficSimulator<T> implements Observable<TrafficSimObserver> {
 
     public void addEvent(Event e) {
         eventList.add(e);
-        observer.onEventAdded(roadMap, eventList, e, _time);
+        observerList.forEach(observer -> observer.onEventAdded(roadMap, eventList, e, _time));
     }
 
     public void advance(){
         _time++;
-        observer.onAdvanceStart(roadMap, eventList, _time);
+        observerList.forEach(observer -> observer.onAdvanceStart(roadMap, eventList, _time));
 
         //Al ser una lista ordenada respecto al tiempo, si el primero coincide, se ejecuta y elimina de la lista desplazando el resto.
-        while(eventList.get(0).getTime() == _time && !eventList.isEmpty()){
+        while(!eventList.isEmpty() && eventList.get(0).getTime() == _time){
             eventList.get(0).execute(roadMap);
             eventList.remove(0);
         }
@@ -41,8 +43,8 @@ public class TrafficSimulator<T> implements Observable<TrafficSimObserver> {
             try {
                 j.advance(_time);
             }
-            catch (Exception e){
-                observer.onError(e.getMessage());
+            catch (Exception e) {
+                observerList.forEach(observer -> observer.onError(e.getMessage()));
             }
         }
 
@@ -50,11 +52,11 @@ public class TrafficSimulator<T> implements Observable<TrafficSimObserver> {
             try {
                 r.advance(_time);
             }
-            catch(Exception e){
-                observer.onError(e.getMessage());
+            catch(Exception e) {
+                observerList.forEach(observer -> observer.onError(e.getMessage()));
             }
         }
-        observer.onAdvanceEnd(roadMap, eventList, _time);
+        observerList.forEach(observer -> observer.onAdvanceEnd(roadMap, eventList, _time));
     }
 
 
@@ -62,7 +64,7 @@ public class TrafficSimulator<T> implements Observable<TrafficSimObserver> {
         roadMap.reset();
         eventList.clear();
         _time = 0;
-        observer.onReset(roadMap, eventList, _time);
+        observerList.forEach(observer -> observer.onReset(roadMap, eventList, _time));
     }
 
     public JSONObject report() {
@@ -74,8 +76,8 @@ public class TrafficSimulator<T> implements Observable<TrafficSimObserver> {
 
     @Override
     public void addObserver(TrafficSimObserver o) {
-        observer = o;
-        observer.onRegister(roadMap, eventList, _time);
+        this.observerList.add(o);
+        o.onRegister(roadMap, eventList, _time);
     }
 
     @Override

@@ -27,7 +27,7 @@ public class StatusBar extends JPanel implements TrafficSimObserver{
 		this.addTimeText(statusPanel, 0);
 		this.addEventText(statusPanel);
 
-		this.setVisible(true);
+		this.add(statusPanel);
 	}
 
 	private void addTimeText(JPanel panel, int time){

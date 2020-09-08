@@ -3,7 +3,6 @@ package simulator.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -32,15 +31,15 @@ public class MainWindow extends JFrame {
 	private void initGUI() {
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		this.setContentPane(mainPanel);
-		//TODO: Que las constructoras de ControlPanel y StatusBar vayan con un solo parámetro.
-		mainPanel.add(new ControlPanel(_ctrl), BorderLayout.PAGE_START); //TODO
+
+		mainPanel.add(new ControlPanel(_ctrl), BorderLayout.PAGE_START);
 		mainPanel.add(new StatusBar(_ctrl),BorderLayout.PAGE_END);
 		
 		JPanel viewsPanel = new JPanel(new GridLayout(1, 2));
 		mainPanel.add(viewsPanel, BorderLayout.CENTER);
 		
 		JPanel tablesPanel = new JPanel();
-		tablesPanel.setLayout((LayoutManager) new BoxLayout(tablesPanel, BoxLayout.Y_AXIS));
+		tablesPanel.setLayout(new BoxLayout(tablesPanel, BoxLayout.Y_AXIS));
 		viewsPanel.add(tablesPanel);
 		
 		JPanel mapsPanel = new JPanel();
@@ -51,16 +50,30 @@ public class MainWindow extends JFrame {
 		JPanel eventsView = createViewPanel(new JTable(new EventsTableModel(_ctrl)), "Events");
 		eventsView.setPreferredSize(new Dimension(500, 200));
 		tablesPanel.add(eventsView);
-		// TODO add other tables
-		// ...
+
+		JPanel vehiclesView = createViewPanel(new JTable(new VehiclesTableModel(_ctrl)), "Vehicles");
+		vehiclesView.setPreferredSize(new Dimension(500, 200));
+		tablesPanel.add(vehiclesView);
+
+		JPanel roadsView = createViewPanel(new JTable(new RoadsTableModel(_ctrl)), "Roads");
+		vehiclesView.setPreferredSize(new Dimension(500, 200));
+		tablesPanel.add(roadsView);
+
+		JPanel junctionsView = createViewPanel(new JTable(new JunctionsTableModel(_ctrl)), "Junctions");
+		junctionsView.setPreferredSize(new Dimension(500, 200));
+		tablesPanel.add(junctionsView);
+
 		// maps
 		
 		JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");
 		mapView.setPreferredSize(new Dimension(500, 400));
 		mapsPanel.add(mapView);
-		// TODO add a map for MapByRoadComponent
-		// ...
-		
+
+		JPanel mapByRoadView = createViewPanel(new MapByRoadComponent(_ctrl), "Map");
+		mapByRoadView.setPreferredSize(new Dimension(500, 400));
+		mapsPanel.add(mapByRoadView);
+
+
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);

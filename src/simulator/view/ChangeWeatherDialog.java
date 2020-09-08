@@ -22,7 +22,7 @@ public class ChangeWeatherDialog extends JDialog{
 
 	private static final long serialVersionUID = 1L;
 	private JComboBox road;
-	private JComboBox weather;
+	private JComboBox<Weather> weather;
 	private JSpinner ticks;
 
 	private Controller controller;
@@ -84,8 +84,7 @@ public class ChangeWeatherDialog extends JDialog{
 	//TODO: Probar y cambiar por array manual.
 	//Weather class options
 	private Component weatherComboBox() {
-		String[] weathers = (String[])Arrays.stream(Weather.values()).map(Enum::name).collect(Collectors.toList()).toArray();
-		weather= new JComboBox(weathers);
+		weather= new JComboBox<>(Weather.values());
 		weather.setSelectedIndex(0);
 		weather.setEditable(false);
 

@@ -109,47 +109,37 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			int x1 = 50;
 			int y = ((_map.getRoads().indexOf(r)) + 1)*50 	;
 			int x2 = getWidth()-100;
-			
+			int space = 10;
+
 			g.drawLine(x1, y, x2, y);
 			
-			if ( Weather.SUNNY != null) {
-				g.drawImage(_sun, 32, 32, this);
-			}else if ( Weather.CLOUDY != null) {
-				g.drawImage(_cloud, 32, 32, this);
-			}else if ( Weather.RAINY != null) {
-				g.drawImage(_rain, 32, 32, this);
-			}else if ( Weather.WINDY != null) {
-				g.drawImage(_wind, 32, 32, this);
-			}else if ( Weather.STORM != null) {
-				g.drawImage(_storm, 32, 32, this);
+			if (r.getWeather() == Weather.SUNNY) {
+				g.drawImage(_sun, x2 + space, y,32, 32, this);
+			}else if (r.getWeather() ==Weather.CLOUDY) {
+				g.drawImage(_cloud,x2 + space, y, 32, 32, this);
+			}else if (r.getWeather() == Weather.RAINY) {
+				g.drawImage(_rain, x2 + space, y, 32, 32, this);
+			}else if (r.getWeather() == Weather.WINDY) {
+				g.drawImage(_wind, x2 + space, y,32, 32, this);
+			}else if (r.getWeather() == Weather.STORM) {
+				g.drawImage(_storm, x2 + space, y, 32, 32, this);
 			}
 			
 			
 			int c = (int) Math.floor(Math.min((double) r.getTotalCont()/(1.0 + (double) r.getLength()),1.0) / 0.19);
 			
 			if ( c == 0) {
-				g.drawImage(_cont0, 32, 32, this);
+				g.drawImage(_cont0, x2 + space*3, y, 32, 32, this);
 			}else if ( c == 1) {
-				g.drawImage(_cont1, 32, 32, this);
+				g.drawImage(_cont1, x2 + space*3, y, 32, 32, this);
 			}else if ( c == 2) {
-				g.drawImage(_cont2, 32, 32, this);
+				g.drawImage(_cont2, x2 + space*3, y, 32, 32, this);
 			}else if ( c == 3) {
-				g.drawImage(_cont3, 32, 32, this);
+				g.drawImage(_cont3, x2 + space*3, y, 32, 32, this);
 			}else if ( c == 4) {
-				g.drawImage(_cont4, 32, 32, this);
+				g.drawImage(_cont4, x2 + space*3, y, 32, 32, this);
 			}else if ( c == 5) {
-				g.drawImage(_cont5, 32, 32, this);
-			}
-
-			
-			if ( VehicleStatus.PENDING != null) {
-				System.out.println("Pending");
-			}else if (VehicleStatus.TRAVELING != null) {
-				System.out.println("r1:44");
-			}else if (VehicleStatus.WAITING != null) {
-				System.out.println("Wairing:j1");
-			}else if (VehicleStatus.ARRIVED != null) {
-				System.out.println("Arrived");
+				g.drawImage(_cont5, x2 + space*3, y, 32, 32, this);
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 package simulator.view;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,24 +9,14 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
-import javax.swing.AbstractButton;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JToolBar;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import simulator.control.Controller;
 import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
-public class ControlPanel extends JPanel implements TrafficSimObserver, ActionListener{
+public class ControlPanel extends JPanel implements ActionListener{
 	
 	/**
 	 * 
@@ -59,7 +48,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver, ActionLi
 	//TODO: Cambios estéticos, que el boton exit esté pegado a la derecha, etc...
 	protected ControlPanel (Controller cont) {
 
-		_stopped = true;
+		_stopped = false;
 		_ctrl = cont;
 		fc = new JFileChooser();
 
@@ -70,33 +59,33 @@ public class ControlPanel extends JPanel implements TrafficSimObserver, ActionLi
 		JToolBar toolBar = new JToolBar();
 
 		load =  new JButton();
-		load.setIcon(new ImageIcon("icons/open.png"));
+		load.setIcon(new ImageIcon("resources/icons/open.png"));
 		load.addActionListener(this);
 		load.setToolTipText("Cargar archivo");
 		toolBar.add(load);
 
 		
 		contClass =  new JButton();
-		contClass.setIcon(new ImageIcon("icons/co2class.png"));
+		contClass.setIcon(new ImageIcon("resources/icons/co2class.png"));
 		contClass.addActionListener(this);
 		contClass.setToolTipText("Modificar contaminación de vehículo");
 		toolBar.add(contClass);
 		
 		weather =  new JButton();
-		weather.setIcon(new ImageIcon("icons/weather.png"));
+		weather.setIcon(new ImageIcon("resources/icons/weather.png"));
 		weather.addActionListener(this);
 		weather.setToolTipText("Cambiar clima de carretera");
 		toolBar.add(weather);
 
 		
 		run = new JButton();
-		run.setIcon(new ImageIcon("icons/run.png"));
+		run.setIcon(new ImageIcon("resources/icons/run.png"));
 		run.addActionListener(this);
 		run.setToolTipText("Ejecutar");
 		toolBar.add(run);
 		
 		stop =new JButton();
-		stop.setIcon(new ImageIcon("stop.png"));
+		stop.setIcon(new ImageIcon("resources/icons/stop.png"));
 		stop.addActionListener(this);
 		stop.setToolTipText("Parar");
 		toolBar.add(stop);
@@ -107,12 +96,13 @@ public class ControlPanel extends JPanel implements TrafficSimObserver, ActionLi
 
 		//TODO: Pegar a la derecha.
 		exit = new JButton();
-		exit.setIcon(new ImageIcon("icons/exit.png"));
+		exit.setIcon(new ImageIcon("resources/icons/exit.png"));
 		exit.addActionListener(this);
 		exit.setToolTipText("Salir");
 		toolBar.add(exit);
 
-		this.setVisible(true);
+		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		this.add(toolBar);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -125,7 +115,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver, ActionLi
 		}
 		else if(e.getSource() == this.weather);//TODO;
 		else if(e.getSource() == this.contClass);//TODO;
-		else if(e.getSource() == this.run) run_sim((Integer) ticks.getValue());
+		else if(e.getSource() == this.run){
+			_stopped = false;
+			run_sim((Integer) ticks.getValue());
+		}
 		else if(e.getSource() == this.stop) stop();
 		else if (e.getSource() == exit)	System.exit(0);
 
@@ -149,7 +142,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver, ActionLi
 	}
 
 	private void run_sim(int n){
-		
 		if (n > 0 && !_stopped) {
 			try {
 				enableToolBar(false);
@@ -170,7 +162,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver, ActionLi
 		}
 		else {
 			enableToolBar(true);
-			_stopped = true;
 		}
 	}
 
@@ -186,42 +177,4 @@ public class ControlPanel extends JPanel implements TrafficSimObserver, ActionLi
 		ticks.setEnabled(enable);
 		exit.setEnabled(enable);
 	}
-	
-	
-	@Override
-	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onError(String err) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
