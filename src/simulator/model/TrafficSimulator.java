@@ -2,6 +2,8 @@ package simulator.model;
 import org.json.JSONObject;
 import simulator.misc.SortedArrayList;
 
+import java.util.List;
+
 public class TrafficSimulator<T> implements Observable<TrafficSimObserver> {
 
     private final RoadMap roadMap;
@@ -15,6 +17,10 @@ public class TrafficSimulator<T> implements Observable<TrafficSimObserver> {
         eventList = new SortedArrayList<>();
         _time = 0;
     }
+
+    public List<Vehicle> getVehicles(){ return roadMap.getVehicles();}
+    public List<Road> getRoads(){ return roadMap.getRoads();}
+    public int get_time(){ return _time;}
 
     public void addEvent(Event e) {
         eventList.add(e);

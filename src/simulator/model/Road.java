@@ -149,6 +149,10 @@ abstract public class Road extends SimulatedObject {
         return o;
     }
 
+    @Override
+    public String toString(){
+        return this.getId();
+    }
 
     //Abstract methods
     abstract void reduceTotalContamination();

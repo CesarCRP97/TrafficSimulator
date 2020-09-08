@@ -159,5 +159,10 @@ public class Vehicle extends SimulatedObject {
 
         return o;
     }
+
+    @Override
+    public String toString(){
+        return this.getId();
+    }
 }
 

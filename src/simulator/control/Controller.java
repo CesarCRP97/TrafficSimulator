@@ -4,20 +4,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import simulator.factories.Factory;
-import simulator.model.Event;
-import simulator.model.TrafficSimObserver;
-import simulator.model.TrafficSimulator;
+import simulator.model.*;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.List;
 
 public class Controller {
 
-    @SuppressWarnings("rawtypes")
 	private TrafficSimulator simulator;
     private Factory<Event> eventsFactory;
 
-    @SuppressWarnings("rawtypes")File
 	public Controller(TrafficSimulator simulator, Factory<Event> eventsFactory) {
         if (simulator != null || eventsFactory != null) {
             this.simulator = simulator;
@@ -47,17 +45,15 @@ public class Controller {
         }
     }
 
-    public void run(int n, OutputStream out) {
-        PrintStream p = new PrintStream(out);
-        p.println("{");
-        p.println("\"states\": [");
+    public void run(int n) {
         for (int i = 0; i < n; i++) {
             this.simulator.advance();
-            p.print(this.simulator.report());
-            p.println(",\n");
         }
-        p.println("]}");
-    }
+	}
+	public List<Vehicle> getVehicles(){ return simulator.getVehicles();}
+    public List<Road> getRoads(){ return simulator.getRoads();}
+
+    public int getTime(){ return simulator.get_time();}
 
     public void reset() {
         this.simulator.reset();

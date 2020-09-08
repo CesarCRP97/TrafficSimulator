@@ -27,17 +27,19 @@ import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
-public class ControlPanel extends JPanel implements TrafficSimObserver{
+public class ControlPanel extends JPanel implements TrafficSimObserver, ActionListener{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private JFileChooser fc;
 
 	boolean _stopped;
 	
 	private Controller _ctrl;
+
 	//Boton carga de archivo
 	private AbstractButton load;
 	//Boton cambio del nivel de contaminación
@@ -57,6 +59,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	//TODO: Cambios estéticos, que el boton exit esté pegado a la derecha, etc...
 	protected ControlPanel (Controller cont) {
 
+		_stopped = true;
 		_ctrl = cont;
 		fc = new JFileChooser();
 
@@ -68,39 +71,63 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 
 		load =  new JButton();
 		load.setIcon(new ImageIcon("icons/open.png"));
+		load.addActionListener(this);
+		load.setToolTipText("Cargar archivo");
 		toolBar.add(load);
+
 		
 		contClass =  new JButton();
 		contClass.setIcon(new ImageIcon("icons/co2class.png"));
+		contClass.addActionListener(this);
+		contClass.setToolTipText("Modificar contaminación de vehículo");
 		toolBar.add(contClass);
 		
 		weather =  new JButton();
 		weather.setIcon(new ImageIcon("icons/weather.png"));
+		weather.addActionListener(this);
+		weather.setToolTipText("Cambiar clima de carretera");
 		toolBar.add(weather);
+
 		
 		run = new JButton();
 		run.setIcon(new ImageIcon("icons/run.png"));
+		run.addActionListener(this);
+		run.setToolTipText("Ejecutar");
 		toolBar.add(run);
 		
 		stop =new JButton();
 		stop.setIcon(new ImageIcon("stop.png"));
+		stop.addActionListener(this);
+		stop.setToolTipText("Parar");
 		toolBar.add(stop);
 
 		ticks = new JSpinner();
 		ticks.setValue(10);
 		toolBar.add(ticks);
 
+		//TODO: Pegar a la derecha.
 		exit = new JButton();
 		exit.setIcon(new ImageIcon("icons/exit.png"));
+		exit.addActionListener(this);
+		exit.setToolTipText("Salir");
+		toolBar.add(exit);
 
 		this.setVisible(true);
 	}
 
-	public void actionPerformed(ActionEvent e) throws FileNotFoundException {
-		if (e.getSource() == exit) {
-			System.exit(0);
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == this.load) {
+			try {
+				loadFile();
+			} catch (FileNotFoundException ex) {
+				ex.printStackTrace();
+			}
 		}
-		if(e.getSource() == this.load) loadFile();
+		else if(e.getSource() == this.weather);//TODO;
+		else if(e.getSource() == this.contClass);//TODO;
+		else if(e.getSource() == this.run) run_sim((Integer) ticks.getValue());
+		else if(e.getSource() == this.stop) stop();
+		else if (e.getSource() == exit)	System.exit(0);
 
 	}
 
@@ -120,14 +147,13 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 			}
 		}
 	}
-	
-	@SuppressWarnings("unused")
+
 	private void run_sim(int n){
 		
 		if (n > 0 && !_stopped) {
 			try {
 				enableToolBar(false);
-				_ctrl.run(1, null);
+				_ctrl.run(1);
 			}
 			catch (Exception e) {
 				// TODO show error message
@@ -139,55 +165,27 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 				@Override
 				public void run() {
 					run_sim(n - 1);
-				}});
-			} 
+				}
+			});
+		}
 		else {
 			enableToolBar(true);
 			_stopped = true;
 		}
 	}
 
-	@SuppressWarnings("unused")
 	private void stop() {
 		_stopped = true;
 	}
 	
 	private void enableToolBar(boolean enable) {
-		if (enable == true) {
-			load.setEnabled(enable);
-			((AbstractButton) contClass).setEnabled(enable);
-			((AbstractButton) weather).setEnabled(enable);
-			((AbstractButton) run).setEnabled(enable);
-		}
-		else {
-			load.setEnabled(enable);
-			((AbstractButton) contClass).setEnabled(enable);
-			((AbstractButton) weather).setEnabled(enable);
-			((AbstractButton) run).setEnabled(enable);	
-		}
+		load.setEnabled(enable);
+		contClass.setEnabled(enable);
+		weather.setEnabled(enable);
+		run.setEnabled(enable);
+		ticks.setEnabled(enable);
+		exit.setEnabled(enable);
 	}
-	
-	//salida del simuador
-	public void ExitButton() {
-        setLayout(null);
-        _exit = new JButton("Exit");
-        _exit.setBounds(300,250,100,30);
-        add(_exit);
-        _exit.addActionListener((ActionListener) this);
-        actionPerformed(null);
-   }
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	@Override

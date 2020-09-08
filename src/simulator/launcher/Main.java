@@ -153,7 +153,7 @@ public class Main {
 
     	try {
             controller.loadEvents(input);
-            controller.run(_timeLimit, outStr);
+            controller.run(_timeLimit);
         }catch (Exception e){
     	    e.printStackTrace();
         }
