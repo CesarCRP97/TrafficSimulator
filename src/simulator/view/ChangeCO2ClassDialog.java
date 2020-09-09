@@ -1,8 +1,6 @@
 package simulator.view;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -31,8 +29,7 @@ public class ChangeCO2ClassDialog extends JDialog{
     	controller = cont;
 
     	this.initGUI();
-		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		this.pack(); // ajusta la ventana al tama�o de las componentes
 		this.setVisible(true);
 	}
@@ -55,15 +52,24 @@ public class ChangeCO2ClassDialog extends JDialog{
 		text.setEditable(false);
 		text.setVisible(true);
 		text.setLineWrap(true);
+		text.setMinimumSize(new Dimension(300, 100));
 
 		return text;
 	}
 
 	private JPanel createCentralPanel(){
-    	JPanel centralPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 20));
+    	JPanel centralPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 20));
+
+    	centralPanel.add(new JTextArea("Vehicle: "));
     	centralPanel.add(vehicleComboBox(this.controller.getVehicles()));
+
+		centralPanel.add(new JTextArea("CO2 class: "));
     	centralPanel.add(co2ComboBox());
+
+    	centralPanel.add(new JTextArea("Ticks: "));
     	centralPanel.add(ticksSpinner());
+
+
 
     	return centralPanel;
 	}
@@ -71,8 +77,8 @@ public class ChangeCO2ClassDialog extends JDialog{
 	//vehicle options
 	private Component vehicleComboBox (List<Vehicle> vehicles) {
 		vehicle = new JComboBox(vehicles.toArray());
-		vehicle.setSelectedIndex(0);
 		vehicle.setEditable(false);
+		vehicle.setMinimumSize(new Dimension(300, 40));
 
 		return vehicle;
 	}
@@ -83,13 +89,14 @@ public class ChangeCO2ClassDialog extends JDialog{
 		co2 = new JComboBox(classes);
 		co2.setSelectedIndex(0);
 		co2.setEditable(false);
-
+		co2.setMinimumSize(new Dimension(300, 40));
 		return co2;
 	}
 
 	//ticks options
 	private Component ticksSpinner () {
 		ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
+		ticks.setMinimumSize(new Dimension(100, 40));
 		return ticks;
 	}
 
@@ -98,15 +105,19 @@ public class ChangeCO2ClassDialog extends JDialog{
 		 infPanel.add(okButton());
 		 infPanel.add(cancelButton());
 
+		 infPanel.setPreferredSize(new Dimension(500, 75));
+
 		 return infPanel;
 	}
 
 	private Component cancelButton() {
 		JButton cancel = new JButton();
+		cancel.setText("CANCEL");
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {setVisible(false);}
 		});
+        cancel.setMinimumSize(new Dimension(60, 30));
 		return cancel;
 	}
     
@@ -114,6 +125,7 @@ public class ChangeCO2ClassDialog extends JDialog{
 	Component okButton () {
 		
 		JButton ok = new JButton();
+		ok.setText("OK");
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -125,6 +137,7 @@ public class ChangeCO2ClassDialog extends JDialog{
 				setVisible(false);
             }
 		});
+        ok.setMinimumSize(new Dimension(60, 30));
 		return ok;
 	}
 }

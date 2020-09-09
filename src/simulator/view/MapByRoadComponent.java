@@ -103,48 +103,55 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 	}
 	
 	private void drawRoads(Graphics g) {
+
+		g.setColor(_BLACK_LIGHT_COLOR);
 		for (Road r : _map.getRoads()) {
  
 			// the road goes from (x1,y1) to (x2,y2)
 			int x1 = 50;
 			int y = ((_map.getRoads().indexOf(r)) + 1)*50 	;
-			int x2 = getWidth()-100;
-			int space = 10;
+			int x2 = getWidth() + 100;
+
 
 			g.drawLine(x1, y, x2, y);
+
+			x2 += 15 ;
+			y -= 16;
 			
 			if (r.getWeather() == Weather.SUNNY) {
-				g.drawImage(_sun, x2 + space, y,32, 32, this);
+				g.drawImage(_sun, x2, y,32, 32, this);
 			}else if (r.getWeather() ==Weather.CLOUDY) {
-				g.drawImage(_cloud,x2 + space, y, 32, 32, this);
+				g.drawImage(_cloud, x2, y, 32, 32, this);
 			}else if (r.getWeather() == Weather.RAINY) {
-				g.drawImage(_rain, x2 + space, y, 32, 32, this);
+				g.drawImage(_rain, x2, y, 32, 32, this);
 			}else if (r.getWeather() == Weather.WINDY) {
-				g.drawImage(_wind, x2 + space, y,32, 32, this);
+				g.drawImage(_wind,  x2, y,32, 32, this);
 			}else if (r.getWeather() == Weather.STORM) {
-				g.drawImage(_storm, x2 + space, y, 32, 32, this);
+				g.drawImage(_storm, x2, y, 32, 32, this);
 			}
-			
-			
+
 			int c = (int) Math.floor(Math.min((double) r.getTotalCont()/(1.0 + (double) r.getLength()),1.0) / 0.19);
-			
+
+			x2 += 40;
+
 			if ( c == 0) {
-				g.drawImage(_cont0, x2 + space*3, y, 32, 32, this);
+				g.drawImage(_cont0, x2, y, 32, 32, this);
 			}else if ( c == 1) {
-				g.drawImage(_cont1, x2 + space*3, y, 32, 32, this);
+				g.drawImage(_cont1, x2, y, 32, 32, this);
 			}else if ( c == 2) {
-				g.drawImage(_cont2, x2 + space*3, y, 32, 32, this);
+				g.drawImage(_cont2, x2, y, 32, 32, this);
 			}else if ( c == 3) {
-				g.drawImage(_cont3, x2 + space*3, y, 32, 32, this);
+				g.drawImage(_cont3, x2 , y, 32, 32, this);
 			}else if ( c == 4) {
-				g.drawImage(_cont4, x2 + space*3, y, 32, 32, this);
+				g.drawImage(_cont4, x2, y, 32, 32, this);
 			}else if ( c == 5) {
-				g.drawImage(_cont5, x2 + space*3, y, 32, 32, this);
+				g.drawImage(_cont5, x2, y, 32, 32, this);
 			}
 		}
 	}
 
 	private void drawVehicles(Graphics g) {
+		g.setColor(Color.GREEN);
 		for (Vehicle v : _map.getVehicles()) {
 			if (v.getStatus() != VehicleStatus.ARRIVED) {
 				
@@ -152,7 +159,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 				
 				int x1 = 50;
 				int y = ((_map.getRoads().indexOf(r)) + 1)*50;
-				int x2 = getWidth()-100;
+				int x2 = getWidth() + 100;
 				
 				int x =  x1 + (int) ((x2 - x1) * ((double) v.getLocation() / (double) r.getLength()));
 
@@ -169,7 +176,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 
 			int x1 = 50;
 			int y = ((_map.getRoads().indexOf(r)) + 1)*50;
-			int x2 = getWidth()-100;
+			int x2 = super.getWidth() + 100;
 
 			g.setColor(_JUNCTION_COLOR);
 			g.fillOval( x1 - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);

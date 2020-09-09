@@ -11,7 +11,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-public class 	EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
+public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
 
 	/**
 	 * 
@@ -28,7 +28,7 @@ public class 	EventsTableModel extends AbstractTableModel implements TrafficSimO
 	}
 
 	public void update() {
-		fireTableDataChanged();;		
+		fireTableDataChanged();
 	}
 	
 	public void setEventsList(List<Event> events) {
@@ -41,8 +41,6 @@ public class 	EventsTableModel extends AbstractTableModel implements TrafficSimO
 		return false;
 	}
 
-	//si no pongo esto no coggetPrioritygetPrioritye el nombre de las columnas
-	//
 	//this is for the column header
 	@Override
 	public String getColumnName(int col) {

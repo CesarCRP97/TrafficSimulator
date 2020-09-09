@@ -1,9 +1,6 @@
 package simulator.view;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.LayoutManager;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,7 +33,6 @@ public class ChangeWeatherDialog extends JDialog{
 
 		this.initGUI();
 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack(); // ajusta la ventana al tama�o de las componentes
 		this.setVisible(true);
 	}
@@ -59,14 +55,21 @@ public class ChangeWeatherDialog extends JDialog{
 		text.setEditable(false);
 		text.setVisible(true);
 		text.setLineWrap(true);
+		text.setMinimumSize(new Dimension(300, 100));
 
 		return text;
 	}
 
 	private JPanel createCentralPanel(){
-		JPanel centralPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 20));
+		JPanel centralPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 20));
+
+		centralPanel.add(new JTextArea("Road: "));
 		centralPanel.add(roadComboBox(this.controller.getRoads()));
+
+		centralPanel.add(new JTextArea("Weather: "));
 		centralPanel.add(weatherComboBox());
+
+		centralPanel.add(new JTextArea("Ticks: "));
 		centralPanel.add(ticksSpinner());
 
 		return centralPanel;
@@ -75,7 +78,7 @@ public class ChangeWeatherDialog extends JDialog{
 	//Road options
 	private Component roadComboBox (List<Road> roads) {
 		road = new JComboBox(roads.toArray());
-		road.setSelectedIndex(0);
+
 		road.setEditable(false);
 
 		return road;
@@ -87,6 +90,7 @@ public class ChangeWeatherDialog extends JDialog{
 		weather= new JComboBox<>(Weather.values());
 		weather.setSelectedIndex(0);
 		weather.setEditable(false);
+		weather.setMinimumSize(new Dimension(300, 40));
 
 		return weather;
 	}
@@ -94,6 +98,8 @@ public class ChangeWeatherDialog extends JDialog{
 	//ticks options
 	private Component ticksSpinner () {
 		ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
+		ticks.setMinimumSize(new Dimension(100, 40));
+
 		return ticks;
 	}
 
@@ -102,15 +108,19 @@ public class ChangeWeatherDialog extends JDialog{
 		infPanel.add(okButton());
 		infPanel.add(cancelButton());
 
+		infPanel.setPreferredSize(new Dimension(500, 75));
+
 		return infPanel;
 	}
 
 	private Component cancelButton() {
 		JButton cancel = new JButton();
+		cancel.setText("CANCEL");
 		cancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {setVisible(false);}
 		});
+		cancel.setMinimumSize(new Dimension(60, 30));
 		return cancel;
 	}
 
@@ -118,17 +128,19 @@ public class ChangeWeatherDialog extends JDialog{
 	Component okButton () {
 
 		JButton ok = new JButton();
+		ok.setText("OK");
 		ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				List<Pair<String, Weather>> cs = new ArrayList<>();
 				cs.add(new Pair(road.getSelectedItem().toString(), weather.getSelectedItem()));
-				SetWeatherEvent event = new SetWeatherEvent(controller.getTime() + Integer.parseInt((String)ticks.getValue()), cs);
+				SetWeatherEvent event = new SetWeatherEvent(controller.getTime() + (Integer)ticks.getValue(), cs);
 				controller.addEvent(event);
 
 				setVisible(false);
 			}
 		});
+		ok.setMinimumSize(new Dimension(60, 30));
 		return ok;
 	}
 }

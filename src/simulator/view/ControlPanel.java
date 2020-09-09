@@ -64,6 +64,7 @@ public class ControlPanel extends JPanel implements ActionListener{
 		load.setToolTipText("Cargar archivo");
 		toolBar.add(load);
 
+		toolBar.addSeparator();
 		
 		contClass =  new JButton();
 		contClass.setIcon(new ImageIcon("resources/icons/co2class.png"));
@@ -77,6 +78,7 @@ public class ControlPanel extends JPanel implements ActionListener{
 		weather.setToolTipText("Cambiar clima de carretera");
 		toolBar.add(weather);
 
+		toolBar.addSeparator();
 		
 		run = new JButton();
 		run.setIcon(new ImageIcon("resources/icons/run.png"));
@@ -90,16 +92,31 @@ public class ControlPanel extends JPanel implements ActionListener{
 		stop.setToolTipText("Parar");
 		toolBar.add(stop);
 
+		toolBar.add(Box.createRigidArea(new Dimension(5, 0)));
+
+		JTextArea tickText = new JTextArea("Ticks: ");
+		tickText.setMinimumSize(new Dimension (20, 20));
+		tickText.setMaximumSize(new Dimension (20, 20));
+		tickText.setLocation(10, 0);
+		toolBar.add(tickText);
+
+
+
 		ticks = new JSpinner();
 		ticks.setValue(10);
+		ticks.setPreferredSize(new Dimension(75, 40));
+		ticks.setMaximumSize(new Dimension(75, 40));
 		toolBar.add(ticks);
 
-		//TODO: Pegar a la derecha.
+		toolBar.add(new JSeparator(SwingConstants.VERTICAL));
+
 		exit = new JButton();
 		exit.setIcon(new ImageIcon("resources/icons/exit.png"));
 		exit.addActionListener(this);
 		exit.setToolTipText("Salir");
 		toolBar.add(exit);
+
+		toolBar.add(Box.createVerticalGlue());
 
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		this.add(toolBar);
@@ -113,8 +130,8 @@ public class ControlPanel extends JPanel implements ActionListener{
 				ex.printStackTrace();
 			}
 		}
-		else if(e.getSource() == this.weather);//TODO;
-		else if(e.getSource() == this.contClass);//TODO;
+		else if(e.getSource() == this.weather){ new ChangeWeatherDialog(_ctrl);}
+		else if(e.getSource() == this.contClass){new ChangeCO2ClassDialog(_ctrl);}
 		else if(e.getSource() == this.run){
 			_stopped = false;
 			run_sim((Integer) ticks.getValue());
