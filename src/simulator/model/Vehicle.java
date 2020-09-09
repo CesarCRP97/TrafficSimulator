@@ -100,11 +100,12 @@ public class Vehicle extends SimulatedObject {
     //Adds the Vehicle to the next Road depending on its itinerary.
     void moveToNextRoad() {
         if (status == VehicleStatus.PENDING || status == VehicleStatus.WAITING) {
-
             if (status == VehicleStatus.PENDING) {
                 itinerary.get(0).roadTo(itinerary.get(1)).enter(this);
+                lastJunction = 0;
                 status = VehicleStatus.TRAVELING;
             }
+
             else if (lastJunction < itinerary.size() - 1) {
                 //Para eliminarlo de la carretera anterior => Sale de la carretera y pone location a 0.
                 this.getRoad().exit(this);
@@ -117,7 +118,6 @@ public class Vehicle extends SimulatedObject {
                 status = VehicleStatus.ARRIVED;
                 speed = 0;
             }
-            lastJunction++;
         }
         else {
             throw new IllegalArgumentException("Vehicle not PENDING or WAITING");
@@ -138,6 +138,7 @@ public class Vehicle extends SimulatedObject {
         if (location >= road.getLength()) {
             road.getDest().enter(this);
             status = VehicleStatus.WAITING;
+            lastJunction++;
             speed = 0;
         }
     }

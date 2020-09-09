@@ -36,7 +36,7 @@ public class InterCityRoad extends Road {
 
     @Override
     int calculateVehicleSpeed(Vehicle v) {
-        int vehicleSpeed = v.getSpeed();
+        int vehicleSpeed = this.getMaxSpeed();
         if (this.getWeather() == Weather.STORM) {
             vehicleSpeed = (int) (this.getSpeedLimit() * 0.8);
         }

@@ -6,6 +6,7 @@ import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
 public class StatusBar extends JPanel implements TrafficSimObserver{
@@ -25,6 +26,8 @@ public class StatusBar extends JPanel implements TrafficSimObserver{
 		statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.LINE_AXIS));
 
 		this.addTimeText(statusPanel, 0);
+		statusPanel.add(Box.createHorizontalGlue());
+		statusPanel.add(Box.createRigidArea(new Dimension(50, 10)));
 		this.addEventText(statusPanel);
 
 		this.add(statusPanel);

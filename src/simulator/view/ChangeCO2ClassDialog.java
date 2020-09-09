@@ -130,8 +130,8 @@ public class ChangeCO2ClassDialog extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
             	List<Pair<String, Integer>> cs = new ArrayList<>();
-        		cs.add(new Pair(vehicle.getSelectedItem().toString(), co2.getSelectedItem()));
-        		SetContClassEvent event = new SetContClassEvent(controller.getTime() + Integer.parseInt((String)ticks.getValue()), cs);
+        		cs.add(new Pair(vehicle.getSelectedItem().toString(), co2.getSelectedIndex()));
+        		SetContClassEvent event = new SetContClassEvent(controller.getTime() + (Integer)ticks.getValue(), cs);
 				controller.addEvent(event);
 
 				setVisible(false);
